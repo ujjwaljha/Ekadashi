@@ -1,0 +1,26 @@
+:root {
+  --bg: #1a0f2e;
+  --bg-2: #2d1b4e;
+  --accent: #ffb347;
+  --accent-2: #ff7e5f;
+  --text: #f5f0ff;
+  --muted: #c3b6e0;
+  --card: rgba(255, 255, 255, 0.06);
+  --card-border: rgba(255, 255, 255, 0.12);
+  font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--text);
+  background:
+    radial-gradient(1200px 600px at 80% -10%, rgba(255, 179, 71, 0.18), transparent),
+    radial-gradient(900px 500px at 0% 100%, rgba(255, 126, 95, 0.15), transparent),
+    linear-gradient(160deg, var(--bg), var(--bg-2));
+  background-attachment: fixed;
+}
