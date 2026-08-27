@@ -1,0 +1,14 @@
+{
+  "name": "Ekadashi",
+  "install": "npm ci",
+  "terminals": [
+    {
+      "name": "api",
+      "command": "npm run dev:server"
+    },
+    {
+      "name": "web",
+      "command": "npm run dev:client"
+    }
+  ]
+}
