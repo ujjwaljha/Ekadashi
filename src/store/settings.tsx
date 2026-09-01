@@ -66,7 +66,14 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
     });
   }, []);
 
-  const reset = useCallback(() => setSettings(DEFAULT_SETTINGS), []);
+  const reset = useCallback(
+    () =>
+      setSettings((prev) => ({
+        ...DEFAULT_SETTINGS,
+        onboardingCompleted: prev.onboardingCompleted,
+      })),
+    []
+  );
 
   const value = useMemo(
     () => ({ settings, hydrated, update, toggleLeadDay, reset }),

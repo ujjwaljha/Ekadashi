@@ -1,6 +1,7 @@
 import {
   AlarmClock,
   Bell,
+  CalendarRange,
   Check,
   Clock,
   Globe,
@@ -13,12 +14,14 @@ import {
 import { useState } from "react";
 import { Platform, Pressable, Switch, Text, View } from "react-native";
 
+import { CalendarPicker } from "@/components/CalendarPicker";
 import { Card } from "@/components/Card";
 import { Chip } from "@/components/Chip";
 import { Screen } from "@/components/Screen";
 import { SectionTitle } from "@/components/SectionTitle";
 import { TimePicker } from "@/components/TimePicker";
 import { ALARM_SOUNDS } from "@/constants/alarms";
+import { getCalendar, TRADITIONS } from "@/constants/calendars";
 import { palette } from "@/constants/theme";
 import { TIMEZONES } from "@/constants/timezones";
 import { startAlarm, stopAlarm } from "@/lib/alarm";
@@ -26,7 +29,7 @@ import { getDatasetMeta } from "@/lib/ekadashi";
 import { formatTime12h } from "@/lib/format";
 import { scheduleReminders, sendTestNotification } from "@/lib/notifications";
 import { useSettings } from "@/store/settings";
-import type { LeadDay } from "@/types";
+import type { CalendarId, LeadDay, TraditionId } from "@/types";
 
 const LEAD_OPTIONS: { day: LeadDay; label: string }[] = [
   { day: 0, label: "On the Day" },
@@ -43,8 +46,10 @@ export default function SettingsScreen() {
   const { settings, update, toggleLeadDay, reset } = useSettings();
   const [status, setStatus] = useState<string | null>(null);
   const [previewing, setPreviewing] = useState(false);
+  const [showCalendars, setShowCalendars] = useState(false);
   const isWeb = Platform.OS === "web";
   const meta = getDatasetMeta();
+  const calendar = getCalendar(settings.calendarId);
 
   const flashStatus = (msg: string) => {
     setStatus(msg);
@@ -84,12 +89,62 @@ export default function SettingsScreen() {
     if (!ok) flashStatus("This sound uses the system default (no in-app preview).");
   };
 
+  const setCalendar = (id: CalendarId) => {
+    const next = getCalendar(id);
+    const patch: { calendarId: CalendarId; tradition?: TraditionId } = { calendarId: id };
+    if (next.defaultTradition !== settings.tradition && (id === "iskcon" || id === "vaishnava" || id === "smarta")) {
+      patch.tradition = next.defaultTradition;
+    }
+    update(patch);
+    flashStatus(`${next.name} calendar selected.`);
+  };
+
   return (
     <Screen>
       <Text className="mb-1 mt-1 text-xs uppercase tracking-[3px] text-saffron-300">
         Preferences
       </Text>
       <Text className="mb-4 text-3xl font-bold text-white">Settings</Text>
+
+      <Card className="mb-4">
+        <SectionTitle
+          icon={<CalendarRange color={palette.saffronLight} size={18} />}
+          title="Your Calendar"
+        />
+        <Text className="text-base font-semibold text-white">{calendar.name}</Text>
+        <Text className="text-sm text-saffron-200">{calendar.nativeName}</Text>
+        <Text className="mt-1 text-xs leading-4 text-violet-300">{calendar.description}</Text>
+        <Pressable
+          onPress={() => setShowCalendars((v) => !v)}
+          className="mt-3 rounded-2xl bg-white/10 py-2.5"
+        >
+          <Text className="text-center text-sm font-semibold text-saffron-200">
+            {showCalendars ? "Hide calendars" : "Change calendar"}
+          </Text>
+        </Pressable>
+        {showCalendars ? (
+          <View className="mt-3">
+            <CalendarPicker value={settings.calendarId} onChange={setCalendar} />
+          </View>
+        ) : null}
+
+        <Text className="mb-2 mt-4 text-xs uppercase tracking-wide text-violet-300">
+          Fasting tradition
+        </Text>
+        <View className="flex-row flex-wrap gap-2">
+          {TRADITIONS.map((item) => (
+            <Chip
+              key={item.id}
+              label={item.name}
+              active={settings.tradition === item.id}
+              onPress={() => update({ tradition: item.id })}
+            />
+          ))}
+        </View>
+        <Text className="mt-2 text-xs leading-4 text-violet-400">
+          {TRADITIONS.find((t) => t.id === settings.tradition)?.summary}
+        </Text>
+      </Card>
 
       <Card className="mb-4">
         <View className="flex-row items-center justify-between">
@@ -226,8 +281,8 @@ export default function SettingsScreen() {
           ))}
         </View>
         <Text className="mt-2 text-xs text-violet-400">
-          Reminders fire at the chosen wall-clock time in this zone. Dataset is a{" "}
-          {meta.tradition} calendar for {meta.region}.
+          Reminders fire at the chosen wall-clock time in this zone. Dataset is an India (IST) reference
+          for {meta.region}.
         </Text>
       </Card>
 

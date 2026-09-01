@@ -1,4 +1,5 @@
-import type { LeadDay, Settings } from "@/types";
+import { DEFAULT_CALENDAR_ID, isCalendarId } from "@/constants/calendars";
+import type { LeadDay, Settings, TraditionId } from "@/types";
 
 export const STORAGE_KEY = "ekadashi.settings.v2";
 
@@ -12,7 +13,14 @@ export const DEFAULT_SETTINGS: Settings = {
   alarmRepeatMinutes: 5,
   alarmRepeatCount: 2,
   timezone: "device",
+  calendarId: DEFAULT_CALENDAR_ID,
+  tradition: "smarta",
+  onboardingCompleted: false,
 };
+
+function isTradition(value: unknown): value is TraditionId {
+  return value === "smarta" || value === "vaishnava";
+}
 
 /** Merge persisted data over defaults so newly added fields always have a value. */
 export function normalizeSettings(raw: unknown): Settings {
@@ -35,5 +43,8 @@ export function normalizeSettings(raw: unknown): Settings {
     leadDays,
     alarmRepeatCount,
     alarmRepeatMinutes,
+    calendarId: isCalendarId(parsed.calendarId) ? parsed.calendarId : DEFAULT_SETTINGS.calendarId,
+    tradition: isTradition(parsed.tradition) ? parsed.tradition : DEFAULT_SETTINGS.tradition,
+    onboardingCompleted: parsed.onboardingCompleted === true,
   };
 }

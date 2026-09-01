@@ -140,7 +140,10 @@ export async function scheduleReminders(settings: Settings): Promise<ScheduleRes
   if (!granted) return { granted: false, scheduled: 0 };
 
   const now = new Date();
-  const upcoming = getUpcomingEkadashis(12, now, settings.timezone);
+  const upcoming = getUpcomingEkadashis(12, now, settings.timezone, {
+    tradition: settings.tradition,
+    calendarId: settings.calendarId,
+  });
   const plan = buildNotificationPlan({ now, settings, upcoming });
 
   for (const item of plan) {
