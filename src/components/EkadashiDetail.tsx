@@ -1,0 +1,32 @@
+import { MoonStar, Sunrise } from "lucide-react-native";
+import { Text, View } from "react-native";
+
+import { palette } from "@/constants/theme";
+import { formatLongDate, formatTime12h } from "@/lib/format";
+import type { Ekadashi } from "@/types";
+
+export function EkadashiDetail({ item }: { item: Ekadashi }) {
+  return (
+    <View>
+      <Text className="text-xl font-bold text-white">{item.name} Ekadashi</Text>
+      <Text className="mt-0.5 text-sm text-violet-200">{formatLongDate(item.date)}</Text>
+      <View className="mt-1 flex-row items-center gap-1.5">
+        <MoonStar color={palette.indigoLight} size={14} />
+        <Text className="text-xs text-violet-300">
+          {item.paksha} Paksha · {item.month} maas
+        </Text>
+      </View>
+      <Text className="mt-3 text-sm leading-5 text-violet-100">{item.significance}</Text>
+      <View className="mt-3 flex-row items-center gap-2 rounded-2xl bg-white/5 px-4 py-3">
+        <Sunrise color={palette.saffronLight} size={20} />
+        <View>
+          <Text className="text-xs uppercase tracking-wide text-violet-300">Parana window</Text>
+          <Text className="text-sm font-semibold text-white">
+            {formatTime12h(item.parana.start)} – {formatTime12h(item.parana.end)}
+          </Text>
+          <Text className="text-xs text-violet-300">on {formatLongDate(item.parana.date)}</Text>
+        </View>
+      </View>
+    </View>
+  );
+}
