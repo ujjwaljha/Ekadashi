@@ -21,7 +21,10 @@ export default function AlarmScreen() {
   const { settings } = useSettings();
   const params = useLocalSearchParams<{ kind?: string; id?: string }>();
   const kind = params.kind === "alarm-parana" ? "alarm-parana" : "alarm-fasting";
-  const ekadashi = useMemo(() => (params.id ? getEkadashiById(params.id) : undefined), [params.id]);
+  const ekadashi = useMemo(
+    () => (params.id ? getEkadashiById(params.id, settings.tradition) : undefined),
+    [params.id, settings.tradition]
+  );
 
   useEffect(() => {
     void startAlarm(settings.alarmSound);

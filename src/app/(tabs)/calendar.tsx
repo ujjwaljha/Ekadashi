@@ -1,10 +1,11 @@
 import { ChevronLeft, ChevronRight, LocateFixed } from "lucide-react-native";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Pressable, Text, View } from "react-native";
 
 import { Card } from "@/components/Card";
 import { EkadashiDetail } from "@/components/EkadashiDetail";
 import { Screen } from "@/components/Screen";
+import { getTraditionLabel } from "@/constants/traditions";
 import { palette } from "@/constants/theme";
 import { getEkadashisInMonth, getYearRange } from "@/lib/ekadashi";
 import { formatShortDate, formatTime12h } from "@/lib/format";
@@ -36,16 +37,21 @@ export default function CalendarScreen() {
   const { settings } = useSettings();
   const today = todayISO(new Date(), settings.timezone);
   const [ty, tm] = today.split("-").map(Number);
-  const range = getYearRange();
+  const tradition = settings.tradition;
+  const range = getYearRange(tradition);
   const [cursor, setCursor] = useState({
     year: Math.min(Math.max(ty, range.min), range.max),
     month: tm - 1,
   });
   const [selected, setSelected] = useState<Ekadashi | null>(null);
 
+  useEffect(() => {
+    setSelected(null);
+  }, [tradition]);
+
   const monthEkadashis = useMemo(
-    () => getEkadashisInMonth(cursor.year, cursor.month),
-    [cursor]
+    () => getEkadashisInMonth(cursor.year, cursor.month, tradition),
+    [cursor, tradition]
   );
   const ekadashiByDay = useMemo(() => {
     const map = new Map<number, Ekadashi>();
@@ -81,6 +87,7 @@ export default function CalendarScreen() {
       <Text className="mb-1 mt-1 text-xs uppercase tracking-[3px] text-saffron-300">
         Ekadashi Calendar
       </Text>
+      <Text className="mb-3 text-xs text-violet-400">{getTraditionLabel(tradition)}</Text>
       <View className="mb-4 flex-row items-end justify-between">
         <Text className="text-3xl font-bold text-white">
           {MONTH_NAMES[cursor.month]} {cursor.year}

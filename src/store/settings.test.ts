@@ -26,4 +26,10 @@ describe("normalizeSettings", () => {
     assert.equal(next.alarmRepeatCount, 4);
     assert.equal(next.alarmRepeatMinutes, 1);
   });
+
+  it("accepts vaishnava tradition and falls back to smarta", () => {
+    assert.equal(normalizeSettings({ tradition: "vaishnava" }).tradition, "vaishnava");
+    assert.equal(DEFAULT_SETTINGS.tradition, "smarta");
+    assert.equal(normalizeSettings({ tradition: "lunar" }).tradition, "smarta");
+  });
 });

@@ -8,7 +8,7 @@ A production-ready, cross-platform (iOS + Android) **Expo** app that helps devot
 - **Calendar** — month grid highlighting every Ekadashi; tap a date or the monthly list for Parana timing. Jump-to-today and 2026–2027 navigation.
 - **Flexible reminders** — toggle lead-times ("On the Day", "1–4 Days Before") and pick the time of day advance reminders fire.
 - **Persistent Alarm** — MAX-priority Android channel (bypasses DnD, alarm audio usage) and time-sensitive iOS alerts on the morning of Ekadashi and throughout the Parana window. Repeating local notifications plus an in-app full-screen alarm with looping sound, dismiss, and snooze.
-- **Settings** — lead-times, reminder time, alarm sound/time/repeats, timezone alignment; test notification; reset to defaults. Preferences persist via AsyncStorage.
+- **Settings** — calendar tradition (Smarta vs Vaishnava), lead-times, reminder time, alarm sound/time/repeats, timezone alignment; test notification; reset to defaults. Preferences persist via AsyncStorage.
 - First-launch notification permission request (only while still undetermined) and Android channel registration. If access is denied, Dashboard and Settings show a banner that opens system Settings.
 
 ## Tech stack
@@ -31,6 +31,7 @@ src/
   components/
   constants/
   data/ekadashi-2026-2027.json
+  data/ekadashi-vaishnava-2026-2027.json
   lib/                      # ekadashi, timezone, schedule, notifications, alarm
   store/settings.tsx        # AsyncStorage-backed preferences
 assets/sounds/              # temple-bell.wav, conch.wav
@@ -47,10 +48,22 @@ npm run typecheck
 npm test
 ```
 
+Device builds (custom notification sounds + exact alarms) use EAS:
+
+```bash
+npx eas-cli build --profile development --platform ios
+npx eas-cli build --profile preview --platform android
+```
+
 Notifications and the persistent alarm require a **physical iOS/Android device** (or a development build). The web target is a visual preview; scheduling is guarded to no-op there.
 
 On first launch the app requests local-notification permission. Android also registers a high-priority reminder channel and a MAX-importance alarm channel (`SCHEDULE_EXACT_ALARM`, `USE_FULL_SCREEN_INTENT`).
 
 ## Data note
 
-Ekadashi dates and Parana timings in `src/data/ekadashi-2026-2027.json` are a curated **Smarta IST** reference for 2026–2027. Exact timings vary by regional panchang, Vaishnava vs Smarta rules, and local sunrise. Align them to your locality before relying on them for observance.
+Two static calendars ship in the app. Switch them under **Settings → Calendar tradition**.
+
+- `src/data/ekadashi-2026-2027.json` — curated **Smarta IST** reference for 2026–2027.
+- `src/data/ekadashi-vaishnava-2026-2027.json` — **Vaishnava / ISKCON** (Gaurabda sunrise rule). 2026 Parana windows follow the ISKCON Gurugram calendar; 2027 dates follow a New Delhi Vaishnava reference.
+
+Exact timings still vary by regional panchang and local sunrise. Confirm with your temple or local calendar before relying on them for observance. There is no live panchang API.

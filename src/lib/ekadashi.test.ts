@@ -62,4 +62,30 @@ describe("ekadashi dataset", () => {
     assert.equal(sept.length, 2);
     assert.ok(getEkadashiById("2026-09-12"));
   });
+
+  it("finds Vaishnava next Ekadashi after 1 Sep 2026 as Annada", () => {
+    const now = new Date(2026, 8, 1, 10, 0, 0);
+    const next = getNextEkadashi(now, "device", "vaishnava");
+    assert.ok(next);
+    assert.equal(next?.name, "Annada");
+    assert.equal(next?.date, "2026-09-07");
+    const sept = getEkadashisInMonth(2026, 8, "vaishnava");
+    assert.deepEqual(
+      sept.map((e) => e.name),
+      ["Annada", "Parsva"]
+    );
+  });
+
+  it("uses Vaishnava Nirjala on 26 Jun 2026 and keeps Smarta on 1 Jun", () => {
+    const vaishnavaDay = new Date(2026, 5, 26, 8, 0, 0);
+    const smartaDay = new Date(2026, 5, 1, 8, 0, 0);
+    assert.equal(getObservance(vaishnavaDay, "device", "vaishnava").ekadashi?.name, "Nirjala");
+    assert.equal(getObservance(smartaDay, "device", "smarta").ekadashi?.name, "Nirjala");
+    assert.equal(getObservance(smartaDay, "device", "vaishnava").kind, "none");
+  });
+
+  it("resolves an id from the other tradition as a fallback", () => {
+    const smartaOnly = getEkadashiById("2026-09-12", "vaishnava");
+    assert.equal(smartaOnly?.name, "Indira");
+  });
 });

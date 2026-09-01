@@ -84,6 +84,26 @@ describe("buildNotificationPlan", () => {
     assert.ok(plan.some((p) => p.kind === "alarm-parana"));
   });
 
+  it("plans Vaishnava reminders against Annada in early September 2026", () => {
+    const upcoming = getUpcomingEkadashis(1, new Date(2026, 8, 1), "device", "vaishnava");
+    const plan = buildNotificationPlan({
+      now,
+      settings: {
+        ...DEFAULT_SETTINGS,
+        tradition: "vaishnava",
+        timezone: "Asia/Kolkata",
+        reminderTime: "08:00",
+        leadDays: [0, 1],
+        alarmEnabled: false,
+      },
+      upcoming,
+    });
+    assert.deepEqual(
+      plan.map((p) => p.key),
+      ["reminder:2026-09-07:1", "reminder:2026-09-07:0"]
+    );
+  });
+
   it("skips fire times that have already passed", () => {
     const after = new Date("2026-09-12T10:00:00.000Z");
     const upcoming = getUpcomingEkadashis(1, new Date(2026, 8, 12), "device");

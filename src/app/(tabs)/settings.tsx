@@ -1,6 +1,7 @@
 import {
   AlarmClock,
   Bell,
+  BookOpen,
   Check,
   Clock,
   Globe,
@@ -22,6 +23,7 @@ import { TimePicker } from "@/components/TimePicker";
 import { ALARM_SOUNDS } from "@/constants/alarms";
 import { palette } from "@/constants/theme";
 import { TIMEZONES } from "@/constants/timezones";
+import { TRADITIONS } from "@/constants/traditions";
 import { startAlarm, stopAlarm } from "@/lib/alarm";
 import { getDatasetMeta } from "@/lib/ekadashi";
 import { formatTime12h } from "@/lib/format";
@@ -45,7 +47,7 @@ export default function SettingsScreen() {
   const [status, setStatus] = useState<string | null>(null);
   const [previewing, setPreviewing] = useState(false);
   const isWeb = Platform.OS === "web";
-  const meta = getDatasetMeta();
+  const meta = getDatasetMeta(settings.tradition);
 
   const flashStatus = (msg: string) => {
     setStatus(msg);
@@ -223,6 +225,27 @@ export default function SettingsScreen() {
         </Pressable>
           </>
         ) : null}
+      </Card>
+
+      <Card className="mb-4">
+        <SectionTitle
+          icon={<BookOpen color={palette.saffronLight} size={18} />}
+          title="Calendar Tradition"
+        />
+        <View className="flex-row flex-wrap gap-2">
+          {TRADITIONS.map((item) => (
+            <Chip
+              key={item.id}
+              label={item.label}
+              active={settings.tradition === item.id}
+              onPress={() => update({ tradition: item.id })}
+            />
+          ))}
+        </View>
+        <Text className="mt-2 text-xs text-violet-400">
+          {TRADITIONS.find((t) => t.id === settings.tradition)?.hint} Switching calendars
+          reschedules reminders to the matching 2026–2027 dates.
+        </Text>
       </Card>
 
       <Card className="mb-4">

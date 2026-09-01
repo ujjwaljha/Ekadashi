@@ -10,7 +10,7 @@ import {
   type ReactNode,
 } from "react";
 
-import { DEFAULT_SETTINGS, STORAGE_KEY, normalizeSettings } from "@/store/defaults";
+import { DEFAULT_SETTINGS, LEGACY_STORAGE_KEYS, STORAGE_KEY, normalizeSettings } from "@/store/defaults";
 import type { LeadDay, Settings } from "@/types";
 
 export { DEFAULT_SETTINGS, normalizeSettings } from "@/store/defaults";
@@ -34,7 +34,13 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     (async () => {
       try {
-        const stored = await AsyncStorage.getItem(STORAGE_KEY);
+        let stored = await AsyncStorage.getItem(STORAGE_KEY);
+        if (!stored) {
+          for (const key of LEGACY_STORAGE_KEYS) {
+            stored = await AsyncStorage.getItem(key);
+            if (stored) break;
+          }
+        }
         if (stored) setSettings(normalizeSettings(JSON.parse(stored)));
       } catch (err) {
         console.warn("[settings] failed to load", err);

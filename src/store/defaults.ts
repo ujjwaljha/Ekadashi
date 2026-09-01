@@ -1,6 +1,8 @@
+import { isCalendarTradition } from "@/constants/traditions";
 import type { LeadDay, Settings } from "@/types";
 
-export const STORAGE_KEY = "ekadashi.settings.v2";
+export const STORAGE_KEY = "ekadashi.settings.v3";
+export const LEGACY_STORAGE_KEYS = ["ekadashi.settings.v2"];
 
 export const DEFAULT_SETTINGS: Settings = {
   notificationsEnabled: true,
@@ -12,6 +14,7 @@ export const DEFAULT_SETTINGS: Settings = {
   alarmRepeatMinutes: 5,
   alarmRepeatCount: 2,
   timezone: "device",
+  tradition: "smarta",
 };
 
 /** Merge persisted data over defaults so newly added fields always have a value. */
@@ -29,11 +32,15 @@ export function normalizeSettings(raw: unknown): Settings {
     typeof parsed.alarmRepeatMinutes === "number"
       ? Math.max(1, Math.min(15, Math.round(parsed.alarmRepeatMinutes)))
       : DEFAULT_SETTINGS.alarmRepeatMinutes;
+  const tradition = isCalendarTradition(parsed.tradition)
+    ? parsed.tradition
+    : DEFAULT_SETTINGS.tradition;
   return {
     ...DEFAULT_SETTINGS,
     ...parsed,
     leadDays,
     alarmRepeatCount,
     alarmRepeatMinutes,
+    tradition,
   };
 }

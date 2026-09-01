@@ -8,6 +8,7 @@ import { PermissionBanner } from "@/components/PermissionBanner";
 import { Screen } from "@/components/Screen";
 import { accentGradient, palette, paranaGradient } from "@/constants/theme";
 import { getTimezoneLabel } from "@/constants/timezones";
+import { getTraditionLabel } from "@/constants/traditions";
 import { daysUntil, getNextEkadashi, getObservance, getUpcomingEkadashis } from "@/lib/ekadashi";
 import { countdownLabel, formatLongDate, formatShortDate, formatTime12h, greetingForHour } from "@/lib/format";
 import { getZonedParts } from "@/lib/timezone";
@@ -23,13 +24,14 @@ export default function Dashboard() {
   }, []);
 
   const tz = settings.timezone;
+  const tradition = settings.tradition;
   const parts = useMemo(() => getZonedParts(now, tz), [now, tz]);
-  const next = useMemo(() => getNextEkadashi(now, tz), [now, tz]);
-  const observance = useMemo(() => getObservance(now, tz), [now, tz]);
+  const next = useMemo(() => getNextEkadashi(now, tz, tradition), [now, tz, tradition]);
+  const observance = useMemo(() => getObservance(now, tz, tradition), [now, tz, tradition]);
   const upcoming = useMemo(() => {
-    const list = getUpcomingEkadashis(6, now, tz);
+    const list = getUpcomingEkadashis(6, now, tz, tradition);
     return observance.kind === "fasting" ? list.slice(1) : list.slice(next ? 1 : 0);
-  }, [now, tz, next, observance.kind]);
+  }, [now, tz, tradition, next, observance.kind]);
 
   const todayLabel = new Date(parts.year, parts.month - 1, parts.day).toLocaleDateString("en-US", {
     weekday: "long",
@@ -52,7 +54,7 @@ export default function Dashboard() {
           {todayLabel} · {clock}
         </Text>
         <Text className="mt-0.5 text-xs text-violet-400">
-          Aligned to {getTimezoneLabel(settings.timezone)}
+          {getTraditionLabel(tradition)} · aligned to {getTimezoneLabel(settings.timezone)}
         </Text>
       </View>
 

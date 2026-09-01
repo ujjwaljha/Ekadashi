@@ -40,6 +40,9 @@ export interface EkadashiDataset {
 /** How many days before Ekadashi an advance reminder should fire. */
 export type LeadDay = 0 | 1 | 2 | 3 | 4;
 
+/** Which static panchang the app uses for dates and Parana windows. */
+export type CalendarTradition = "smarta" | "vaishnava";
+
 /** Persisted user preferences. */
 export interface Settings {
   /** Master switch for all scheduled reminders. */
@@ -60,6 +63,8 @@ export interface Settings {
   alarmRepeatCount: number;
   /** IANA timezone id used to align schedules, or "device" to follow the OS. */
   timezone: string;
+  /** Smarta IST vs Vaishnava / ISKCON sunrise-rule calendar. */
+  tradition: CalendarTradition;
 }
 
 export type NotificationKind = "reminder" | "alarm-fasting" | "alarm-parana" | "test";
