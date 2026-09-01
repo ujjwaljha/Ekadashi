@@ -48,6 +48,15 @@ export async function ensureAndroidChannels(alarmSoundFile: string | null): Prom
     enableVibrate: true,
   });
 
+  // Android freezes a channel's sound after creation. Recreate the alarm
+  // channel when the devotee picks a different bundled sound.
+  const existing = await Notifications.getNotificationChannelAsync(ALARM_CHANNEL);
+  const desired = alarmSoundFile ?? null;
+  const current = existing?.sound ?? null;
+  if (existing && current !== desired) {
+    await Notifications.deleteNotificationChannelAsync(ALARM_CHANNEL);
+  }
+
   await Notifications.setNotificationChannelAsync(ALARM_CHANNEL, {
     name: "Ekadashi Alarm",
     description: "High-priority repeating alarm on Ekadashi morning and during Parana.",
@@ -101,7 +110,9 @@ export async function registerForNotifications(alarmSoundFile: string | null): P
 
   const current = await Notifications.getPermissionsAsync();
   let status = current.status;
-  if (status !== "granted") {
+  // Only prompt when the OS has never asked. Re-prompting after a denial is
+  // ignored on Android and feels like nagging on iOS.
+  if (status === "undetermined") {
     const req = await Notifications.requestPermissionsAsync({
       ios: {
         allowAlert: true,
@@ -112,6 +123,12 @@ export async function registerForNotifications(alarmSoundFile: string | null): P
     status = req.status;
   }
   return status === "granted";
+}
+
+/** Clear delivered (including sticky) notifications after the alarm is handled. */
+export async function dismissPresentedNotifications(): Promise<void> {
+  if (isWeb) return;
+  await Notifications.dismissAllNotificationsAsync().catch(() => undefined);
 }
 
 export interface ScheduleResult {
@@ -131,7 +148,7 @@ export async function scheduleReminders(settings: Settings): Promise<ScheduleRes
 
   await Notifications.cancelAllScheduledNotificationsAsync();
 
-  if (!settings.notificationsEnabled) {
+  if (!settings.notificationsEnabled && !settings.alarmEnabled) {
     return { granted: true, scheduled: 0 };
   }
 

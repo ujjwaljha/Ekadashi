@@ -15,6 +15,7 @@ import { Platform, Pressable, Switch, Text, View } from "react-native";
 
 import { Card } from "@/components/Card";
 import { Chip } from "@/components/Chip";
+import { PermissionBanner } from "@/components/PermissionBanner";
 import { Screen } from "@/components/Screen";
 import { SectionTitle } from "@/components/SectionTitle";
 import { TimePicker } from "@/components/TimePicker";
@@ -91,6 +92,8 @@ export default function SettingsScreen() {
       </Text>
       <Text className="mb-4 text-3xl font-bold text-white">Settings</Text>
 
+      <PermissionBanner active={settings.notificationsEnabled || settings.alarmEnabled} />
+
       <Card className="mb-4">
         <View className="flex-row items-center justify-between">
           <View className="flex-row items-center gap-2">
@@ -121,6 +124,11 @@ export default function SettingsScreen() {
             />
           ))}
         </View>
+        {settings.notificationsEnabled && settings.leadDays.length === 0 ? (
+          <Text className="mt-3 text-xs text-violet-400">
+            No lead-times selected — only the persistent alarm will fire (if enabled).
+          </Text>
+        ) : null}
       </Card>
 
       <Card className="mb-4">
@@ -150,6 +158,8 @@ export default function SettingsScreen() {
           />
         </View>
 
+        {settings.alarmEnabled ? (
+          <>
         <Text className="mb-1 text-xs uppercase tracking-wide text-violet-300">
           Morning alarm time
         </Text>
@@ -211,6 +221,8 @@ export default function SettingsScreen() {
             {previewing ? "Stop preview" : "Preview sound"}
           </Text>
         </Pressable>
+          </>
+        ) : null}
       </Card>
 
       <Card className="mb-4">

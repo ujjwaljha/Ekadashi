@@ -9,14 +9,14 @@ A production-ready, cross-platform (iOS + Android) **Expo** app that helps devot
 - **Flexible reminders** — toggle lead-times ("On the Day", "1–4 Days Before") and pick the time of day advance reminders fire.
 - **Persistent Alarm** — MAX-priority Android channel (bypasses DnD, alarm audio usage) and time-sensitive iOS alerts on the morning of Ekadashi and throughout the Parana window. Repeating local notifications plus an in-app full-screen alarm with looping sound, dismiss, and snooze.
 - **Settings** — lead-times, reminder time, alarm sound/time/repeats, timezone alignment; test notification; reset to defaults. Preferences persist via AsyncStorage.
-- First-launch notification permission request and Android channel registration.
+- First-launch notification permission request (only while still undetermined) and Android channel registration. If access is denied, Dashboard and Settings show a banner that opens system Settings.
 
 ## Tech stack
 
 - **Expo SDK 57** + **TypeScript**, **Expo Router** (tab navigation)
 - **NativeWind** (Tailwind CSS) for styling
 - **expo-notifications** for scheduled local notifications + Android channels
-- **expo-audio** for the in-app looping alarm sound
+- **expo-audio** for the in-app looping alarm sound (background playback, no microphone permission)
 - **@react-native-async-storage/async-storage** to persist preferences
 - **lucide-react-native** icons, **expo-linear-gradient** background
 

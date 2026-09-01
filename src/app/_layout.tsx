@@ -4,7 +4,7 @@ import * as Notifications from "expo-notifications";
 import { Stack, useRouter } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { useEffect } from "react";
-import { Platform } from "react-native";
+import { AppState, Platform } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 
@@ -19,9 +19,10 @@ function isAlarmKind(kind: unknown): kind is "alarm-fasting" | "alarm-parana" {
 }
 
 /**
- * On first launch (once settings are hydrated) request notification permission
- * and lay down the full reminder schedule. Re-runs whenever settings change.
- * Also routes incoming alarm notifications to the persistent alarm screen.
+ * First-launch permission + reminder schedule. Debounced so toggling chips
+ * does not cancel and rebuild the OS schedule on every tap. Also opens the
+ * persistent alarm from a cold-start notification tap and when the app is
+ * already in the foreground.
  */
 function NotificationBootstrap() {
   const { settings, hydrated } = useSettings();
@@ -29,15 +30,26 @@ function NotificationBootstrap() {
 
   useEffect(() => {
     if (!hydrated) return;
-    (async () => {
-      if (!settings.notificationsEnabled) {
+    const handle = setTimeout(() => {
+      void (async () => {
+        if (settings.notificationsEnabled || settings.alarmEnabled) {
+          const sound = getAlarmSound(settings.alarmSound).notificationSound;
+          await registerForNotifications(sound);
+        }
         await scheduleReminders(settings);
-        return;
-      }
-      const sound = getAlarmSound(settings.alarmSound).notificationSound;
-      await registerForNotifications(sound);
-      await scheduleReminders(settings);
-    })();
+      })();
+    }, 600);
+    return () => clearTimeout(handle);
+  }, [hydrated, settings]);
+
+  useEffect(() => {
+    if (Platform.OS === "web" || !hydrated) return;
+
+    const subscription = AppState.addEventListener("change", (state) => {
+      if (state !== "active") return;
+      void scheduleReminders(settings);
+    });
+    return () => subscription.remove();
   }, [hydrated, settings]);
 
   useEffect(() => {
@@ -46,10 +58,7 @@ function NotificationBootstrap() {
     const openAlarm = (kind: NotificationKind, ekadashiId: string) => {
       if (!isAlarmKind(kind)) return;
       void startAlarm(settings.alarmSound);
-      router.push({
-        pathname: "/alarm",
-        params: { kind, id: ekadashiId },
-      });
+      router.replace({ pathname: "/alarm", params: { kind, id: ekadashiId } });
     };
 
     const received = Notifications.addNotificationReceivedListener((notification) => {
@@ -61,6 +70,17 @@ function NotificationBootstrap() {
       const data = event.notification.request.content.data ?? {};
       openAlarm(data.kind as NotificationKind, String(data.ekadashiId ?? ""));
     });
+
+    // Cold start: the tap that launched the process is not delivered to the
+    // listener above. Read and clear it so we do not reopen on every remount.
+    void Notifications.getLastNotificationResponseAsync()
+      .then((last) => {
+        if (!last) return;
+        const data = last.notification.request.content.data ?? {};
+        openAlarm(data.kind as NotificationKind, String(data.ekadashiId ?? ""));
+        Notifications.clearLastNotificationResponse();
+      })
+      .catch(() => undefined);
 
     return () => {
       received.remove();

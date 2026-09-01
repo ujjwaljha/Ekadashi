@@ -64,6 +64,26 @@ describe("buildNotificationPlan", () => {
     assert.ok(parana.every((p) => p.fireAt <= wallTimeInZone("2026-09-13", "08:23", "Asia/Kolkata")));
   });
 
+  it("still schedules alarms when advance reminders are turned off", () => {
+    const upcoming = getUpcomingEkadashis(1, new Date(2026, 8, 1), "device");
+    const plan = buildNotificationPlan({
+      now,
+      settings: {
+        ...DEFAULT_SETTINGS,
+        timezone: "Asia/Kolkata",
+        notificationsEnabled: false,
+        alarmEnabled: true,
+        alarmTime: "06:00",
+        alarmRepeatCount: 0,
+      },
+      upcoming,
+    });
+    assert.ok(plan.length > 0);
+    assert.ok(plan.every((p) => p.kind !== "reminder"));
+    assert.ok(plan.some((p) => p.kind === "alarm-fasting"));
+    assert.ok(plan.some((p) => p.kind === "alarm-parana"));
+  });
+
   it("skips fire times that have already passed", () => {
     const after = new Date("2026-09-12T10:00:00.000Z");
     const upcoming = getUpcomingEkadashis(1, new Date(2026, 8, 12), "device");

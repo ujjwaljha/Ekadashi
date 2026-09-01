@@ -8,7 +8,7 @@ import { palette } from "@/constants/theme";
 import { startAlarm, stopAlarm } from "@/lib/alarm";
 import { getEkadashiById } from "@/lib/ekadashi";
 import { formatLongDate, formatTime12h } from "@/lib/format";
-import { scheduleSnooze } from "@/lib/notifications";
+import { dismissPresentedNotifications, scheduleSnooze } from "@/lib/notifications";
 import { useSettings } from "@/store/settings";
 
 /**
@@ -32,12 +32,14 @@ export default function AlarmScreen() {
 
   const dismiss = async () => {
     await stopAlarm();
+    await dismissPresentedNotifications();
     if (router.canGoBack()) router.back();
     else router.replace("/(tabs)");
   };
 
   const snooze = async () => {
     await stopAlarm();
+    await dismissPresentedNotifications();
     if (ekadashi) {
       await scheduleSnooze(
         settings,

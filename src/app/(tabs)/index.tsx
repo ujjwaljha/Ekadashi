@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import { Text, View } from "react-native";
 
 import { Card } from "@/components/Card";
+import { PermissionBanner } from "@/components/PermissionBanner";
 import { Screen } from "@/components/Screen";
 import { accentGradient, palette, paranaGradient } from "@/constants/theme";
 import { getTimezoneLabel } from "@/constants/timezones";
@@ -54,6 +55,8 @@ export default function Dashboard() {
           Aligned to {getTimezoneLabel(settings.timezone)}
         </Text>
       </View>
+
+      <PermissionBanner active={settings.notificationsEnabled || settings.alarmEnabled} />
 
       {observance.kind === "fasting" && observance.ekadashi ? (
         <HeroCard

@@ -40,23 +40,27 @@ function leadPhrase(lead: number): string {
  */
 export function buildNotificationPlan(options: BuildPlanOptions): PlannedNotification[] {
   const { now, settings, upcoming } = options;
-  if (!settings.notificationsEnabled) return [];
+  // Advance reminders and the persistent alarm are independent toggles.
+  // Turning reminders off must not cancel an enabled alarm (and vice versa).
+  if (!settings.notificationsEnabled && !settings.alarmEnabled) return [];
 
   const planned: PlannedNotification[] = [];
   const tz = settings.timezone;
 
   for (const e of upcoming) {
-    for (const lead of settings.leadDays) {
-      const fireAt = wallTimeInZone(shiftISODate(e.date, -lead), settings.reminderTime, tz);
-      if (fireAt.getTime() <= now.getTime()) continue;
-      planned.push({
-        key: `reminder:${e.id}:${lead}`,
-        kind: "reminder",
-        fireAt,
-        title: `${e.name} Ekadashi ${lead === 0 ? "Today" : "Approaching"}`,
-        body: `${e.name} Ekadashi ${leadPhrase(lead)}. Parana: ${e.parana.start}–${e.parana.end} on ${e.parana.date}.`,
-        ekadashiId: e.id,
-      });
+    if (settings.notificationsEnabled) {
+      for (const lead of settings.leadDays) {
+        const fireAt = wallTimeInZone(shiftISODate(e.date, -lead), settings.reminderTime, tz);
+        if (fireAt.getTime() <= now.getTime()) continue;
+        planned.push({
+          key: `reminder:${e.id}:${lead}`,
+          kind: "reminder",
+          fireAt,
+          title: `${e.name} Ekadashi ${lead === 0 ? "Today" : "Approaching"}`,
+          body: `${e.name} Ekadashi ${leadPhrase(lead)}. Parana: ${e.parana.start}–${e.parana.end} on ${e.parana.date}.`,
+          ekadashiId: e.id,
+        });
+      }
     }
 
     if (!settings.alarmEnabled) continue;

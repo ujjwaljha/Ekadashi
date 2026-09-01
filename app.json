@@ -10,7 +10,7 @@
     "ios": {
       "supportsTablet": true,
       "infoPlist": {
-        "UIBackgroundModes": ["remote-notification"],
+        "UIBackgroundModes": ["audio"],
         "NSUserNotificationsUsageDescription": "Ekadashi Reminder needs notification access to alert you before fasting days and during the Parana window."
       },
       "bundleIdentifier": "com.ekadashi.reminder"
@@ -49,7 +49,14 @@
         }
       ],
       "expo-localization",
-      "expo-audio",
+      [
+        "expo-audio",
+        {
+          "microphonePermission": false,
+          "recordAudioAndroid": false,
+          "enableBackgroundPlayback": true
+        }
+      ],
       [
         "expo-notifications",
         {
