@@ -1,7 +1,8 @@
+import { useKeepAwake } from "expo-keep-awake";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { AlarmClock, Check, Clock } from "lucide-react-native";
-import { useEffect, useMemo } from "react";
-import { Pressable, Text, View } from "react-native";
+import { useCallback, useEffect, useMemo } from "react";
+import { BackHandler, Pressable, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { palette } from "@/constants/theme";
@@ -27,6 +28,8 @@ export default function AlarmScreen() {
     [params.id, settings]
   );
 
+  useKeepAwake();
+
   useEffect(() => {
     void startAlarm(settings.alarmSound);
     return () => {
@@ -34,11 +37,23 @@ export default function AlarmScreen() {
     };
   }, [settings.alarmSound]);
 
-  const dismiss = async () => {
-    await stopAlarm();
+  const leave = useCallback(() => {
     if (router.canGoBack()) router.back();
     else router.replace("/(tabs)");
-  };
+  }, [router]);
+
+  const dismiss = useCallback(async () => {
+    await stopAlarm();
+    leave();
+  }, [leave]);
+
+  useEffect(() => {
+    const sub = BackHandler.addEventListener("hardwareBackPress", () => {
+      void dismiss();
+      return true;
+    });
+    return () => sub.remove();
+  }, [dismiss]);
 
   const snooze = async () => {
     await stopAlarm();
@@ -54,8 +69,7 @@ export default function AlarmScreen() {
         ekadashi.id
       );
     }
-    if (router.canGoBack()) router.back();
-    else router.replace("/(tabs)");
+    leave();
   };
 
   const title = kind === "alarm-parana" ? "Parana Time" : "Ekadashi Alarm";

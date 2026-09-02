@@ -1,6 +1,6 @@
 import { LinearGradient } from "expo-linear-gradient";
 import type { ReactNode } from "react";
-import { ScrollView, View } from "react-native";
+import { KeyboardAvoidingView, Platform, ScrollView, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { backgroundGradient } from "@/constants/theme";
@@ -18,16 +18,22 @@ export function Screen({ children, scroll = true }: ScreenProps) {
 
   return (
     <LinearGradient colors={[...backgroundGradient]} style={{ flex: 1 }}>
-      {scroll ? (
-        <ScrollView
-          contentContainerStyle={{ paddingHorizontal: 20, ...pad }}
-          showsVerticalScrollIndicator={false}
-        >
-          {children}
-        </ScrollView>
-      ) : (
-        <View style={{ flex: 1, paddingHorizontal: 20, ...pad }}>{children}</View>
-      )}
+      <KeyboardAvoidingView
+        style={{ flex: 1 }}
+        behavior={Platform.OS === "ios" ? "padding" : undefined}
+      >
+        {scroll ? (
+          <ScrollView
+            contentContainerStyle={{ paddingHorizontal: 20, ...pad }}
+            showsVerticalScrollIndicator={false}
+            keyboardShouldPersistTaps="handled"
+          >
+            {children}
+          </ScrollView>
+        ) : (
+          <View style={{ flex: 1, paddingHorizontal: 20, ...pad }}>{children}</View>
+        )}
+      </KeyboardAvoidingView>
     </LinearGradient>
   );
 }
