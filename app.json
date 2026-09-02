@@ -2,27 +2,38 @@
   "expo": {
     "name": "Ekadashi Reminder",
     "slug": "ekadashi-reminder",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "ekadashireminder",
     "userInterfaceStyle": "dark",
+    "primaryColor": "#f97316",
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
     "ios": {
       "supportsTablet": true,
+      "bundleIdentifier": "com.ekadashi.reminder",
+      "buildNumber": "2",
       "infoPlist": {
-        "UIBackgroundModes": ["remote-notification"],
-        "NSUserNotificationsUsageDescription": "Ekadashi Reminder needs notification access to alert you before fasting days and during the Parana window."
+        "UIBackgroundModes": ["audio"],
+        "NSUserNotificationsUsageDescription": "Ekadashi Reminder alerts you before fasting days and during the Parana window.",
+        "ITSAppUsesNonExemptEncryption": false
       },
-      "bundleIdentifier": "com.ekadashi.reminder"
+      "config": {
+        "usesNonExemptEncryption": false
+      }
     },
     "android": {
+      "package": "com.ekadashi.reminder",
+      "versionCode": 2,
+      "softwareKeyboardLayoutMode": "resize",
       "adaptiveIcon": {
         "backgroundColor": "#0b0921",
         "foregroundImage": "./assets/images/android-icon-foreground.png",
         "backgroundImage": "./assets/images/android-icon-background.png",
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
-      "package": "com.ekadashi.reminder",
       "permissions": [
         "POST_NOTIFICATIONS",
         "SCHEDULE_EXACT_ALARM",
@@ -31,7 +42,8 @@
         "VIBRATE",
         "RECEIVE_BOOT_COMPLETED",
         "WAKE_LOCK"
-      ]
+      ],
+      "blockedPermissions": ["android.permission.READ_EXTERNAL_STORAGE", "android.permission.WRITE_EXTERNAL_STORAGE"]
     },
     "web": {
       "bundler": "metro",
@@ -40,6 +52,7 @@
     },
     "plugins": [
       "expo-router",
+      "expo-dev-client",
       [
         "expo-splash-screen",
         {
@@ -53,6 +66,7 @@
       [
         "expo-notifications",
         {
+          "icon": "./assets/images/android-icon-monochrome.png",
           "color": "#f97316",
           "sounds": ["./assets/sounds/temple-bell.wav", "./assets/sounds/conch.wav"],
           "defaultChannel": "reminders",
@@ -60,6 +74,11 @@
         }
       ]
     ],
+    "extra": {
+      "router": {
+        "origin": false
+      }
+    },
     "experiments": {
       "typedRoutes": true
     }
