@@ -12,15 +12,17 @@ A production-ready, cross-platform (iOS + Android) **Expo** app that helps devot
 - **Persistent Alarm** — MAX-priority Android channel (bypasses DnD, alarm audio usage) and time-sensitive iOS alerts on the morning of Ekadashi and throughout the Parana window. Repeating local notifications plus an in-app full-screen alarm with looping sound, dismiss, and snooze.
 - **Your city** — sunrise in the chosen city sets the Parana window. India and Nepal keep published fasting dates; other cities calculate the local day when it shifts.
 - **Five years in the app** — 2026–2030 dates are stored on device. Published panchang dates are used when available; astronomy fills gaps and local shifts.
-- **Settings** — calendar, city, and tradition, lead-times, reminder time, alarm sound/time/repeats, timezone alignment; test notification; reset to defaults. Preferences persist via AsyncStorage.
-- First-launch notification permission request and Android channel registration.
+- **Settings** — calendar, city, and tradition, lead-times, reminder time, alarm sound/time/repeats, timezone alignment; live permission + scheduled-count status; test notification; reset to defaults. Preferences persist via AsyncStorage.
+- **About / Privacy** — version, dataset note, and a store-ready local privacy policy.
+- First-launch notification permission, Android channels, iOS alarm categories, and cold-start alarm routing.
 
 ## Tech stack
 
 - **Expo SDK 57** + **TypeScript**, **Expo Router** (tab navigation)
 - **NativeWind** (Tailwind CSS) for styling
-- **expo-notifications** for scheduled local notifications + Android channels
-- **expo-audio** for the in-app looping alarm sound
+- **expo-notifications** for scheduled local notifications + Android channels + iOS categories
+- **expo-dev-client** + **EAS** for installable builds (`eas.json`)
+- **expo-audio** + **expo-keep-awake** for the in-app looping alarm
 - **@react-native-async-storage/async-storage** to persist preferences
 - **lucide-react-native** icons, **expo-linear-gradient** background
 
@@ -32,6 +34,7 @@ src/
     _layout.tsx             # Providers, onboarding gate, notification bootstrap
     (tabs)/                 # Dashboard / Calendar / Settings
     alarm.tsx               # Full-screen persistent alarm
+    about.tsx / privacy.tsx # Version + store privacy policy
   components/               # CalendarPicker, Onboarding, shared UI
   constants/calendars.ts    # Regional calendar catalog
   data/ekadashi-2026-2030.json
@@ -51,9 +54,23 @@ npm run typecheck
 npm test
 ```
 
-Notifications and the persistent alarm require a **physical iOS/Android device** (or a development build). The web target is a visual preview; scheduling is guarded to no-op there.
+Notifications and the persistent alarm require a **physical iOS/Android device** and a **development or production build**. The web target is a visual preview; scheduling is a no-op there. Expo Go can show the UI but does **not** include the custom temple-bell / conch notification sounds.
 
-On first launch the app asks which calendar and tradition you follow, then requests local-notification permission. Android also registers a high-priority reminder channel and a MAX-importance alarm channel (`SCHEDULE_EXACT_ALARM`, `USE_FULL_SCREEN_INTENT`).
+On first launch the app asks which calendar, city, and tradition you follow, then requests local-notification permission. Android also registers a high-priority reminder channel and a MAX-importance alarm channel (`SCHEDULE_EXACT_ALARM`, `USE_FULL_SCREEN_INTENT`). iOS alarm notifications expose Snooze / Dismiss actions. Tapping an alarm after a cold start opens the full-screen alarm.
+
+## Build and ship
+
+Store binaries, internal APKs, and the custom-sound dev client are built with EAS. See **[STORE.md](STORE.md)** for `eas init`, profiles, submit tracks, privacy URL, and the device QA checklist.
+
+```bash
+npx eas-cli login
+npx eas-cli init                          # writes extra.eas.projectId
+npx eas-cli build --profile development --platform android
+npx eas-cli build --profile preview --platform android
+npx eas-cli build --profile production --platform all
+```
+
+In-app **About** and **Privacy** screens ship with the binary. Host the `/privacy` route (or the same text) as the App Store / Play Store privacy-policy URL.
 
 ## Data note
 
