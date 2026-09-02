@@ -78,8 +78,7 @@ export default function CalendarScreen() {
     setSelected(null);
     setCursor((c) => {
       const total = c.year * 12 + c.month + delta;
-      const year = Math.min(range.max, Math.max(range.min, Math.floor(total / 12)));
-      return { year, month: ((total % 12) + 12) % 12 };
+      return { year: Math.floor(total / 12), month: ((total % 12) + 12) % 12 };
     });
   };
 
@@ -202,7 +201,7 @@ export default function CalendarScreen() {
                 }
               >
                 <View
-                  className={`h-11 w-11 items-center justify-center rounded-2xl ${
+                  className={`aspect-square w-[92%] items-center justify-center rounded-2xl ${
                     ekadashi ? "bg-saffron-500" : ""
                   } ${isSelected ? "border-2 border-white" : ""} ${
                     isToday && !ekadashi ? "border border-violet-300" : ""
