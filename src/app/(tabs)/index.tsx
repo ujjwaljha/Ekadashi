@@ -238,7 +238,6 @@ function HeroCard({
       style={{ borderRadius: 30, padding: 22, marginBottom: 20, overflow: "hidden", ...shadows.hero }}
     >
       <View
-        pointerEvents="none"
         style={{
           position: "absolute",
           top: -40,
@@ -247,10 +246,10 @@ function HeroCard({
           height: 140,
           borderRadius: 70,
           backgroundColor: "rgba(255,255,255,0.14)",
+          pointerEvents: "none",
         }}
       />
       <View
-        pointerEvents="none"
         style={{
           position: "absolute",
           bottom: -50,
@@ -259,6 +258,7 @@ function HeroCard({
           height: 120,
           borderRadius: 60,
           backgroundColor: "rgba(0,0,0,0.12)",
+          pointerEvents: "none",
         }}
       />
 

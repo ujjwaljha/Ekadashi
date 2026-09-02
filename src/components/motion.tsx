@@ -128,7 +128,6 @@ export function PulseHalo({ size = 112 }: { size?: number }) {
 
   return (
     <Animated.View
-      pointerEvents="none"
       style={[
         {
           position: "absolute",
@@ -137,6 +136,7 @@ export function PulseHalo({ size = 112 }: { size?: number }) {
           borderRadius: size / 2,
           borderWidth: 2,
           borderColor: "rgba(251, 146, 60, 0.7)",
+          pointerEvents: "none",
         },
         ring,
       ]}

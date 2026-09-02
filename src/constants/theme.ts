@@ -62,28 +62,27 @@ export const type: Record<"display" | "title" | "eyebrow" | "body" | "caption", 
   },
 };
 
+const nativeShadow = (
+  color: string,
+  opacity: number,
+  radius: number,
+  height: number,
+  elevation: number
+): ViewStyle =>
+  Platform.OS === "web"
+    ? { boxShadow: `0 ${Math.abs(height)}px ${radius}px rgba(2, 1, 12, ${opacity})` }
+    : {
+        shadowColor: color,
+        shadowOpacity: opacity,
+        shadowRadius: radius,
+        shadowOffset: { width: 0, height },
+        elevation,
+      };
+
 export const shadows = {
-  card: {
-    shadowColor: "#02010c",
-    shadowOpacity: 0.4,
-    shadowRadius: 18,
-    shadowOffset: { width: 0, height: 10 },
-    elevation: 6,
-  } satisfies ViewStyle,
-  hero: {
-    shadowColor: "#ea580c",
-    shadowOpacity: 0.35,
-    shadowRadius: 28,
-    shadowOffset: { width: 0, height: 14 },
-    elevation: 10,
-  } satisfies ViewStyle,
-  tabBar: {
-    shadowColor: "#000",
-    shadowOpacity: 0.35,
-    shadowRadius: 16,
-    shadowOffset: { width: 0, height: -6 },
-    elevation: 16,
-  } satisfies ViewStyle,
+  card: nativeShadow("#02010c", 0.4, 18, 10, 6),
+  hero: nativeShadow("#ea580c", 0.35, 28, 14, 10),
+  tabBar: nativeShadow("#000", 0.35, 16, -6, 16),
 };
 
 export const motion = {
