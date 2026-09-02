@@ -1,6 +1,6 @@
 import { ChevronLeft, ChevronRight, LocateFixed } from "lucide-react-native";
 import { useMemo, useState } from "react";
-import { Text, View } from "react-native";
+import { Pressable, Text, View } from "react-native";
 import Animated, { FadeIn, FadeOut } from "react-native-reanimated";
 
 import { Card } from "@/components/Card";
@@ -11,6 +11,7 @@ import { getCalendar, traditionLabel } from "@/constants/calendars";
 import { getCity } from "@/constants/cities";
 import { fonts, palette, type } from "@/constants/theme";
 import { getEkadashisInMonth, getYearRange, queryFromSettings } from "@/lib/ekadashi";
+import { tapSelection } from "@/lib/haptics";
 import { formatShortDate, formatTime12h } from "@/lib/format";
 import { formatPanchangLong, getPanchangDay } from "@/lib/panchang";
 import { todayISO } from "@/lib/timezone";
@@ -206,12 +207,15 @@ export default function CalendarScreen() {
             const isSelected = selected?.date === iso;
             const panchang = getPanchangDay(iso, settings.calendarId);
             return (
-              <PressableScale
+              <Pressable
                 key={day}
-                haptic="selection"
                 style={{ width: `${100 / 7}%` }}
                 className="items-center py-1"
-                onPress={() => ekadashi && setSelected(ekadashi)}
+                onPress={() => {
+                  if (!ekadashi) return;
+                  tapSelection();
+                  setSelected(ekadashi);
+                }}
                 disabled={!ekadashi}
                 accessibilityRole="button"
                 accessibilityLabel={
@@ -241,7 +245,7 @@ export default function CalendarScreen() {
                     {panchang.civilShort}
                   </Text>
                 </View>
-              </PressableScale>
+              </Pressable>
             );
           })}
         </Animated.View>
