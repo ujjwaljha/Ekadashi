@@ -71,13 +71,24 @@ export default function CalendarScreen() {
 
   const canPrev = cursor.year > range.min || cursor.month > 0;
   const canNext = cursor.year < range.max || cursor.month < 11;
+  const canPrevYear = cursor.year > range.min;
+  const canNextYear = cursor.year < range.max;
 
   const shift = (delta: number) => {
     setSelected(null);
     setCursor((c) => {
       const total = c.year * 12 + c.month + delta;
-      return { year: Math.floor(total / 12), month: ((total % 12) + 12) % 12 };
+      const year = Math.min(range.max, Math.max(range.min, Math.floor(total / 12)));
+      return { year, month: ((total % 12) + 12) % 12 };
     });
+  };
+
+  const shiftYear = (delta: number) => {
+    setSelected(null);
+    setCursor((c) => ({
+      year: Math.min(range.max, Math.max(range.min, c.year + delta)),
+      month: c.month,
+    }));
   };
 
   const jumpToday = () => {
@@ -111,29 +122,53 @@ export default function CalendarScreen() {
 
       <Card className="mb-4">
         <View className="mb-3 flex-row items-center justify-between">
-          <Pressable
-            onPress={() => canPrev && shift(-1)}
-            disabled={!canPrev}
-            className="rounded-full bg-white/10 p-2"
-            style={{ opacity: canPrev ? 1 : 0.3 }}
-            accessibilityRole="button"
-            accessibilityLabel="Previous month"
-          >
-            <ChevronLeft color={palette.textPrimary} size={20} />
-          </Pressable>
+          <View className="flex-row items-center gap-1">
+            <Pressable
+              onPress={() => canPrevYear && shiftYear(-1)}
+              disabled={!canPrevYear}
+              className="rounded-full bg-white/10 px-2 py-2"
+              style={{ opacity: canPrevYear ? 1 : 0.3 }}
+              accessibilityRole="button"
+              accessibilityLabel="Previous year"
+            >
+              <Text className="text-xs font-bold text-white">«</Text>
+            </Pressable>
+            <Pressable
+              onPress={() => canPrev && shift(-1)}
+              disabled={!canPrev}
+              className="rounded-full bg-white/10 p-2"
+              style={{ opacity: canPrev ? 1 : 0.3 }}
+              accessibilityRole="button"
+              accessibilityLabel="Previous month"
+            >
+              <ChevronLeft color={palette.textPrimary} size={20} />
+            </Pressable>
+          </View>
           <Text className="text-base font-semibold text-white">
             {MONTH_NAMES[cursor.month]} {cursor.year}
           </Text>
-          <Pressable
-            onPress={() => canNext && shift(1)}
-            disabled={!canNext}
-            className="rounded-full bg-white/10 p-2"
-            style={{ opacity: canNext ? 1 : 0.3 }}
-            accessibilityRole="button"
-            accessibilityLabel="Next month"
-          >
-            <ChevronRight color={palette.textPrimary} size={20} />
-          </Pressable>
+          <View className="flex-row items-center gap-1">
+            <Pressable
+              onPress={() => canNext && shift(1)}
+              disabled={!canNext}
+              className="rounded-full bg-white/10 p-2"
+              style={{ opacity: canNext ? 1 : 0.3 }}
+              accessibilityRole="button"
+              accessibilityLabel="Next month"
+            >
+              <ChevronRight color={palette.textPrimary} size={20} />
+            </Pressable>
+            <Pressable
+              onPress={() => canNextYear && shiftYear(1)}
+              disabled={!canNextYear}
+              className="rounded-full bg-white/10 px-2 py-2"
+              style={{ opacity: canNextYear ? 1 : 0.3 }}
+              accessibilityRole="button"
+              accessibilityLabel="Next year"
+            >
+              <Text className="text-xs font-bold text-white">»</Text>
+            </Pressable>
+          </View>
         </View>
 
         <View className="flex-row">
