@@ -8,9 +8,11 @@ import { AppState, Platform, Text, View } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 
+import { PulseHalo } from "@/components/motion";
 import { Onboarding } from "@/components/Onboarding";
 import { getAlarmSound } from "@/constants/alarms";
-import { palette } from "@/constants/theme";
+import { fonts, palette, type } from "@/constants/theme";
+import { useAppFonts } from "@/lib/fonts";
 import { startAlarm, stopAlarm } from "@/lib/alarm";
 import { getEkadashiById, queryFromSettings } from "@/lib/ekadashi";
 import {
@@ -153,16 +155,48 @@ function NotificationBootstrap() {
   return null;
 }
 
+function Splash() {
+  return (
+    <View
+      style={{
+        position: "absolute",
+        top: 0,
+        right: 0,
+        bottom: 0,
+        left: 0,
+        backgroundColor: palette.inkDeep,
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      <View className="h-28 w-28 items-center justify-center">
+        <PulseHalo size={120} />
+        <View className="h-16 w-16 rounded-full bg-saffron-500/20" />
+      </View>
+      <Text style={type.eyebrow} className="mt-6 text-[11px] text-saffron-300">
+        Ekadashi Reminder
+      </Text>
+      <Text style={{ fontFamily: fonts.display }} className="mt-2 text-2xl text-white">
+        Loading your calendar…
+      </Text>
+    </View>
+  );
+}
+
 function AppGate() {
   const { settings, hydrated } = useSettings();
+  const fontsReady = useAppFonts();
+  const ready = hydrated && fontsReady;
 
   return (
     <View style={{ flex: 1, backgroundColor: palette.inkDeep }}>
-      {hydrated && settings.onboardingCompleted ? <NotificationBootstrap /> : null}
+      {ready && settings.onboardingCompleted ? <NotificationBootstrap /> : null}
       <Stack
         screenOptions={{
           headerShown: false,
-          contentStyle: { backgroundColor: "#0b0921" },
+          contentStyle: { backgroundColor: "#07061a" },
+          animation: "fade_from_bottom",
+          animationDuration: 280,
         }}
       >
         <Stack.Screen name="(tabs)" />
@@ -177,24 +211,8 @@ function AppGate() {
         <Stack.Screen name="about" />
         <Stack.Screen name="privacy" />
       </Stack>
-      {!hydrated ? (
-        <View
-          style={{
-            position: "absolute",
-            top: 0,
-            right: 0,
-            bottom: 0,
-            left: 0,
-            backgroundColor: palette.inkDeep,
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <Text className="text-xs uppercase tracking-[3px] text-saffron-300">Ekadashi Reminder</Text>
-          <Text className="mt-2 text-lg font-semibold text-white">Loading your calendar…</Text>
-        </View>
-      ) : null}
-      {hydrated && !settings.onboardingCompleted ? (
+      {!ready ? <Splash /> : null}
+      {ready && !settings.onboardingCompleted ? (
         <View style={{ position: "absolute", top: 0, right: 0, bottom: 0, left: 0 }}>
           <Onboarding />
         </View>

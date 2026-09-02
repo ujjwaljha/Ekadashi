@@ -1,7 +1,7 @@
 import { Tabs } from "expo-router";
 import { CalendarDays, LayoutDashboard, Settings } from "lucide-react-native";
 
-import { palette } from "@/constants/theme";
+import { fonts, palette, tabBarStyle } from "@/constants/theme";
 
 export default function TabsLayout() {
   return (
@@ -10,12 +10,9 @@ export default function TabsLayout() {
         headerShown: false,
         tabBarActiveTintColor: palette.saffron,
         tabBarInactiveTintColor: palette.textMuted,
-        tabBarStyle: {
-          backgroundColor: palette.inkDeep,
-          borderTopColor: palette.surfaceBorder,
-          borderTopWidth: 1,
-        },
-        tabBarLabelStyle: { fontSize: 12, fontWeight: "600" },
+        tabBarStyle,
+        tabBarLabelStyle: { fontSize: 11, fontFamily: fonts.sansSemi, fontWeight: "600" },
+        tabBarItemStyle: { paddingTop: 2 },
         sceneStyle: { backgroundColor: palette.inkDeep },
       }}
     >

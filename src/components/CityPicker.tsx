@@ -1,10 +1,12 @@
-import { Check, Search } from "lucide-react-native";
+import { Check } from "lucide-react-native";
 import { useMemo, useState } from "react";
-import { Pressable, Text, TextInput, View } from "react-native";
+import { Text, View } from "react-native";
 
 import { Card } from "@/components/Card";
+import { PressableScale } from "@/components/motion";
+import { SearchField } from "@/components/SearchField";
 import { CITIES, searchCities } from "@/constants/cities";
-import { palette } from "@/constants/theme";
+import { fonts, palette } from "@/constants/theme";
 
 interface CityPickerProps {
   value: string;
@@ -24,37 +26,33 @@ export function CityPicker({ value, onChange, suggestedId }: CityPickerProps) {
 
   return (
     <View>
-      <View className="mb-3 flex-row items-center rounded-2xl border border-white/10 bg-white/5 px-3 py-2">
-        <Search color={palette.textMuted} size={16} />
-        <TextInput
-          value={query}
-          onChangeText={setQuery}
-          placeholder="Search Delhi, Darbhanga, New York…"
-          placeholderTextColor={palette.textMuted}
-          autoCorrect={false}
-          autoCapitalize="none"
-          className="ml-2 flex-1 py-1 text-base text-white"
-          accessibilityLabel="Search cities"
-        />
-      </View>
+      <SearchField
+        value={query}
+        onChangeText={setQuery}
+        placeholder="Search Delhi, Darbhanga, New York…"
+        accessibilityLabel="Search cities"
+      />
 
       <View className="gap-2">
         {results.map((city) => {
           const active = city.id === value;
           const suggested = city.id === suggestedId && !query.trim();
           return (
-            <Pressable
+            <PressableScale
               key={city.id}
               onPress={() => onChange(city.id)}
+              haptic="selection"
               accessibilityRole="button"
               accessibilityState={{ selected: active }}
               accessibilityLabel={`${city.name}, ${city.region}`}
             >
-              <Card className={active ? "border-saffron-400/60 bg-saffron-500/10" : ""}>
+              <Card className={active ? "border-saffron-400/70 bg-saffron-500/10" : ""}>
                 <View className="flex-row items-start justify-between gap-3">
                   <View className="flex-1">
                     <View className="flex-row flex-wrap items-center gap-2">
-                      <Text className="text-base font-bold text-white">{city.name}</Text>
+                      <Text style={{ fontFamily: fonts.sansBold }} className="text-base text-white">
+                        {city.name}
+                      </Text>
                       {suggested ? (
                         <Text className="text-[10px] font-semibold uppercase text-violet-300">
                           Suggested
@@ -77,7 +75,7 @@ export function CityPicker({ value, onChange, suggestedId }: CityPickerProps) {
                   )}
                 </View>
               </Card>
-            </Pressable>
+            </PressableScale>
           );
         })}
         {results.length === 0 ? (

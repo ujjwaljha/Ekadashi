@@ -1,7 +1,8 @@
 import { ChevronDown, ChevronUp } from "lucide-react-native";
-import { Pressable, Text, View } from "react-native";
+import { Text, View } from "react-native";
 
-import { palette } from "@/constants/theme";
+import { PressableScale } from "@/components/motion";
+import { fonts, palette } from "@/constants/theme";
 
 interface TimePickerProps {
   /** Value as 24h "HH:mm". */
@@ -45,37 +46,53 @@ export function TimePicker({ value, onChange, step = 5 }: TimePickerProps) {
     onDown: () => void;
   }) => (
     <View className="items-center">
-      <Pressable onPress={onUp} className="rounded-full bg-white/10 p-1.5" accessibilityRole="button">
+      <PressableScale
+        onPress={onUp}
+        haptic="selection"
+        className="rounded-full bg-white/10 p-2"
+        accessibilityRole="button"
+      >
         <ChevronUp color={palette.textPrimary} size={18} />
-      </Pressable>
-      <Text className="my-1 w-14 text-center text-2xl font-bold text-white">{label}</Text>
-      <Pressable
+      </PressableScale>
+      <Text
+        style={{ fontFamily: fonts.display }}
+        className="my-1 w-14 text-center text-3xl text-white"
+      >
+        {label}
+      </Text>
+      <PressableScale
         onPress={onDown}
-        className="rounded-full bg-white/10 p-1.5"
+        haptic="selection"
+        className="rounded-full bg-white/10 p-2"
         accessibilityRole="button"
       >
         <ChevronDown color={palette.textPrimary} size={18} />
-      </Pressable>
+      </PressableScale>
     </View>
   );
 
   return (
     <View className="flex-row items-center justify-center gap-2 py-1">
       <Stepper label={String(h12)} onUp={() => setHour12(h12 + 1)} onDown={() => setHour12(h12 - 1)} />
-      <Text className="text-2xl font-bold text-white">:</Text>
+      <Text style={{ fontFamily: fonts.display }} className="text-3xl text-white">
+        :
+      </Text>
       <Stepper
         label={String(m).padStart(2, "0")}
         onUp={() => onChange(toISO(h, m + step))}
         onDown={() => onChange(toISO(h, m - step))}
       />
-      <Pressable
+      <PressableScale
         onPress={() => onChange(toISO((h + 12) % 24, m))}
+        haptic="selection"
         className="ml-2 rounded-2xl border border-white/15 bg-white/10 px-4 py-3"
         accessibilityRole="button"
         accessibilityLabel="Toggle AM PM"
       >
-        <Text className="text-lg font-bold text-saffron-300">{period}</Text>
-      </Pressable>
+        <Text style={{ fontFamily: fonts.sansBold }} className="text-lg text-saffron-300">
+          {period}
+        </Text>
+      </PressableScale>
     </View>
   );
 }
