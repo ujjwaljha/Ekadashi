@@ -60,8 +60,10 @@ describe("buildNotificationPlan", () => {
     const fasting = plan.filter((p) => p.kind === "alarm-fasting" && p.ekadashiId === "2026-09-07-aja");
     assert.equal(fasting.length, 3);
     const parana = plan.filter((p) => p.kind === "alarm-parana" && p.ekadashiId === "2026-09-07-aja");
+    const aja = upcoming.find((e) => e.id === "2026-09-07-aja");
     assert.ok(parana.length >= 1);
-    assert.ok(parana.every((p) => p.fireAt <= wallTimeInZone("2026-09-08", "08:12", "Asia/Kolkata")));
+    assert.ok(aja);
+    assert.ok(parana.every((p) => p.fireAt <= wallTimeInZone(aja!.parana.date, aja!.parana.end, "Asia/Kolkata")));
   });
 
   it("skips fire times that have already passed", () => {

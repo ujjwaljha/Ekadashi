@@ -85,6 +85,8 @@ export interface EkadashiRecord {
   smarta: TraditionDates;
   vaishnava: TraditionDates;
   significance: string;
+  /** published = curated panchang date; calculated = astronomy fallback. */
+  origin?: "published" | "calculated";
 }
 
 /** A single Ekadashi observance resolved for the user's calendar + tradition. */
@@ -106,6 +108,10 @@ export interface Ekadashi {
   monthKey: HinduMonth;
   /** Present when Smarta and Vaishnava fasting days differ. */
   otherTraditionDate?: { tradition: TraditionId; date: string };
+  /** Whether the fasting date came from a published panchang or local calculation. */
+  source: "published" | "calculated";
+  /** True when a distant city shifted the published India date. */
+  localAdjusted: boolean;
 }
 
 export interface EkadashiDataset {
@@ -144,6 +150,8 @@ export interface Settings {
   calendarId: CalendarId;
   /** Smarta vs Vaishnava fasting-day rule. */
   tradition: TraditionId;
+  /** City used for sunrise, Parana, and (when needed) the local fasting day. */
+  cityId: string;
   /** False until the first-run calendar picker is finished. */
   onboardingCompleted: boolean;
 }

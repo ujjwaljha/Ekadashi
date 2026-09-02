@@ -10,7 +10,9 @@ A production-ready, cross-platform (iOS + Android) **Expo** app that helps devot
 - **Calendar** — month grid highlighting every Ekadashi; each cell shows the regional day label. Tap a date or the monthly list for Parana timing.
 - **Flexible reminders** — toggle lead-times ("On the Day", "1–4 Days Before") and pick the time of day advance reminders fire.
 - **Persistent Alarm** — MAX-priority Android channel (bypasses DnD, alarm audio usage) and time-sensitive iOS alerts on the morning of Ekadashi and throughout the Parana window. Repeating local notifications plus an in-app full-screen alarm with looping sound, dismiss, and snooze.
-- **Settings** — calendar and tradition, lead-times, reminder time, alarm sound/time/repeats, timezone alignment; test notification; reset to defaults. Preferences persist via AsyncStorage.
+- **Your city** — sunrise in the chosen city sets the Parana window. India and Nepal keep published fasting dates; other cities calculate the local day when it shifts.
+- **Five years in the app** — 2026–2030 dates are stored on device. Published panchang dates are used when available; astronomy fills gaps and local shifts.
+- **Settings** — calendar, city, and tradition, lead-times, reminder time, alarm sound/time/repeats, timezone alignment; test notification; reset to defaults. Preferences persist via AsyncStorage.
 - First-launch notification permission request and Android channel registration.
 
 ## Tech stack
@@ -32,7 +34,7 @@ src/
     alarm.tsx               # Full-screen persistent alarm
   components/               # CalendarPicker, Onboarding, shared UI
   constants/calendars.ts    # Regional calendar catalog
-  data/ekadashi-2026-2027.json
+  data/ekadashi-2026-2030.json
   lib/                      # ekadashi, panchang, timezone, schedule, notifications
   store/settings.tsx        # AsyncStorage-backed preferences
 assets/sounds/              # temple-bell.wav, conch.wav
@@ -55,4 +57,4 @@ On first launch the app asks which calendar and tradition you follow, then reque
 
 ## Data note
 
-Ekadashi dates in `src/data/ekadashi-2026-2027.json` are an **India Standard Time** reference for 2026–2027, including the 2026 Adhika Jyeshtha (Padmini and Parama). Smarta dates follow the sunrise (udaya) tithi; Vaishnava dates follow the shuddha-tithi rule used by ISKCON and Gaudiya panchangs. Exact Parana windows vary by city sunrise. Confirm with a local panchang before relying on them for observance.
+Ekadashi dates in `src/data/ekadashi-2026-2030.json` are a five-year **India Standard Time** reference (2026–2030), including Adhika months in 2026 and 2028. Published panchang dates are preferred; the bundled astronomy engine calculates Parana from city sunrise and, for distant cities or missing years, the local fasting day. Confirm with a local panchang before relying on them for observance.

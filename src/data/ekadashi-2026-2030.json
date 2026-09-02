@@ -1,0 +1,3208 @@
+{
+  "meta": {
+    "region": "India",
+    "timezone": "Asia/Kolkata",
+    "note": "Five-year India Standard Time reference (2026–2030), including Adhika months in 2026 and 2028. Published panchang dates are stored in the app; Parana is recalculated from the chosen city's sunrise. Distant cities may shift the fasting day by a day. Confirm with a local panchang before breaking the fast."
+  },
+  "ekadashis": [
+    {
+      "id": "2026-01-14-shattila",
+      "name": "Shattila",
+      "paksha": "Krishna",
+      "monthPurnimanta": "Magha",
+      "monthAmanta": "Pausha",
+      "smarta": {
+        "date": "2026-01-14",
+        "parana": {
+          "date": "2026-01-15",
+          "start": "07:14",
+          "end": "09:24"
+        }
+      },
+      "vaishnava": {
+        "date": "2026-01-14",
+        "parana": {
+          "date": "2026-01-15",
+          "start": "07:14",
+          "end": "09:24"
+        }
+      },
+      "significance": "Marked by charity involving sesame (til) in six ways.",
+      "origin": "published"
+    },
+    {
+      "id": "2026-01-29-jaya",
+      "name": "Jaya",
+      "paksha": "Shukla",
+      "monthPurnimanta": "Magha",
+      "monthAmanta": "Magha",
+      "smarta": {
+        "date": "2026-01-29",
+        "parana": {
+          "date": "2026-01-30",
+          "start": "07:10",
+          "end": "09:20"
+        }
+      },
+      "vaishnava": {
+        "date": "2026-01-29",
+        "parana": {
+          "date": "2026-01-30",
+          "start": "07:10",
+          "end": "09:20"
+        }
+      },
+      "significance": "Said to free devotees from the fate of becoming ghosts.",
+      "names": {
+        "iskcon": "Bhaimi"
+      },
+      "origin": "published"
+    },
+    {
+      "id": "2026-02-13-vijaya",
+      "name": "Vijaya",
+      "paksha": "Krishna",
+      "monthPurnimanta": "Phalguna",
+      "monthAmanta": "Magha",
+      "smarta": {
+        "date": "2026-02-13",
+        "parana": {
+          "date": "2026-02-14",
+          "start": "07:00",
+          "end": "09:10"
+        }
+      },
+      "vaishnava": {
+        "date": "2026-02-13",
+        "parana": {
+          "date": "2026-02-14",
+          "start": "07:00",
+          "end": "09:10"
+        }
+      },
+      "significance": "Associated with victory; observed by Lord Rama before crossing to Lanka.",
+      "origin": "published"
+    },
+    {
+      "id": "2026-02-27-amalaki",
+      "name": "Amalaki",
+      "paksha": "Shukla",
+      "monthPurnimanta": "Phalguna",
+      "monthAmanta": "Phalguna",
+      "smarta": {
+        "date": "2026-02-27",
+        "parana": {
+          "date": "2026-02-28",
+          "start": "06:47",
+          "end": "08:57"
+        }
+      },
+      "vaishnava": {
+        "date": "2026-02-27",
+        "parana": {
+          "date": "2026-02-28",
+          "start": "06:47",
+          "end": "08:57"
+        }
+      },
+      "significance": "Honours the amalaki (Indian gooseberry) tree, sacred to Vishnu.",
+      "origin": "published"
+    },
+    {
+      "id": "2026-03-15-papmochani",
+      "name": "Papmochani",
+      "paksha": "Krishna",
+      "monthPurnimanta": "Chaitra",
+      "monthAmanta": "Phalguna",
+      "smarta": {
+        "date": "2026-03-15",
+        "parana": {
+          "date": "2026-03-16",
+          "start": "06:30",
+          "end": "08:40"
+        }
+      },
+      "vaishnava": {
+        "date": "2026-03-15",
+        "parana": {
+          "date": "2026-03-16",
+          "start": "06:30",
+          "end": "08:40"
+        }
+      },
+      "significance": "Believed to wash away accumulated sins (papa).",
+      "origin": "published"
+    },
+    {
+      "id": "2026-03-29-kamada",
+      "name": "Kamada",
+      "paksha": "Shukla",
+      "monthPurnimanta": "Chaitra",
+      "monthAmanta": "Chaitra",
+      "smarta": {
+        "date": "2026-03-29",
+        "parana": {
+          "date": "2026-03-30",
+          "start": "06:13",
+          "end": "07:12"
+        }
+      },
+      "vaishnava": {
+        "date": "2026-03-29",
+        "parana": {
+          "date": "2026-03-30",
+          "start": "06:13",
+          "end": "07:12"
+        }
+      },
+      "significance": "The fulfiller of desires; first Ekadashi of the lunar new year in many panchangs.",
+      "origin": "published"
+    },
+    {
+      "id": "2026-04-13-varuthini",
+      "name": "Varuthini",
+      "paksha": "Krishna",
+      "monthPurnimanta": "Vaishakha",
+      "monthAmanta": "Chaitra",
+      "smarta": {
+        "date": "2026-04-13",
+        "parana": {
+          "date": "2026-04-14",
+          "start": "05:59",
+          "end": "08:09"
+        }
+      },
+      "vaishnava": {
+        "date": "2026-04-13",
+        "parana": {
+          "date": "2026-04-14",
+          "start": "05:59",
+          "end": "08:09"
+        }
+      },
+      "significance": "Grants protection and material as well as spiritual prosperity.",
+      "origin": "published"
+    },
+    {
+      "id": "2026-04-27-mohini",
+      "name": "Mohini",
+      "paksha": "Shukla",
+      "monthPurnimanta": "Vaishakha",
+      "monthAmanta": "Vaishakha",
+      "smarta": {
+        "date": "2026-04-27",
+        "parana": {
+          "date": "2026-04-28",
+          "start": "05:43",
+          "end": "07:53"
+        }
+      },
+      "vaishnava": {
+        "date": "2026-04-27",
+        "parana": {
+          "date": "2026-04-28",
+          "start": "05:43",
+          "end": "07:53"
+        }
+      },
+      "significance": "Named after Vishnu's Mohini avatar; frees one from illusion (moha).",
+      "origin": "published"
+    },
+    {
+      "id": "2026-05-13-apara",
+      "name": "Apara",
+      "paksha": "Krishna",
+      "monthPurnimanta": "Jyeshtha",
+      "monthAmanta": "Vaishakha",
+      "smarta": {
+        "date": "2026-05-13",
+        "parana": {
+          "date": "2026-05-14",
+          "start": "05:31",
+          "end": "07:41"
+        }
+      },
+      "vaishnava": {
+        "date": "2026-05-13",
+        "parana": {
+          "date": "2026-05-14",
+          "start": "05:31",
+          "end": "07:41"
+        }
+      },
+      "significance": "Bestows boundless (apara) merit and reputation.",
+      "origin": "published"
+    },
+    {
+      "id": "2026-05-27-padmini",
+      "name": "Padmini",
+      "paksha": "Shukla",
+      "monthPurnimanta": "Jyeshtha",
+      "monthAmanta": "Jyeshtha",
+      "adhika": true,
+      "smarta": {
+        "date": "2026-05-27",
+        "parana": {
+          "date": "2026-05-28",
+          "start": "05:24",
+          "end": "07:59"
+        }
+      },
+      "vaishnava": {
+        "date": "2026-05-27",
+        "parana": {
+          "date": "2026-05-28",
+          "start": "05:24",
+          "end": "07:59"
+        }
+      },
+      "significance": "Rare Adhika-masa Ekadashi of Purushottama month, observed only in leap-lunar years.",
+      "origin": "published"
+    },
+    {
+      "id": "2026-06-11-parama",
+      "name": "Parama",
+      "paksha": "Krishna",
+      "monthPurnimanta": "Jyeshtha",
+      "monthAmanta": "Jyeshtha",
+      "adhika": true,
+      "smarta": {
+        "date": "2026-06-11",
+        "parana": {
+          "date": "2026-06-12",
+          "start": "05:22",
+          "end": "07:32"
+        }
+      },
+      "vaishnava": {
+        "date": "2026-06-11",
+        "parana": {
+          "date": "2026-06-12",
+          "start": "05:22",
+          "end": "07:32"
+        }
+      },
+      "significance": "The Krishna-paksha Ekadashi of Adhika Jyeshtha (Purushottama masa).",
+      "origin": "published"
+    },
+    {
+      "id": "2026-06-25-nirjala",
+      "name": "Nirjala",
+      "paksha": "Shukla",
+      "monthPurnimanta": "Jyeshtha",
+      "monthAmanta": "Jyeshtha",
+      "smarta": {
+        "date": "2026-06-25",
+        "parana": {
+          "date": "2026-06-26",
+          "start": "05:25",
+          "end": "07:35"
+        }
+      },
+      "vaishnava": {
+        "date": "2026-06-26",
+        "parana": {
+          "date": "2026-06-27",
+          "start": "05:25",
+          "end": "07:35"
+        }
+      },
+      "significance": "The strictest fast, kept without water (nir-jala).",
+      "names": {
+        "iskcon": "Pandava Nirjala"
+      },
+      "origin": "published"
+    },
+    {
+      "id": "2026-07-10-yogini",
+      "name": "Yogini",
+      "paksha": "Krishna",
+      "monthPurnimanta": "Ashadha",
+      "monthAmanta": "Jyeshtha",
+      "smarta": {
+        "date": "2026-07-10",
+        "parana": {
+          "date": "2026-07-11",
+          "start": "05:31",
+          "end": "07:41"
+        }
+      },
+      "vaishnava": {
+        "date": "2026-07-11",
+        "parana": {
+          "date": "2026-07-12",
+          "start": "05:31",
+          "end": "07:41"
+        }
+      },
+      "significance": "Observed to cure ailments and remove sins.",
+      "origin": "published"
+    },
+    {
+      "id": "2026-07-25-devshayani",
+      "name": "Devshayani",
+      "paksha": "Shukla",
+      "monthPurnimanta": "Ashadha",
+      "monthAmanta": "Ashadha",
+      "smarta": {
+        "date": "2026-07-25",
+        "parana": {
+          "date": "2026-07-26",
+          "start": "05:39",
+          "end": "07:49"
+        }
+      },
+      "vaishnava": {
+        "date": "2026-07-25",
+        "parana": {
+          "date": "2026-07-26",
+          "start": "05:39",
+          "end": "07:49"
+        }
+      },
+      "significance": "Marks the start of Chaturmas, when Vishnu is said to rest.",
+      "names": {
+        "iskcon": "Sayana",
+        "tamil": "Shayani"
+      },
+      "origin": "published"
+    },
+    {
+      "id": "2026-08-09-kamika",
+      "name": "Kamika",
+      "paksha": "Krishna",
+      "monthPurnimanta": "Shravana",
+      "monthAmanta": "Ashadha",
+      "smarta": {
+        "date": "2026-08-09",
+        "parana": {
+          "date": "2026-08-10",
+          "start": "05:47",
+          "end": "07:57"
+        }
+      },
+      "vaishnava": {
+        "date": "2026-08-09",
+        "parana": {
+          "date": "2026-08-10",
+          "start": "05:47",
+          "end": "07:57"
+        }
+      },
+      "significance": "Worship of Vishnu with tulsi leaves brings great merit.",
+      "origin": "published"
+    },
+    {
+      "id": "2026-08-23-putrada",
+      "name": "Shravana Putrada",
+      "paksha": "Shukla",
+      "monthPurnimanta": "Shravana",
+      "monthAmanta": "Shravana",
+      "smarta": {
+        "date": "2026-08-23",
+        "parana": {
+          "date": "2026-08-24",
+          "start": "05:55",
+          "end": "06:22"
+        }
+      },
+      "vaishnava": {
+        "date": "2026-08-24",
+        "parana": {
+          "date": "2026-08-25",
+          "start": "05:55",
+          "end": "06:22"
+        }
+      },
+      "significance": "Observed by couples seeking the blessing of children.",
+      "names": {
+        "iskcon": "Pavitraropana"
+      },
+      "origin": "published"
+    },
+    {
+      "id": "2026-09-07-aja",
+      "name": "Aja",
+      "paksha": "Krishna",
+      "monthPurnimanta": "Bhadrapada",
+      "monthAmanta": "Shravana",
+      "smarta": {
+        "date": "2026-09-07",
+        "parana": {
+          "date": "2026-09-08",
+          "start": "06:02",
+          "end": "08:12"
+        }
+      },
+      "vaishnava": {
+        "date": "2026-09-07",
+        "parana": {
+          "date": "2026-09-08",
+          "start": "06:02",
+          "end": "08:12"
+        }
+      },
+      "significance": "Relieves suffering and restores lost fortune.",
+      "names": {
+        "iskcon": "Annada"
+      },
+      "origin": "published"
+    },
+    {
+      "id": "2026-09-22-parsva",
+      "name": "Parsva",
+      "paksha": "Shukla",
+      "monthPurnimanta": "Bhadrapada",
+      "monthAmanta": "Bhadrapada",
+      "smarta": {
+        "date": "2026-09-22",
+        "parana": {
+          "date": "2026-09-23",
+          "start": "06:09",
+          "end": "08:19"
+        }
+      },
+      "vaishnava": {
+        "date": "2026-09-22",
+        "parana": {
+          "date": "2026-09-23",
+          "start": "06:09",
+          "end": "08:19"
+        }
+      },
+      "significance": "Also called Parivartini; Vishnu turns to his other side in yogic sleep.",
+      "origin": "published"
+    },
+    {
+      "id": "2026-10-06-indira",
+      "name": "Indira",
+      "paksha": "Krishna",
+      "monthPurnimanta": "Ashwin",
+      "monthAmanta": "Bhadrapada",
+      "smarta": {
+        "date": "2026-10-06",
+        "parana": {
+          "date": "2026-10-07",
+          "start": "06:17",
+          "end": "08:27"
+        }
+      },
+      "vaishnava": {
+        "date": "2026-10-06",
+        "parana": {
+          "date": "2026-10-07",
+          "start": "06:17",
+          "end": "08:27"
+        }
+      },
+      "significance": "Observed to liberate one's ancestors (pitrs).",
+      "origin": "published"
+    },
+    {
+      "id": "2026-10-22-papankusha",
+      "name": "Papankusha",
+      "paksha": "Shukla",
+      "monthPurnimanta": "Ashwin",
+      "monthAmanta": "Ashwin",
+      "smarta": {
+        "date": "2026-10-22",
+        "parana": {
+          "date": "2026-10-23",
+          "start": "06:26",
+          "end": "08:36"
+        }
+      },
+      "vaishnava": {
+        "date": "2026-10-22",
+        "parana": {
+          "date": "2026-10-23",
+          "start": "06:26",
+          "end": "08:36"
+        }
+      },
+      "significance": "Acts as a goad (ankusha) that keeps sin away.",
+      "origin": "published"
+    },
+    {
+      "id": "2026-11-05-rama",
+      "name": "Rama",
+      "paksha": "Krishna",
+      "monthPurnimanta": "Kartik",
+      "monthAmanta": "Ashwin",
+      "smarta": {
+        "date": "2026-11-05",
+        "parana": {
+          "date": "2026-11-06",
+          "start": "06:36",
+          "end": "08:46"
+        }
+      },
+      "vaishnava": {
+        "date": "2026-11-05",
+        "parana": {
+          "date": "2026-11-06",
+          "start": "06:36",
+          "end": "08:46"
+        }
+      },
+      "significance": "Precedes Diwali; grants prosperity and devotion.",
+      "origin": "published"
+    },
+    {
+      "id": "2026-11-20-devutthana",
+      "name": "Devutthana",
+      "paksha": "Shukla",
+      "monthPurnimanta": "Kartik",
+      "monthAmanta": "Kartik",
+      "smarta": {
+        "date": "2026-11-20",
+        "parana": {
+          "date": "2026-11-21",
+          "start": "06:48",
+          "end": "08:58"
+        }
+      },
+      "vaishnava": {
+        "date": "2026-11-21",
+        "parana": {
+          "date": "2026-11-22",
+          "start": "06:48",
+          "end": "08:58"
+        }
+      },
+      "significance": "Also Prabodhini; Vishnu awakens, ending Chaturmas.",
+      "names": {
+        "iskcon": "Utthana"
+      },
+      "origin": "published"
+    },
+    {
+      "id": "2026-12-04-utpanna",
+      "name": "Utpanna",
+      "paksha": "Krishna",
+      "monthPurnimanta": "Margashirsha",
+      "monthAmanta": "Kartik",
+      "smarta": {
+        "date": "2026-12-04",
+        "parana": {
+          "date": "2026-12-05",
+          "start": "06:59",
+          "end": "09:09"
+        }
+      },
+      "vaishnava": {
+        "date": "2026-12-04",
+        "parana": {
+          "date": "2026-12-05",
+          "start": "06:59",
+          "end": "09:09"
+        }
+      },
+      "significance": "Celebrates the origin (utpanna) of the goddess Ekadashi.",
+      "origin": "published"
+    },
+    {
+      "id": "2026-12-20-mokshada",
+      "name": "Mokshada",
+      "paksha": "Shukla",
+      "monthPurnimanta": "Margashirsha",
+      "monthAmanta": "Margashirsha",
+      "smarta": {
+        "date": "2026-12-20",
+        "parana": {
+          "date": "2026-12-21",
+          "start": "07:09",
+          "end": "09:19"
+        }
+      },
+      "vaishnava": {
+        "date": "2026-12-20",
+        "parana": {
+          "date": "2026-12-21",
+          "start": "07:09",
+          "end": "09:19"
+        }
+      },
+      "significance": "Bestows liberation (moksha); coincides with Gita Jayanti and South-Indian Vaikuntha Ekadashi.",
+      "names": {
+        "tamil": "Vaikuntha",
+        "malayalam": "Vaikuntha",
+        "iskcon": "Moksada"
+      },
+      "origin": "published"
+    },
+    {
+      "id": "2027-01-03-saphala",
+      "name": "Saphala",
+      "paksha": "Krishna",
+      "monthPurnimanta": "Pausha",
+      "monthAmanta": "Margashirsha",
+      "smarta": {
+        "date": "2027-01-03",
+        "parana": {
+          "date": "2027-01-04",
+          "start": "07:14",
+          "end": "09:24"
+        }
+      },
+      "vaishnava": {
+        "date": "2027-01-03",
+        "parana": {
+          "date": "2027-01-04",
+          "start": "07:14",
+          "end": "09:24"
+        }
+      },
+      "significance": "Makes one's endeavours fruitful (saphala).",
+      "origin": "published"
+    },
+    {
+      "id": "2027-01-19-putrada",
+      "name": "Pausha Putrada",
+      "paksha": "Shukla",
+      "monthPurnimanta": "Pausha",
+      "monthAmanta": "Pausha",
+      "smarta": {
+        "date": "2027-01-19",
+        "parana": {
+          "date": "2027-01-20",
+          "start": "07:10",
+          "end": "09:20"
+        }
+      },
+      "vaishnava": {
+        "date": "2027-01-19",
+        "parana": {
+          "date": "2027-01-20",
+          "start": "07:10",
+          "end": "09:20"
+        }
+      },
+      "significance": "Observed for the well-being and blessing of children.",
+      "origin": "published"
+    },
+    {
+      "id": "2027-02-02-shattila",
+      "name": "Shattila",
+      "paksha": "Krishna",
+      "monthPurnimanta": "Magha",
+      "monthAmanta": "Pausha",
+      "smarta": {
+        "date": "2027-02-02",
+        "parana": {
+          "date": "2027-02-03",
+          "start": "07:05",
+          "end": "09:15"
+        }
+      },
+      "vaishnava": {
+        "date": "2027-02-02",
+        "parana": {
+          "date": "2027-02-03",
+          "start": "07:05",
+          "end": "09:15"
+        }
+      },
+      "significance": "Marked by charity involving sesame (til) in six ways.",
+      "origin": "published"
+    },
+    {
+      "id": "2027-02-17-jaya",
+      "name": "Jaya",
+      "paksha": "Shukla",
+      "monthPurnimanta": "Magha",
+      "monthAmanta": "Magha",
+      "smarta": {
+        "date": "2027-02-17",
+        "parana": {
+          "date": "2027-02-18",
+          "start": "06:54",
+          "end": "09:04"
+        }
+      },
+      "vaishnava": {
+        "date": "2027-02-17",
+        "parana": {
+          "date": "2027-02-18",
+          "start": "06:54",
+          "end": "09:04"
+        }
+      },
+      "significance": "Said to free devotees from the fate of becoming ghosts.",
+      "names": {
+        "iskcon": "Bhaimi"
+      },
+      "origin": "published"
+    },
+    {
+      "id": "2027-03-03-vijaya",
+      "name": "Vijaya",
+      "paksha": "Krishna",
+      "monthPurnimanta": "Phalguna",
+      "monthAmanta": "Magha",
+      "smarta": {
+        "date": "2027-03-03",
+        "parana": {
+          "date": "2027-03-04",
+          "start": "06:40",
+          "end": "08:50"
+        }
+      },
+      "vaishnava": {
+        "date": "2027-03-04",
+        "parana": {
+          "date": "2027-03-05",
+          "start": "06:40",
+          "end": "08:50"
+        }
+      },
+      "significance": "Associated with victory; observed by Lord Rama before crossing to Lanka.",
+      "origin": "published"
+    },
+    {
+      "id": "2027-03-18-amalaki",
+      "name": "Amalaki",
+      "paksha": "Shukla",
+      "monthPurnimanta": "Phalguna",
+      "monthAmanta": "Phalguna",
+      "smarta": {
+        "date": "2027-03-18",
+        "parana": {
+          "date": "2027-03-19",
+          "start": "06:26",
+          "end": "08:36"
+        }
+      },
+      "vaishnava": {
+        "date": "2027-03-19",
+        "parana": {
+          "date": "2027-03-20",
+          "start": "06:26",
+          "end": "08:36"
+        }
+      },
+      "significance": "Honours the amalaki (Indian gooseberry) tree, sacred to Vishnu.",
+      "origin": "published"
+    },
+    {
+      "id": "2027-04-02-papmochani",
+      "name": "Papmochani",
+      "paksha": "Krishna",
+      "monthPurnimanta": "Chaitra",
+      "monthAmanta": "Phalguna",
+      "smarta": {
+        "date": "2027-04-02",
+        "parana": {
+          "date": "2027-04-03",
+          "start": "06:12",
+          "end": "08:22"
+        }
+      },
+      "vaishnava": {
+        "date": "2027-04-03",
+        "parana": {
+          "date": "2027-04-04",
+          "start": "06:12",
+          "end": "08:22"
+        }
+      },
+      "significance": "Believed to wash away accumulated sins (papa).",
+      "origin": "published"
+    },
+    {
+      "id": "2027-04-16-kamada",
+      "name": "Kamada",
+      "paksha": "Shukla",
+      "monthPurnimanta": "Chaitra",
+      "monthAmanta": "Chaitra",
+      "smarta": {
+        "date": "2027-04-16",
+        "parana": {
+          "date": "2027-04-17",
+          "start": "05:59",
+          "end": "08:09"
+        }
+      },
+      "vaishnava": {
+        "date": "2027-04-17",
+        "parana": {
+          "date": "2027-04-18",
+          "start": "05:59",
+          "end": "08:09"
+        }
+      },
+      "significance": "The fulfiller of desires; first Ekadashi of the lunar new year in many panchangs.",
+      "origin": "published"
+    },
+    {
+      "id": "2027-05-02-varuthini",
+      "name": "Varuthini",
+      "paksha": "Krishna",
+      "monthPurnimanta": "Vaishakha",
+      "monthAmanta": "Chaitra",
+      "smarta": {
+        "date": "2027-05-02",
+        "parana": {
+          "date": "2027-05-03",
+          "start": "05:48",
+          "end": "07:58"
+        }
+      },
+      "vaishnava": {
+        "date": "2027-05-02",
+        "parana": {
+          "date": "2027-05-03",
+          "start": "05:48",
+          "end": "07:58"
+        }
+      },
+      "significance": "Grants protection and material as well as spiritual prosperity.",
+      "origin": "published"
+    },
+    {
+      "id": "2027-05-16-mohini",
+      "name": "Mohini",
+      "paksha": "Shukla",
+      "monthPurnimanta": "Vaishakha",
+      "monthAmanta": "Vaishakha",
+      "smarta": {
+        "date": "2027-05-16",
+        "parana": {
+          "date": "2027-05-17",
+          "start": "05:40",
+          "end": "07:50"
+        }
+      },
+      "vaishnava": {
+        "date": "2027-05-16",
+        "parana": {
+          "date": "2027-05-17",
+          "start": "05:40",
+          "end": "07:50"
+        }
+      },
+      "significance": "Named after Vishnu's Mohini avatar; frees one from illusion (moha).",
+      "origin": "published"
+    },
+    {
+      "id": "2027-06-01-apara",
+      "name": "Apara",
+      "paksha": "Krishna",
+      "monthPurnimanta": "Jyeshtha",
+      "monthAmanta": "Vaishakha",
+      "smarta": {
+        "date": "2027-06-01",
+        "parana": {
+          "date": "2027-06-02",
+          "start": "05:35",
+          "end": "07:45"
+        }
+      },
+      "vaishnava": {
+        "date": "2027-06-01",
+        "parana": {
+          "date": "2027-06-02",
+          "start": "05:35",
+          "end": "07:45"
+        }
+      },
+      "significance": "Bestows boundless (apara) merit and reputation.",
+      "origin": "published"
+    },
+    {
+      "id": "2027-06-14-nirjala",
+      "name": "Nirjala",
+      "paksha": "Shukla",
+      "monthPurnimanta": "Jyeshtha",
+      "monthAmanta": "Jyeshtha",
+      "smarta": {
+        "date": "2027-06-14",
+        "parana": {
+          "date": "2027-06-15",
+          "start": "05:34",
+          "end": "07:44"
+        }
+      },
+      "vaishnava": {
+        "date": "2027-06-15",
+        "parana": {
+          "date": "2027-06-16",
+          "start": "05:34",
+          "end": "07:44"
+        }
+      },
+      "significance": "The strictest fast, kept without water (nir-jala).",
+      "names": {
+        "iskcon": "Pandava Nirjala"
+      },
+      "origin": "published"
+    },
+    {
+      "id": "2027-06-30-yogini",
+      "name": "Yogini",
+      "paksha": "Krishna",
+      "monthPurnimanta": "Ashadha",
+      "monthAmanta": "Jyeshtha",
+      "smarta": {
+        "date": "2027-06-30",
+        "parana": {
+          "date": "2027-07-01",
+          "start": "05:34",
+          "end": "07:44"
+        }
+      },
+      "vaishnava": {
+        "date": "2027-06-30",
+        "parana": {
+          "date": "2027-07-01",
+          "start": "05:34",
+          "end": "07:44"
+        }
+      },
+      "significance": "Observed to cure ailments and remove sins.",
+      "origin": "published"
+    },
+    {
+      "id": "2027-07-14-devshayani",
+      "name": "Devshayani",
+      "paksha": "Shukla",
+      "monthPurnimanta": "Ashadha",
+      "monthAmanta": "Ashadha",
+      "smarta": {
+        "date": "2027-07-14",
+        "parana": {
+          "date": "2027-07-15",
+          "start": "05:37",
+          "end": "07:47"
+        }
+      },
+      "vaishnava": {
+        "date": "2027-07-14",
+        "parana": {
+          "date": "2027-07-15",
+          "start": "05:37",
+          "end": "07:47"
+        }
+      },
+      "significance": "Marks the start of Chaturmas, when Vishnu is said to rest.",
+      "names": {
+        "iskcon": "Sayana",
+        "tamil": "Shayani"
+      },
+      "origin": "published"
+    },
+    {
+      "id": "2027-07-29-kamika",
+      "name": "Kamika",
+      "paksha": "Krishna",
+      "monthPurnimanta": "Shravana",
+      "monthAmanta": "Ashadha",
+      "smarta": {
+        "date": "2027-07-29",
+        "parana": {
+          "date": "2027-07-30",
+          "start": "05:43",
+          "end": "07:53"
+        }
+      },
+      "vaishnava": {
+        "date": "2027-07-30",
+        "parana": {
+          "date": "2027-07-31",
+          "start": "05:43",
+          "end": "07:53"
+        }
+      },
+      "significance": "Worship of Vishnu with tulsi leaves brings great merit.",
+      "origin": "published"
+    },
+    {
+      "id": "2027-08-12-putrada",
+      "name": "Shravana Putrada",
+      "paksha": "Shukla",
+      "monthPurnimanta": "Shravana",
+      "monthAmanta": "Shravana",
+      "smarta": {
+        "date": "2027-08-12",
+        "parana": {
+          "date": "2027-08-13",
+          "start": "05:51",
+          "end": "08:01"
+        }
+      },
+      "vaishnava": {
+        "date": "2027-08-13",
+        "parana": {
+          "date": "2027-08-14",
+          "start": "05:51",
+          "end": "08:01"
+        }
+      },
+      "significance": "Observed by couples seeking the blessing of children.",
+      "names": {
+        "iskcon": "Pavitraropana"
+      },
+      "origin": "published"
+    },
+    {
+      "id": "2027-08-28-aja",
+      "name": "Aja",
+      "paksha": "Krishna",
+      "monthPurnimanta": "Bhadrapada",
+      "monthAmanta": "Shravana",
+      "smarta": {
+        "date": "2027-08-28",
+        "parana": {
+          "date": "2027-08-29",
+          "start": "05:58",
+          "end": "08:08"
+        }
+      },
+      "vaishnava": {
+        "date": "2027-08-28",
+        "parana": {
+          "date": "2027-08-29",
+          "start": "05:58",
+          "end": "08:08"
+        }
+      },
+      "significance": "Relieves suffering and restores lost fortune.",
+      "names": {
+        "iskcon": "Annada"
+      },
+      "origin": "published"
+    },
+    {
+      "id": "2027-09-11-parsva",
+      "name": "Parsva",
+      "paksha": "Shukla",
+      "monthPurnimanta": "Bhadrapada",
+      "monthAmanta": "Bhadrapada",
+      "smarta": {
+        "date": "2027-09-11",
+        "parana": {
+          "date": "2027-09-12",
+          "start": "06:04",
+          "end": "08:14"
+        }
+      },
+      "vaishnava": {
+        "date": "2027-09-11",
+        "parana": {
+          "date": "2027-09-12",
+          "start": "06:04",
+          "end": "08:14"
+        }
+      },
+      "significance": "Also called Parivartini; Vishnu turns to his other side in yogic sleep.",
+      "origin": "published"
+    },
+    {
+      "id": "2027-09-26-indira",
+      "name": "Indira",
+      "paksha": "Krishna",
+      "monthPurnimanta": "Ashwin",
+      "monthAmanta": "Bhadrapada",
+      "smarta": {
+        "date": "2027-09-26",
+        "parana": {
+          "date": "2027-09-27",
+          "start": "06:10",
+          "end": "08:20"
+        }
+      },
+      "vaishnava": {
+        "date": "2027-09-26",
+        "parana": {
+          "date": "2027-09-27",
+          "start": "06:10",
+          "end": "08:20"
+        }
+      },
+      "significance": "Observed to liberate one's ancestors (pitrs).",
+      "origin": "published"
+    },
+    {
+      "id": "2027-10-11-papankusha",
+      "name": "Papankusha",
+      "paksha": "Shukla",
+      "monthPurnimanta": "Ashwin",
+      "monthAmanta": "Ashwin",
+      "smarta": {
+        "date": "2027-10-11",
+        "parana": {
+          "date": "2027-10-12",
+          "start": "06:16",
+          "end": "08:26"
+        }
+      },
+      "vaishnava": {
+        "date": "2027-10-11",
+        "parana": {
+          "date": "2027-10-12",
+          "start": "06:16",
+          "end": "08:26"
+        }
+      },
+      "significance": "Acts as a goad (ankusha) that keeps sin away.",
+      "origin": "published"
+    },
+    {
+      "id": "2027-10-25-rama",
+      "name": "Rama",
+      "paksha": "Krishna",
+      "monthPurnimanta": "Kartik",
+      "monthAmanta": "Ashwin",
+      "smarta": {
+        "date": "2027-10-25",
+        "parana": {
+          "date": "2027-10-26",
+          "start": "06:23",
+          "end": "08:33"
+        }
+      },
+      "vaishnava": {
+        "date": "2027-10-26",
+        "parana": {
+          "date": "2027-10-27",
+          "start": "06:23",
+          "end": "08:33"
+        }
+      },
+      "significance": "Precedes Diwali; grants prosperity and devotion.",
+      "origin": "published"
+    },
+    {
+      "id": "2027-11-10-devutthana",
+      "name": "Devutthana",
+      "paksha": "Shukla",
+      "monthPurnimanta": "Kartik",
+      "monthAmanta": "Kartik",
+      "smarta": {
+        "date": "2027-11-10",
+        "parana": {
+          "date": "2027-11-11",
+          "start": "06:31",
+          "end": "08:41"
+        }
+      },
+      "vaishnava": {
+        "date": "2027-11-10",
+        "parana": {
+          "date": "2027-11-11",
+          "start": "06:31",
+          "end": "08:41"
+        }
+      },
+      "significance": "Also Prabodhini; Vishnu awakens, ending Chaturmas.",
+      "names": {
+        "iskcon": "Utthana"
+      },
+      "origin": "published"
+    },
+    {
+      "id": "2027-11-24-utpanna",
+      "name": "Utpanna",
+      "paksha": "Krishna",
+      "monthPurnimanta": "Margashirsha",
+      "monthAmanta": "Kartik",
+      "smarta": {
+        "date": "2027-11-24",
+        "parana": {
+          "date": "2027-11-25",
+          "start": "06:42",
+          "end": "08:52"
+        }
+      },
+      "vaishnava": {
+        "date": "2027-11-24",
+        "parana": {
+          "date": "2027-11-25",
+          "start": "06:42",
+          "end": "08:52"
+        }
+      },
+      "significance": "Celebrates the origin (utpanna) of the goddess Ekadashi.",
+      "origin": "published"
+    },
+    {
+      "id": "2027-12-09-mokshada",
+      "name": "Mokshada",
+      "paksha": "Shukla",
+      "monthPurnimanta": "Margashirsha",
+      "monthAmanta": "Margashirsha",
+      "smarta": {
+        "date": "2027-12-09",
+        "parana": {
+          "date": "2027-12-10",
+          "start": "06:54",
+          "end": "09:04"
+        }
+      },
+      "vaishnava": {
+        "date": "2027-12-10",
+        "parana": {
+          "date": "2027-12-11",
+          "start": "06:54",
+          "end": "09:04"
+        }
+      },
+      "significance": "Bestows liberation (moksha); coincides with Gita Jayanti and South-Indian Vaikuntha Ekadashi.",
+      "names": {
+        "tamil": "Vaikuntha",
+        "malayalam": "Vaikuntha",
+        "iskcon": "Moksada"
+      },
+      "origin": "published"
+    },
+    {
+      "id": "2027-12-23-saphala",
+      "name": "Saphala",
+      "paksha": "Krishna",
+      "monthPurnimanta": "Pausha",
+      "monthAmanta": "Margashirsha",
+      "smarta": {
+        "date": "2027-12-23",
+        "parana": {
+          "date": "2027-12-24",
+          "start": "07:06",
+          "end": "09:16"
+        }
+      },
+      "vaishnava": {
+        "date": "2027-12-23",
+        "parana": {
+          "date": "2027-12-24",
+          "start": "07:06",
+          "end": "09:16"
+        }
+      },
+      "significance": "Makes one's endeavours fruitful (saphala).",
+      "origin": "published"
+    },
+    {
+      "id": "2028-01-08-pausha-putrada",
+      "name": "Pausha Putrada",
+      "paksha": "Shukla",
+      "monthPurnimanta": "Pausha",
+      "monthAmanta": "Pausha",
+      "smarta": {
+        "date": "2028-01-08",
+        "parana": {
+          "date": "2028-01-09",
+          "start": "07:15",
+          "end": "10:43"
+        }
+      },
+      "vaishnava": {
+        "date": "2028-01-08",
+        "parana": {
+          "date": "2028-01-09",
+          "start": "14:48",
+          "end": "16:58"
+        }
+      },
+      "significance": "Observed for the well-being and blessing of children.",
+      "origin": "published"
+    },
+    {
+      "id": "2028-01-22-shattila",
+      "name": "Shattila",
+      "paksha": "Krishna",
+      "monthPurnimanta": "Magha",
+      "monthAmanta": "Pausha",
+      "smarta": {
+        "date": "2028-01-22",
+        "parana": {
+          "date": "2028-01-23",
+          "start": "07:13",
+          "end": "10:46"
+        }
+      },
+      "vaishnava": {
+        "date": "2028-01-22",
+        "parana": {
+          "date": "2028-01-23",
+          "start": "12:24",
+          "end": "14:34"
+        }
+      },
+      "significance": "Marked by charity involving sesame (til) in six ways.",
+      "origin": "published"
+    },
+    {
+      "id": "2028-02-07-jaya",
+      "name": "Jaya",
+      "paksha": "Shukla",
+      "monthPurnimanta": "Magha",
+      "monthAmanta": "Magha",
+      "smarta": {
+        "date": "2028-02-07",
+        "parana": {
+          "date": "2028-02-08",
+          "start": "07:05",
+          "end": "10:45"
+        }
+      },
+      "vaishnava": {
+        "date": "2028-02-07",
+        "parana": {
+          "date": "2028-02-08",
+          "start": "01:46",
+          "end": "03:56"
+        }
+      },
+      "significance": "Said to free devotees from the fate of becoming ghosts.",
+      "origin": "published",
+      "names": {
+        "iskcon": "Bhaimi"
+      }
+    },
+    {
+      "id": "2028-02-20-vijaya",
+      "name": "Vijaya",
+      "paksha": "Krishna",
+      "monthPurnimanta": "Phalguna",
+      "monthAmanta": "Magha",
+      "smarta": {
+        "date": "2028-02-20",
+        "parana": {
+          "date": "2028-02-21",
+          "start": "06:54",
+          "end": "08:10"
+        }
+      },
+      "vaishnava": {
+        "date": "2028-02-20",
+        "parana": {
+          "date": "2028-02-21",
+          "start": "06:54",
+          "end": "08:10"
+        }
+      },
+      "significance": "Associated with victory; observed by Lord Rama before crossing to Lanka.",
+      "origin": "published"
+    },
+    {
+      "id": "2028-03-07-amalaki",
+      "name": "Amalaki",
+      "paksha": "Shukla",
+      "monthPurnimanta": "Phalguna",
+      "monthAmanta": "Phalguna",
+      "smarta": {
+        "date": "2028-03-07",
+        "parana": {
+          "date": "2028-03-08",
+          "start": "06:38",
+          "end": "10:34"
+        }
+      },
+      "vaishnava": {
+        "date": "2028-03-07",
+        "parana": {
+          "date": "2028-03-08",
+          "start": "10:14",
+          "end": "12:24"
+        }
+      },
+      "significance": "Honours the amalaki (Indian gooseberry) tree, sacred to Vishnu.",
+      "origin": "published"
+    },
+    {
+      "id": "2028-03-21-papmochani",
+      "name": "Papmochani",
+      "paksha": "Krishna",
+      "monthPurnimanta": "Chaitra",
+      "monthAmanta": "Phalguna",
+      "smarta": {
+        "date": "2028-03-21",
+        "parana": {
+          "date": "2028-03-22",
+          "start": "06:22",
+          "end": "10:26"
+        }
+      },
+      "vaishnava": {
+        "date": "2028-03-21",
+        "parana": {
+          "date": "2028-03-22",
+          "start": "06:57",
+          "end": "10:26"
+        }
+      },
+      "significance": "Believed to wash away accumulated sins (papa).",
+      "origin": "published"
+    },
+    {
+      "id": "2028-04-05-kamada",
+      "name": "Kamada",
+      "paksha": "Shukla",
+      "monthPurnimanta": "Chaitra",
+      "monthAmanta": "Chaitra",
+      "smarta": {
+        "date": "2028-04-05",
+        "parana": {
+          "date": "2028-04-06",
+          "start": "06:05",
+          "end": "10:17"
+        }
+      },
+      "vaishnava": {
+        "date": "2028-04-06",
+        "parana": {
+          "date": "2028-04-07",
+          "start": "06:04",
+          "end": "08:14"
+        }
+      },
+      "significance": "The fulfiller of desires; first Ekadashi of the lunar new year in many panchangs.",
+      "origin": "published"
+    },
+    {
+      "id": "2028-04-20-varuthini",
+      "name": "Varuthini",
+      "paksha": "Krishna",
+      "monthPurnimanta": "Vaishakha",
+      "monthAmanta": "Chaitra",
+      "smarta": {
+        "date": "2028-04-20",
+        "parana": {
+          "date": "2028-04-21",
+          "start": "05:49",
+          "end": "10:09"
+        }
+      },
+      "vaishnava": {
+        "date": "2028-04-20",
+        "parana": {
+          "date": "2028-04-21",
+          "start": "05:49",
+          "end": "10:09"
+        }
+      },
+      "significance": "Grants protection and material as well as spiritual prosperity.",
+      "origin": "published"
+    },
+    {
+      "id": "2028-05-05-mohini",
+      "name": "Mohini",
+      "paksha": "Shukla",
+      "monthPurnimanta": "Vaishakha",
+      "monthAmanta": "Vaishakha",
+      "smarta": {
+        "date": "2028-05-05",
+        "parana": {
+          "date": "2028-05-06",
+          "start": "05:36",
+          "end": "08:50"
+        }
+      },
+      "vaishnava": {
+        "date": "2028-05-05",
+        "parana": {
+          "date": "2028-05-06",
+          "start": "05:36",
+          "end": "08:50"
+        }
+      },
+      "significance": "Named after Vishnu's Mohini avatar; frees one from illusion (moha).",
+      "origin": "published"
+    },
+    {
+      "id": "2028-05-20-apara",
+      "name": "Apara",
+      "paksha": "Krishna",
+      "monthPurnimanta": "Jyeshtha",
+      "monthAmanta": "Vaishakha",
+      "smarta": {
+        "date": "2028-05-20",
+        "parana": {
+          "date": "2028-05-21",
+          "start": "05:27",
+          "end": "10:00"
+        }
+      },
+      "vaishnava": {
+        "date": "2028-05-20",
+        "parana": {
+          "date": "2028-05-21",
+          "start": "05:27",
+          "end": "10:00"
+        }
+      },
+      "significance": "Bestows boundless (apara) merit and reputation.",
+      "origin": "published"
+    },
+    {
+      "id": "2028-06-03-nirjala",
+      "name": "Nirjala",
+      "paksha": "Shukla",
+      "monthPurnimanta": "Jyeshtha",
+      "monthAmanta": "Jyeshtha",
+      "smarta": {
+        "date": "2028-06-03",
+        "parana": {
+          "date": "2028-06-04",
+          "start": "05:23",
+          "end": "10:00"
+        }
+      },
+      "vaishnava": {
+        "date": "2028-06-03",
+        "parana": {
+          "date": "2028-06-04",
+          "start": "05:23",
+          "end": "10:00"
+        }
+      },
+      "significance": "The strictest fast, kept without water (nir-jala).",
+      "origin": "published",
+      "names": {
+        "iskcon": "Pandava Nirjala"
+      }
+    },
+    {
+      "id": "2028-06-18-yogini",
+      "name": "Yogini",
+      "paksha": "Krishna",
+      "monthPurnimanta": "Ashadha",
+      "monthAmanta": "Jyeshtha",
+      "smarta": {
+        "date": "2028-06-18",
+        "parana": {
+          "date": "2028-06-19",
+          "start": "05:23",
+          "end": "10:02"
+        }
+      },
+      "vaishnava": {
+        "date": "2028-06-18",
+        "parana": {
+          "date": "2028-06-19",
+          "start": "09:19",
+          "end": "10:02"
+        }
+      },
+      "significance": "Observed to cure ailments and remove sins.",
+      "origin": "published"
+    },
+    {
+      "id": "2028-07-02-devshayani",
+      "name": "Devshayani",
+      "paksha": "Shukla",
+      "monthPurnimanta": "Ashadha",
+      "monthAmanta": "Ashadha",
+      "smarta": {
+        "date": "2028-07-02",
+        "parana": {
+          "date": "2028-07-03",
+          "start": "05:27",
+          "end": "10:06"
+        }
+      },
+      "vaishnava": {
+        "date": "2028-07-02",
+        "parana": {
+          "date": "2028-07-03",
+          "start": "05:54",
+          "end": "10:06"
+        }
+      },
+      "significance": "Marks the start of Chaturmas, when Vishnu is said to rest.",
+      "origin": "published",
+      "names": {
+        "iskcon": "Sayana",
+        "tamil": "Shayani"
+      }
+    },
+    {
+      "id": "2028-07-18-kamika",
+      "name": "Kamika",
+      "paksha": "Krishna",
+      "monthPurnimanta": "Shravana",
+      "monthAmanta": "Ashadha",
+      "smarta": {
+        "date": "2028-07-18",
+        "parana": {
+          "date": "2028-07-19",
+          "start": "05:35",
+          "end": "10:10"
+        }
+      },
+      "vaishnava": {
+        "date": "2028-07-18",
+        "parana": {
+          "date": "2028-07-19",
+          "start": "05:35",
+          "end": "10:10"
+        }
+      },
+      "significance": "Worship of Vishnu with tulsi leaves brings great merit.",
+      "origin": "published"
+    },
+    {
+      "id": "2028-08-01-shravana-putrada",
+      "name": "Shravana Putrada",
+      "paksha": "Shukla",
+      "monthPurnimanta": "Shravana",
+      "monthAmanta": "Shravana",
+      "smarta": {
+        "date": "2028-08-01",
+        "parana": {
+          "date": "2028-08-02",
+          "start": "05:43",
+          "end": "09:26"
+        }
+      },
+      "vaishnava": {
+        "date": "2028-08-01",
+        "parana": {
+          "date": "2028-08-02",
+          "start": "05:43",
+          "end": "09:26"
+        }
+      },
+      "significance": "Observed by couples seeking the blessing of children.",
+      "origin": "published",
+      "names": {
+        "iskcon": "Pavitraropana"
+      }
+    },
+    {
+      "id": "2028-08-16-aja",
+      "name": "Aja",
+      "paksha": "Krishna",
+      "monthPurnimanta": "Bhadrapada",
+      "monthAmanta": "Shravana",
+      "smarta": {
+        "date": "2028-08-16",
+        "parana": {
+          "date": "2028-08-17",
+          "start": "05:51",
+          "end": "10:13"
+        }
+      },
+      "vaishnava": {
+        "date": "2028-08-17",
+        "parana": {
+          "date": "2028-08-18",
+          "start": "05:52",
+          "end": "08:02"
+        }
+      },
+      "significance": "Relieves suffering and restores lost fortune.",
+      "origin": "published",
+      "names": {
+        "iskcon": "Annada"
+      }
+    },
+    {
+      "id": "2028-08-30-parsva",
+      "name": "Parsva",
+      "paksha": "Shukla",
+      "monthPurnimanta": "Bhadrapada",
+      "monthAmanta": "Bhadrapada",
+      "smarta": {
+        "date": "2028-08-30",
+        "parana": {
+          "date": "2028-08-31",
+          "start": "05:58",
+          "end": "10:13"
+        }
+      },
+      "vaishnava": {
+        "date": "2028-08-30",
+        "parana": {
+          "date": "2028-08-31",
+          "start": "05:58",
+          "end": "10:13"
+        }
+      },
+      "significance": "Also called Parivartini; Vishnu turns to his other side in yogic sleep.",
+      "origin": "published"
+    },
+    {
+      "id": "2028-09-15-indira",
+      "name": "Indira",
+      "paksha": "Krishna",
+      "monthPurnimanta": "Ashwin",
+      "monthAmanta": "Bhadrapada",
+      "smarta": {
+        "date": "2028-09-15",
+        "parana": {
+          "date": "2028-09-16",
+          "start": "06:06",
+          "end": "10:12"
+        }
+      },
+      "vaishnava": {
+        "date": "2028-09-15",
+        "parana": {
+          "date": "2028-09-16",
+          "start": "06:06",
+          "end": "10:12"
+        }
+      },
+      "significance": "Observed to liberate one's ancestors (pitrs).",
+      "origin": "published"
+    },
+    {
+      "id": "2028-09-29-papankusha",
+      "name": "Papankusha",
+      "paksha": "Shukla",
+      "monthPurnimanta": "Ashwin",
+      "monthAmanta": "Ashwin",
+      "smarta": {
+        "date": "2028-09-29",
+        "parana": {
+          "date": "2028-09-30",
+          "start": "06:13",
+          "end": "10:11"
+        }
+      },
+      "vaishnava": {
+        "date": "2028-09-29",
+        "parana": {
+          "date": "2028-09-30",
+          "start": "06:13",
+          "end": "10:11"
+        }
+      },
+      "significance": "Acts as a goad (ankusha) that keeps sin away.",
+      "origin": "published"
+    },
+    {
+      "id": "2028-10-14-rama",
+      "name": "Rama",
+      "paksha": "Krishna",
+      "monthPurnimanta": "Kartik",
+      "monthAmanta": "Ashwin",
+      "smarta": {
+        "date": "2028-10-14",
+        "parana": {
+          "date": "2028-10-15",
+          "start": "06:22",
+          "end": "10:11"
+        }
+      },
+      "vaishnava": {
+        "date": "2028-10-14",
+        "parana": {
+          "date": "2028-10-15",
+          "start": "06:22",
+          "end": "10:11"
+        }
+      },
+      "significance": "Precedes Diwali; grants prosperity and devotion.",
+      "origin": "published"
+    },
+    {
+      "id": "2028-10-28-padmini",
+      "name": "Padmini",
+      "paksha": "Shukla",
+      "monthPurnimanta": "Kartik",
+      "monthAmanta": "Kartik",
+      "smarta": {
+        "date": "2028-10-28",
+        "parana": {
+          "date": "2028-10-29",
+          "start": "06:31",
+          "end": "10:13"
+        }
+      },
+      "vaishnava": {
+        "date": "2028-10-28",
+        "parana": {
+          "date": "2028-10-29",
+          "start": "13:00",
+          "end": "15:10"
+        }
+      },
+      "significance": "Rare Adhika-masa Ekadashi of Purushottama month, observed only in leap-lunar years.",
+      "origin": "published",
+      "adhika": true
+    },
+    {
+      "id": "2028-11-13-parama",
+      "name": "Parama",
+      "paksha": "Krishna",
+      "monthPurnimanta": "Kartik",
+      "monthAmanta": "Ashwin",
+      "smarta": {
+        "date": "2028-11-13",
+        "parana": {
+          "date": "2028-11-14",
+          "start": "06:43",
+          "end": "08:53"
+        }
+      },
+      "vaishnava": {
+        "date": "2028-11-13",
+        "parana": {
+          "date": "2028-11-14",
+          "start": "06:43",
+          "end": "08:53"
+        }
+      },
+      "significance": "The Krishna-paksha Ekadashi of Adhika masa (Purushottama masa).",
+      "origin": "published",
+      "adhika": true
+    },
+    {
+      "id": "2028-11-27-devutthana",
+      "name": "Devutthana",
+      "paksha": "Shukla",
+      "monthPurnimanta": "Kartik",
+      "monthAmanta": "Kartik",
+      "smarta": {
+        "date": "2028-11-27",
+        "parana": {
+          "date": "2028-11-28",
+          "start": "06:54",
+          "end": "10:24"
+        }
+      },
+      "vaishnava": {
+        "date": "2028-11-27",
+        "parana": {
+          "date": "2028-11-28",
+          "start": "08:48",
+          "end": "10:24"
+        }
+      },
+      "significance": "Also Prabodhini; Vishnu awakens, ending Chaturmas.",
+      "origin": "published",
+      "names": {
+        "iskcon": "Utthana"
+      }
+    },
+    {
+      "id": "2028-12-12-utpanna",
+      "name": "Utpanna",
+      "paksha": "Krishna",
+      "monthPurnimanta": "Margashirsha",
+      "monthAmanta": "Kartik",
+      "smarta": {
+        "date": "2028-12-12",
+        "parana": {
+          "date": "2028-12-13",
+          "start": "07:05",
+          "end": "10:32"
+        }
+      },
+      "vaishnava": {
+        "date": "2028-12-12",
+        "parana": {
+          "date": "2028-12-13",
+          "start": "07:05",
+          "end": "10:32"
+        }
+      },
+      "significance": "Celebrates the origin (utpanna) of the goddess Ekadashi.",
+      "origin": "published"
+    },
+    {
+      "id": "2028-12-27-mokshada",
+      "name": "Mokshada",
+      "paksha": "Shukla",
+      "monthPurnimanta": "Margashirsha",
+      "monthAmanta": "Margashirsha",
+      "smarta": {
+        "date": "2028-12-27",
+        "parana": {
+          "date": "2028-12-28",
+          "start": "07:12",
+          "end": "10:39"
+        }
+      },
+      "vaishnava": {
+        "date": "2028-12-27",
+        "parana": {
+          "date": "2028-12-28",
+          "start": "07:12",
+          "end": "10:39"
+        }
+      },
+      "significance": "Bestows liberation (moksha); coincides with Gita Jayanti and South-Indian Vaikuntha Ekadashi.",
+      "origin": "published",
+      "names": {
+        "tamil": "Vaikuntha",
+        "malayalam": "Vaikuntha",
+        "iskcon": "Moksada"
+      }
+    },
+    {
+      "id": "2029-01-10-saphala",
+      "name": "Saphala",
+      "paksha": "Krishna",
+      "monthPurnimanta": "Pausha",
+      "monthAmanta": "Margashirsha",
+      "smarta": {
+        "date": "2029-01-10",
+        "parana": {
+          "date": "2029-01-11",
+          "start": "07:15",
+          "end": "09:25"
+        }
+      },
+      "vaishnava": {
+        "date": "2029-01-10",
+        "parana": {
+          "date": "2029-01-11",
+          "start": "13:47",
+          "end": "15:57"
+        }
+      },
+      "significance": "Makes one's endeavours fruitful (saphala).",
+      "origin": "published"
+    },
+    {
+      "id": "2029-01-26-pausha-putrada",
+      "name": "Pausha Putrada",
+      "paksha": "Shukla",
+      "monthPurnimanta": "Pausha",
+      "monthAmanta": "Pausha",
+      "smarta": {
+        "date": "2029-01-26",
+        "parana": {
+          "date": "2029-01-27",
+          "start": "07:12",
+          "end": "10:46"
+        }
+      },
+      "vaishnava": {
+        "date": "2029-01-26",
+        "parana": {
+          "date": "2029-01-27",
+          "start": "14:48",
+          "end": "16:58"
+        }
+      },
+      "significance": "Observed for the well-being and blessing of children.",
+      "origin": "published"
+    },
+    {
+      "id": "2029-02-09-shattila",
+      "name": "Shattila",
+      "paksha": "Krishna",
+      "monthPurnimanta": "Magha",
+      "monthAmanta": "Pausha",
+      "smarta": {
+        "date": "2029-02-09",
+        "parana": {
+          "date": "2029-02-10",
+          "start": "07:03",
+          "end": "10:45"
+        }
+      },
+      "vaishnava": {
+        "date": "2029-02-09",
+        "parana": {
+          "date": "2029-02-10",
+          "start": "08:40",
+          "end": "10:50"
+        }
+      },
+      "significance": "Marked by charity involving sesame (til) in six ways.",
+      "origin": "published"
+    },
+    {
+      "id": "2029-02-25-jaya",
+      "name": "Jaya",
+      "paksha": "Shukla",
+      "monthPurnimanta": "Magha",
+      "monthAmanta": "Magha",
+      "smarta": {
+        "date": "2029-02-25",
+        "parana": {
+          "date": "2029-02-26",
+          "start": "06:50",
+          "end": "10:39"
+        }
+      },
+      "vaishnava": {
+        "date": "2029-02-25",
+        "parana": {
+          "date": "2029-02-26",
+          "start": "02:58",
+          "end": "05:08"
+        }
+      },
+      "significance": "Said to free devotees from the fate of becoming ghosts.",
+      "origin": "published",
+      "names": {
+        "iskcon": "Bhaimi"
+      }
+    },
+    {
+      "id": "2029-03-10-vijaya",
+      "name": "Vijaya",
+      "paksha": "Krishna",
+      "monthPurnimanta": "Phalguna",
+      "monthAmanta": "Magha",
+      "smarta": {
+        "date": "2029-03-10",
+        "parana": {
+          "date": "2029-03-11",
+          "start": "06:36",
+          "end": "08:46"
+        }
+      },
+      "vaishnava": {
+        "date": "2029-03-10",
+        "parana": {
+          "date": "2029-03-11",
+          "start": "06:36",
+          "end": "08:46"
+        }
+      },
+      "significance": "Associated with victory; observed by Lord Rama before crossing to Lanka.",
+      "origin": "published"
+    },
+    {
+      "id": "2029-03-26-amalaki",
+      "name": "Amalaki",
+      "paksha": "Shukla",
+      "monthPurnimanta": "Phalguna",
+      "monthAmanta": "Phalguna",
+      "smarta": {
+        "date": "2029-03-26",
+        "parana": {
+          "date": "2029-03-27",
+          "start": "06:17",
+          "end": "10:23"
+        }
+      },
+      "vaishnava": {
+        "date": "2029-03-26",
+        "parana": {
+          "date": "2029-03-27",
+          "start": "06:17",
+          "end": "10:23"
+        }
+      },
+      "significance": "Honours the amalaki (Indian gooseberry) tree, sacred to Vishnu.",
+      "origin": "published"
+    },
+    {
+      "id": "2029-04-09-papmochani",
+      "name": "Papmochani",
+      "paksha": "Krishna",
+      "monthPurnimanta": "Chaitra",
+      "monthAmanta": "Phalguna",
+      "smarta": {
+        "date": "2029-04-09",
+        "parana": {
+          "date": "2029-04-10",
+          "start": "06:01",
+          "end": "10:15"
+        }
+      },
+      "vaishnava": {
+        "date": "2029-04-09",
+        "parana": {
+          "date": "2029-04-10",
+          "start": "06:01",
+          "end": "10:15"
+        }
+      },
+      "significance": "Believed to wash away accumulated sins (papa).",
+      "origin": "published"
+    },
+    {
+      "id": "2029-04-25-kamada",
+      "name": "Kamada",
+      "paksha": "Shukla",
+      "monthPurnimanta": "Chaitra",
+      "monthAmanta": "Chaitra",
+      "smarta": {
+        "date": "2029-04-25",
+        "parana": {
+          "date": "2029-04-26",
+          "start": "05:45",
+          "end": "07:55"
+        }
+      },
+      "vaishnava": {
+        "date": "2029-04-25",
+        "parana": {
+          "date": "2029-04-26",
+          "start": "05:45",
+          "end": "07:55"
+        }
+      },
+      "significance": "The fulfiller of desires; first Ekadashi of the lunar new year in many panchangs.",
+      "origin": "published"
+    },
+    {
+      "id": "2029-05-09-varuthini",
+      "name": "Varuthini",
+      "paksha": "Krishna",
+      "monthPurnimanta": "Vaishakha",
+      "monthAmanta": "Chaitra",
+      "smarta": {
+        "date": "2029-05-09",
+        "parana": {
+          "date": "2029-05-10",
+          "start": "05:33",
+          "end": "10:03"
+        }
+      },
+      "vaishnava": {
+        "date": "2029-05-09",
+        "parana": {
+          "date": "2029-05-10",
+          "start": "05:33",
+          "end": "10:03"
+        }
+      },
+      "significance": "Grants protection and material as well as spiritual prosperity.",
+      "origin": "published"
+    },
+    {
+      "id": "2029-05-24-mohini",
+      "name": "Mohini",
+      "paksha": "Shukla",
+      "monthPurnimanta": "Vaishakha",
+      "monthAmanta": "Vaishakha",
+      "smarta": {
+        "date": "2029-05-24",
+        "parana": {
+          "date": "2029-05-25",
+          "start": "05:25",
+          "end": "09:58"
+        }
+      },
+      "vaishnava": {
+        "date": "2029-05-24",
+        "parana": {
+          "date": "2029-05-25",
+          "start": "05:25",
+          "end": "09:58"
+        }
+      },
+      "significance": "Named after Vishnu's Mohini avatar; frees one from illusion (moha).",
+      "origin": "published"
+    },
+    {
+      "id": "2029-06-07-apara",
+      "name": "Apara",
+      "paksha": "Krishna",
+      "monthPurnimanta": "Jyeshtha",
+      "monthAmanta": "Vaishakha",
+      "smarta": {
+        "date": "2029-06-07",
+        "parana": {
+          "date": "2029-06-08",
+          "start": "05:22",
+          "end": "10:01"
+        }
+      },
+      "vaishnava": {
+        "date": "2029-06-07",
+        "parana": {
+          "date": "2029-06-08",
+          "start": "09:19",
+          "end": "10:01"
+        }
+      },
+      "significance": "Bestows boundless (apara) merit and reputation.",
+      "origin": "published"
+    },
+    {
+      "id": "2029-06-22-nirjala",
+      "name": "Nirjala",
+      "paksha": "Shukla",
+      "monthPurnimanta": "Jyeshtha",
+      "monthAmanta": "Jyeshtha",
+      "smarta": {
+        "date": "2029-06-22",
+        "parana": {
+          "date": "2029-06-23",
+          "start": "05:24",
+          "end": "10:03"
+        }
+      },
+      "vaishnava": {
+        "date": "2029-06-22",
+        "parana": {
+          "date": "2029-06-23",
+          "start": "05:24",
+          "end": "10:03"
+        }
+      },
+      "significance": "The strictest fast, kept without water (nir-jala).",
+      "origin": "published",
+      "names": {
+        "iskcon": "Pandava Nirjala"
+      }
+    },
+    {
+      "id": "2029-07-07-yogini",
+      "name": "Yogini",
+      "paksha": "Krishna",
+      "monthPurnimanta": "Ashadha",
+      "monthAmanta": "Jyeshtha",
+      "smarta": {
+        "date": "2029-07-07",
+        "parana": {
+          "date": "2029-07-08",
+          "start": "05:29",
+          "end": "10:07"
+        }
+      },
+      "vaishnava": {
+        "date": "2029-07-07",
+        "parana": {
+          "date": "2029-07-08",
+          "start": "05:29",
+          "end": "10:07"
+        }
+      },
+      "significance": "Observed to cure ailments and remove sins.",
+      "origin": "published"
+    },
+    {
+      "id": "2029-07-21-devshayani",
+      "name": "Devshayani",
+      "paksha": "Shukla",
+      "monthPurnimanta": "Ashadha",
+      "monthAmanta": "Ashadha",
+      "smarta": {
+        "date": "2029-07-21",
+        "parana": {
+          "date": "2029-07-22",
+          "start": "05:36",
+          "end": "10:10"
+        }
+      },
+      "vaishnava": {
+        "date": "2029-07-21",
+        "parana": {
+          "date": "2029-07-22",
+          "start": "05:51",
+          "end": "10:10"
+        }
+      },
+      "significance": "Marks the start of Chaturmas, when Vishnu is said to rest.",
+      "origin": "published",
+      "names": {
+        "iskcon": "Sayana",
+        "tamil": "Shayani"
+      }
+    },
+    {
+      "id": "2029-08-06-kamika",
+      "name": "Kamika",
+      "paksha": "Krishna",
+      "monthPurnimanta": "Shravana",
+      "monthAmanta": "Ashadha",
+      "smarta": {
+        "date": "2029-08-06",
+        "parana": {
+          "date": "2029-08-07",
+          "start": "05:45",
+          "end": "10:13"
+        }
+      },
+      "vaishnava": {
+        "date": "2029-08-06",
+        "parana": {
+          "date": "2029-08-07",
+          "start": "05:45",
+          "end": "10:13"
+        }
+      },
+      "significance": "Worship of Vishnu with tulsi leaves brings great merit.",
+      "origin": "published"
+    },
+    {
+      "id": "2029-08-20-shravana-putrada",
+      "name": "Shravana Putrada",
+      "paksha": "Shukla",
+      "monthPurnimanta": "Shravana",
+      "monthAmanta": "Shravana",
+      "smarta": {
+        "date": "2029-08-20",
+        "parana": {
+          "date": "2029-08-21",
+          "start": "05:53",
+          "end": "06:55"
+        }
+      },
+      "vaishnava": {
+        "date": "2029-08-20",
+        "parana": {
+          "date": "2029-08-21",
+          "start": "05:53",
+          "end": "06:55"
+        }
+      },
+      "significance": "Observed by couples seeking the blessing of children.",
+      "origin": "published",
+      "names": {
+        "iskcon": "Pavitraropana"
+      }
+    },
+    {
+      "id": "2029-09-04-aja",
+      "name": "Aja",
+      "paksha": "Krishna",
+      "monthPurnimanta": "Bhadrapada",
+      "monthAmanta": "Shravana",
+      "smarta": {
+        "date": "2029-09-04",
+        "parana": {
+          "date": "2029-09-05",
+          "start": "06:00",
+          "end": "10:13"
+        }
+      },
+      "vaishnava": {
+        "date": "2029-09-04",
+        "parana": {
+          "date": "2029-09-05",
+          "start": "06:22",
+          "end": "10:13"
+        }
+      },
+      "significance": "Relieves suffering and restores lost fortune.",
+      "origin": "published",
+      "names": {
+        "iskcon": "Annada"
+      }
+    },
+    {
+      "id": "2029-09-18-parsva",
+      "name": "Parsva",
+      "paksha": "Shukla",
+      "monthPurnimanta": "Bhadrapada",
+      "monthAmanta": "Bhadrapada",
+      "smarta": {
+        "date": "2029-09-18",
+        "parana": {
+          "date": "2029-09-19",
+          "start": "06:07",
+          "end": "10:12"
+        }
+      },
+      "vaishnava": {
+        "date": "2029-09-18",
+        "parana": {
+          "date": "2029-09-19",
+          "start": "06:07",
+          "end": "10:12"
+        }
+      },
+      "significance": "Also called Parivartini; Vishnu turns to his other side in yogic sleep.",
+      "origin": "published"
+    },
+    {
+      "id": "2029-10-04-indira",
+      "name": "Indira",
+      "paksha": "Krishna",
+      "monthPurnimanta": "Ashwin",
+      "monthAmanta": "Bhadrapada",
+      "smarta": {
+        "date": "2029-10-04",
+        "parana": {
+          "date": "2029-10-05",
+          "start": "06:15",
+          "end": "10:11"
+        }
+      },
+      "vaishnava": {
+        "date": "2029-10-04",
+        "parana": {
+          "date": "2029-10-05",
+          "start": "06:15",
+          "end": "10:11"
+        }
+      },
+      "significance": "Observed to liberate one's ancestors (pitrs).",
+      "origin": "published"
+    },
+    {
+      "id": "2029-10-18-papankusha",
+      "name": "Papankusha",
+      "paksha": "Shukla",
+      "monthPurnimanta": "Ashwin",
+      "monthAmanta": "Ashwin",
+      "smarta": {
+        "date": "2029-10-18",
+        "parana": {
+          "date": "2029-10-19",
+          "start": "06:24",
+          "end": "08:20"
+        }
+      },
+      "vaishnava": {
+        "date": "2029-10-18",
+        "parana": {
+          "date": "2029-10-19",
+          "start": "06:24",
+          "end": "08:20"
+        }
+      },
+      "significance": "Acts as a goad (ankusha) that keeps sin away.",
+      "origin": "published"
+    },
+    {
+      "id": "2029-11-02-rama",
+      "name": "Rama",
+      "paksha": "Krishna",
+      "monthPurnimanta": "Kartik",
+      "monthAmanta": "Ashwin",
+      "smarta": {
+        "date": "2029-11-02",
+        "parana": {
+          "date": "2029-11-03",
+          "start": "06:34",
+          "end": "10:14"
+        }
+      },
+      "vaishnava": {
+        "date": "2029-11-02",
+        "parana": {
+          "date": "2029-11-03",
+          "start": "06:34",
+          "end": "10:14"
+        }
+      },
+      "significance": "Precedes Diwali; grants prosperity and devotion.",
+      "origin": "published"
+    },
+    {
+      "id": "2029-11-16-devutthana",
+      "name": "Devutthana",
+      "paksha": "Shukla",
+      "monthPurnimanta": "Kartik",
+      "monthAmanta": "Kartik",
+      "smarta": {
+        "date": "2029-11-16",
+        "parana": {
+          "date": "2029-11-17",
+          "start": "06:44",
+          "end": "10:18"
+        }
+      },
+      "vaishnava": {
+        "date": "2029-11-16",
+        "parana": {
+          "date": "2029-11-17",
+          "start": "06:44",
+          "end": "10:18"
+        }
+      },
+      "significance": "Also Prabodhini; Vishnu awakens, ending Chaturmas.",
+      "origin": "published",
+      "names": {
+        "iskcon": "Utthana"
+      }
+    },
+    {
+      "id": "2029-12-02-utpanna",
+      "name": "Utpanna",
+      "paksha": "Krishna",
+      "monthPurnimanta": "Margashirsha",
+      "monthAmanta": "Kartik",
+      "smarta": {
+        "date": "2029-12-02",
+        "parana": {
+          "date": "2029-12-03",
+          "start": "06:57",
+          "end": "09:07"
+        }
+      },
+      "vaishnava": {
+        "date": "2029-12-02",
+        "parana": {
+          "date": "2029-12-03",
+          "start": "06:57",
+          "end": "09:07"
+        }
+      },
+      "significance": "Celebrates the origin (utpanna) of the goddess Ekadashi.",
+      "origin": "published"
+    },
+    {
+      "id": "2029-12-16-mokshada",
+      "name": "Mokshada",
+      "paksha": "Shukla",
+      "monthPurnimanta": "Margashirsha",
+      "monthAmanta": "Margashirsha",
+      "smarta": {
+        "date": "2029-12-16",
+        "parana": {
+          "date": "2029-12-17",
+          "start": "07:07",
+          "end": "10:33"
+        }
+      },
+      "vaishnava": {
+        "date": "2029-12-16",
+        "parana": {
+          "date": "2029-12-17",
+          "start": "07:07",
+          "end": "10:33"
+        }
+      },
+      "significance": "Bestows liberation (moksha); coincides with Gita Jayanti and South-Indian Vaikuntha Ekadashi.",
+      "origin": "published",
+      "names": {
+        "tamil": "Vaikuntha",
+        "malayalam": "Vaikuntha",
+        "iskcon": "Moksada"
+      }
+    },
+    {
+      "id": "2029-12-31-saphala",
+      "name": "Saphala",
+      "paksha": "Krishna",
+      "monthPurnimanta": "Pausha",
+      "monthAmanta": "Margashirsha",
+      "smarta": {
+        "date": "2029-12-31",
+        "parana": {
+          "date": "2030-01-01",
+          "start": "07:13",
+          "end": "10:41"
+        }
+      },
+      "vaishnava": {
+        "date": "2029-12-31",
+        "parana": {
+          "date": "2030-01-01",
+          "start": "09:59",
+          "end": "12:09"
+        }
+      },
+      "significance": "Makes one's endeavours fruitful (saphala).",
+      "origin": "published"
+    },
+    {
+      "id": "2030-01-15-pausha-putrada",
+      "name": "Pausha Putrada",
+      "paksha": "Shukla",
+      "monthPurnimanta": "Pausha",
+      "monthAmanta": "Pausha",
+      "smarta": {
+        "date": "2030-01-15",
+        "parana": {
+          "date": "2030-01-16",
+          "start": "07:15",
+          "end": "10:45"
+        }
+      },
+      "vaishnava": {
+        "date": "2030-01-15",
+        "parana": {
+          "date": "2030-01-16",
+          "start": "19:03",
+          "end": "21:13"
+        }
+      },
+      "significance": "Observed for the well-being and blessing of children.",
+      "origin": "published"
+    },
+    {
+      "id": "2030-01-29-shattila",
+      "name": "Shattila",
+      "paksha": "Krishna",
+      "monthPurnimanta": "Magha",
+      "monthAmanta": "Pausha",
+      "smarta": {
+        "date": "2030-01-29",
+        "parana": {
+          "date": "2030-01-30",
+          "start": "07:10",
+          "end": "09:20"
+        }
+      },
+      "vaishnava": {
+        "date": "2030-01-29",
+        "parana": {
+          "date": "2030-01-30",
+          "start": "07:10",
+          "end": "09:20"
+        }
+      },
+      "significance": "Marked by charity involving sesame (til) in six ways.",
+      "origin": "published"
+    },
+    {
+      "id": "2030-02-14-jaya",
+      "name": "Jaya",
+      "paksha": "Shukla",
+      "monthPurnimanta": "Magha",
+      "monthAmanta": "Magha",
+      "smarta": {
+        "date": "2030-02-14",
+        "parana": {
+          "date": "2030-02-15",
+          "start": "07:00",
+          "end": "10:43"
+        }
+      },
+      "vaishnava": {
+        "date": "2030-02-14",
+        "parana": {
+          "date": "2030-02-15",
+          "start": "12:09",
+          "end": "14:19"
+        }
+      },
+      "significance": "Said to free devotees from the fate of becoming ghosts.",
+      "origin": "published",
+      "names": {
+        "iskcon": "Bhaimi"
+      }
+    },
+    {
+      "id": "2030-02-28-vijaya",
+      "name": "Vijaya",
+      "paksha": "Krishna",
+      "monthPurnimanta": "Phalguna",
+      "monthAmanta": "Magha",
+      "smarta": {
+        "date": "2030-02-28",
+        "parana": {
+          "date": "2030-03-01",
+          "start": "06:46",
+          "end": "10:38"
+        }
+      },
+      "vaishnava": {
+        "date": "2030-02-28",
+        "parana": {
+          "date": "2030-03-01",
+          "start": "06:38",
+          "end": "08:48"
+        }
+      },
+      "significance": "Associated with victory; observed by Lord Rama before crossing to Lanka.",
+      "origin": "published"
+    },
+    {
+      "id": "2030-03-15-amalaki",
+      "name": "Amalaki",
+      "paksha": "Shukla",
+      "monthPurnimanta": "Phalguna",
+      "monthAmanta": "Phalguna",
+      "smarta": {
+        "date": "2030-03-15",
+        "parana": {
+          "date": "2030-03-16",
+          "start": "06:30",
+          "end": "08:40"
+        }
+      },
+      "vaishnava": {
+        "date": "2030-03-15",
+        "parana": {
+          "date": "2030-03-16",
+          "start": "06:30",
+          "end": "08:40"
+        }
+      },
+      "significance": "Honours the amalaki (Indian gooseberry) tree, sacred to Vishnu.",
+      "origin": "published"
+    },
+    {
+      "id": "2030-03-29-papmochani",
+      "name": "Papmochani",
+      "paksha": "Krishna",
+      "monthPurnimanta": "Chaitra",
+      "monthAmanta": "Phalguna",
+      "smarta": {
+        "date": "2030-03-29",
+        "parana": {
+          "date": "2030-03-30",
+          "start": "06:14",
+          "end": "10:22"
+        }
+      },
+      "vaishnava": {
+        "date": "2030-03-29",
+        "parana": {
+          "date": "2030-03-30",
+          "start": "06:38",
+          "end": "10:22"
+        }
+      },
+      "significance": "Believed to wash away accumulated sins (papa).",
+      "origin": "published"
+    },
+    {
+      "id": "2030-04-14-kamada",
+      "name": "Kamada",
+      "paksha": "Shukla",
+      "monthPurnimanta": "Chaitra",
+      "monthAmanta": "Chaitra",
+      "smarta": {
+        "date": "2030-04-14",
+        "parana": {
+          "date": "2030-04-15",
+          "start": "05:56",
+          "end": "10:13"
+        }
+      },
+      "vaishnava": {
+        "date": "2030-04-14",
+        "parana": {
+          "date": "2030-04-15",
+          "start": "05:56",
+          "end": "10:13"
+        }
+      },
+      "significance": "The fulfiller of desires; first Ekadashi of the lunar new year in many panchangs.",
+      "origin": "published"
+    },
+    {
+      "id": "2030-04-28-varuthini",
+      "name": "Varuthini",
+      "paksha": "Krishna",
+      "monthPurnimanta": "Vaishakha",
+      "monthAmanta": "Chaitra",
+      "smarta": {
+        "date": "2030-04-28",
+        "parana": {
+          "date": "2030-04-29",
+          "start": "05:42",
+          "end": "10:06"
+        }
+      },
+      "vaishnava": {
+        "date": "2030-04-28",
+        "parana": {
+          "date": "2030-04-29",
+          "start": "05:42",
+          "end": "10:06"
+        }
+      },
+      "significance": "Grants protection and material as well as spiritual prosperity.",
+      "origin": "published"
+    },
+    {
+      "id": "2030-05-14-mohini",
+      "name": "Mohini",
+      "paksha": "Shukla",
+      "monthPurnimanta": "Vaishakha",
+      "monthAmanta": "Vaishakha",
+      "smarta": {
+        "date": "2030-05-14",
+        "parana": {
+          "date": "2030-05-15",
+          "start": "05:30",
+          "end": "07:40"
+        }
+      },
+      "vaishnava": {
+        "date": "2030-05-14",
+        "parana": {
+          "date": "2030-05-15",
+          "start": "05:30",
+          "end": "07:40"
+        }
+      },
+      "significance": "Named after Vishnu's Mohini avatar; frees one from illusion (moha).",
+      "origin": "published"
+    },
+    {
+      "id": "2030-05-27-apara",
+      "name": "Apara",
+      "paksha": "Krishna",
+      "monthPurnimanta": "Jyeshtha",
+      "monthAmanta": "Vaishakha",
+      "smarta": {
+        "date": "2030-05-27",
+        "parana": {
+          "date": "2030-05-28",
+          "start": "05:24",
+          "end": "10:00"
+        }
+      },
+      "vaishnava": {
+        "date": "2030-05-28",
+        "parana": {
+          "date": "2030-05-29",
+          "start": "05:24",
+          "end": "07:34"
+        }
+      },
+      "significance": "Bestows boundless (apara) merit and reputation.",
+      "origin": "published"
+    },
+    {
+      "id": "2030-06-12-nirjala",
+      "name": "Nirjala",
+      "paksha": "Shukla",
+      "monthPurnimanta": "Jyeshtha",
+      "monthAmanta": "Jyeshtha",
+      "smarta": {
+        "date": "2030-06-12",
+        "parana": {
+          "date": "2030-06-13",
+          "start": "05:22",
+          "end": "10:01"
+        }
+      },
+      "vaishnava": {
+        "date": "2030-06-12",
+        "parana": {
+          "date": "2030-06-13",
+          "start": "05:22",
+          "end": "10:01"
+        }
+      },
+      "significance": "The strictest fast, kept without water (nir-jala).",
+      "origin": "published",
+      "names": {
+        "iskcon": "Pandava Nirjala"
+      }
+    },
+    {
+      "id": "2030-06-26-yogini",
+      "name": "Yogini",
+      "paksha": "Krishna",
+      "monthPurnimanta": "Ashadha",
+      "monthAmanta": "Jyeshtha",
+      "smarta": {
+        "date": "2030-06-26",
+        "parana": {
+          "date": "2030-06-27",
+          "start": "05:25",
+          "end": "10:04"
+        }
+      },
+      "vaishnava": {
+        "date": "2030-06-26",
+        "parana": {
+          "date": "2030-06-27",
+          "start": "05:25",
+          "end": "10:04"
+        }
+      },
+      "significance": "Observed to cure ailments and remove sins.",
+      "origin": "published"
+    },
+    {
+      "id": "2030-07-11-devshayani",
+      "name": "Devshayani",
+      "paksha": "Shukla",
+      "monthPurnimanta": "Ashadha",
+      "monthAmanta": "Ashadha",
+      "smarta": {
+        "date": "2030-07-11",
+        "parana": {
+          "date": "2030-07-12",
+          "start": "05:31",
+          "end": "10:08"
+        }
+      },
+      "vaishnava": {
+        "date": "2030-07-11",
+        "parana": {
+          "date": "2030-07-12",
+          "start": "05:31",
+          "end": "10:08"
+        }
+      },
+      "significance": "Marks the start of Chaturmas, when Vishnu is said to rest.",
+      "origin": "published",
+      "names": {
+        "iskcon": "Sayana",
+        "tamil": "Shayani"
+      }
+    },
+    {
+      "id": "2030-07-26-kamika",
+      "name": "Kamika",
+      "paksha": "Krishna",
+      "monthPurnimanta": "Shravana",
+      "monthAmanta": "Ashadha",
+      "smarta": {
+        "date": "2030-07-26",
+        "parana": {
+          "date": "2030-07-27",
+          "start": "05:39",
+          "end": "10:11"
+        }
+      },
+      "vaishnava": {
+        "date": "2030-07-26",
+        "parana": {
+          "date": "2030-07-27",
+          "start": "05:39",
+          "end": "10:11"
+        }
+      },
+      "significance": "Worship of Vishnu with tulsi leaves brings great merit.",
+      "origin": "published"
+    },
+    {
+      "id": "2030-08-09-shravana-putrada",
+      "name": "Shravana Putrada",
+      "paksha": "Shukla",
+      "monthPurnimanta": "Shravana",
+      "monthAmanta": "Shravana",
+      "smarta": {
+        "date": "2030-08-09",
+        "parana": {
+          "date": "2030-08-10",
+          "start": "05:47",
+          "end": "10:13"
+        }
+      },
+      "vaishnava": {
+        "date": "2030-08-09",
+        "parana": {
+          "date": "2030-08-10",
+          "start": "07:23",
+          "end": "10:13"
+        }
+      },
+      "significance": "Observed by couples seeking the blessing of children.",
+      "origin": "published",
+      "names": {
+        "iskcon": "Pavitraropana"
+      }
+    },
+    {
+      "id": "2030-08-24-aja",
+      "name": "Aja",
+      "paksha": "Krishna",
+      "monthPurnimanta": "Bhadrapada",
+      "monthAmanta": "Shravana",
+      "smarta": {
+        "date": "2030-08-24",
+        "parana": {
+          "date": "2030-08-25",
+          "start": "05:55",
+          "end": "10:13"
+        }
+      },
+      "vaishnava": {
+        "date": "2030-08-24",
+        "parana": {
+          "date": "2030-08-25",
+          "start": "09:17",
+          "end": "10:13"
+        }
+      },
+      "significance": "Relieves suffering and restores lost fortune.",
+      "origin": "published",
+      "names": {
+        "iskcon": "Annada"
+      }
+    },
+    {
+      "id": "2030-09-08-parsva",
+      "name": "Parsva",
+      "paksha": "Shukla",
+      "monthPurnimanta": "Bhadrapada",
+      "monthAmanta": "Bhadrapada",
+      "smarta": {
+        "date": "2030-09-08",
+        "parana": {
+          "date": "2030-09-09",
+          "start": "06:02",
+          "end": "06:34"
+        }
+      },
+      "vaishnava": {
+        "date": "2030-09-08",
+        "parana": {
+          "date": "2030-09-09",
+          "start": "06:02",
+          "end": "06:34"
+        }
+      },
+      "significance": "Also called Parivartini; Vishnu turns to his other side in yogic sleep.",
+      "origin": "published"
+    },
+    {
+      "id": "2030-09-23-indira",
+      "name": "Indira",
+      "paksha": "Krishna",
+      "monthPurnimanta": "Ashwin",
+      "monthAmanta": "Bhadrapada",
+      "smarta": {
+        "date": "2030-09-23",
+        "parana": {
+          "date": "2030-09-24",
+          "start": "06:10",
+          "end": "10:12"
+        }
+      },
+      "vaishnava": {
+        "date": "2030-09-23",
+        "parana": {
+          "date": "2030-09-24",
+          "start": "06:10",
+          "end": "10:12"
+        }
+      },
+      "significance": "Observed to liberate one's ancestors (pitrs).",
+      "origin": "published"
+    },
+    {
+      "id": "2030-10-07-papankusha",
+      "name": "Papankusha",
+      "paksha": "Shukla",
+      "monthPurnimanta": "Ashwin",
+      "monthAmanta": "Ashwin",
+      "smarta": {
+        "date": "2030-10-07",
+        "parana": {
+          "date": "2030-10-08",
+          "start": "06:17",
+          "end": "10:11"
+        }
+      },
+      "vaishnava": {
+        "date": "2030-10-07",
+        "parana": {
+          "date": "2030-10-08",
+          "start": "06:17",
+          "end": "10:11"
+        }
+      },
+      "significance": "Acts as a goad (ankusha) that keeps sin away.",
+      "origin": "published"
+    },
+    {
+      "id": "2030-10-23-rama",
+      "name": "Rama",
+      "paksha": "Krishna",
+      "monthPurnimanta": "Kartik",
+      "monthAmanta": "Ashwin",
+      "smarta": {
+        "date": "2030-10-23",
+        "parana": {
+          "date": "2030-10-24",
+          "start": "06:27",
+          "end": "09:08"
+        }
+      },
+      "vaishnava": {
+        "date": "2030-10-23",
+        "parana": {
+          "date": "2030-10-24",
+          "start": "06:27",
+          "end": "09:08"
+        }
+      },
+      "significance": "Precedes Diwali; grants prosperity and devotion.",
+      "origin": "published"
+    },
+    {
+      "id": "2030-11-05-devutthana",
+      "name": "Devutthana",
+      "paksha": "Shukla",
+      "monthPurnimanta": "Kartik",
+      "monthAmanta": "Kartik",
+      "smarta": {
+        "date": "2030-11-05",
+        "parana": {
+          "date": "2030-11-06",
+          "start": "06:36",
+          "end": "10:15"
+        }
+      },
+      "vaishnava": {
+        "date": "2030-11-05",
+        "parana": {
+          "date": "2030-11-06",
+          "start": "09:55",
+          "end": "12:05"
+        }
+      },
+      "significance": "Also Prabodhini; Vishnu awakens, ending Chaturmas.",
+      "origin": "published",
+      "names": {
+        "iskcon": "Utthana"
+      }
+    },
+    {
+      "id": "2030-11-21-utpanna",
+      "name": "Utpanna",
+      "paksha": "Krishna",
+      "monthPurnimanta": "Margashirsha",
+      "monthAmanta": "Kartik",
+      "smarta": {
+        "date": "2030-11-21",
+        "parana": {
+          "date": "2030-11-22",
+          "start": "06:48",
+          "end": "10:21"
+        }
+      },
+      "vaishnava": {
+        "date": "2030-11-21",
+        "parana": {
+          "date": "2030-11-22",
+          "start": "06:48",
+          "end": "10:21"
+        }
+      },
+      "significance": "Celebrates the origin (utpanna) of the goddess Ekadashi.",
+      "origin": "published"
+    },
+    {
+      "id": "2030-12-05-mokshada",
+      "name": "Mokshada",
+      "paksha": "Shukla",
+      "monthPurnimanta": "Margashirsha",
+      "monthAmanta": "Margashirsha",
+      "smarta": {
+        "date": "2030-12-05",
+        "parana": {
+          "date": "2030-12-06",
+          "start": "06:59",
+          "end": "10:27"
+        }
+      },
+      "vaishnava": {
+        "date": "2030-12-05",
+        "parana": {
+          "date": "2030-12-06",
+          "start": "06:59",
+          "end": "10:27"
+        }
+      },
+      "significance": "Bestows liberation (moksha); coincides with Gita Jayanti and South-Indian Vaikuntha Ekadashi.",
+      "origin": "published",
+      "names": {
+        "tamil": "Vaikuntha",
+        "malayalam": "Vaikuntha",
+        "iskcon": "Moksada"
+      }
+    },
+    {
+      "id": "2030-12-21-saphala",
+      "name": "Saphala",
+      "paksha": "Krishna",
+      "monthPurnimanta": "Pausha",
+      "monthAmanta": "Margashirsha",
+      "smarta": {
+        "date": "2030-12-21",
+        "parana": {
+          "date": "2030-12-22",
+          "start": "07:09",
+          "end": "09:43"
+        }
+      },
+      "vaishnava": {
+        "date": "2030-12-21",
+        "parana": {
+          "date": "2030-12-22",
+          "start": "07:09",
+          "end": "09:43"
+        }
+      },
+      "significance": "Makes one's endeavours fruitful (saphala).",
+      "origin": "published"
+    }
+  ]
+}

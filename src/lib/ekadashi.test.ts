@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import { describe, it } from "node:test";
 
 import {
+  calculateRecordsInRange,
   daysUntil,
   getAllEkadashis,
   getEkadashiByDate,
@@ -14,14 +15,14 @@ import {
 } from "./ekadashi";
 
 describe("ekadashi dataset", () => {
-  it("covers 2026 and 2027 with unique ids and both traditions", () => {
+  it("covers 2026–2030 with unique ids and both traditions", () => {
     const all = getAllEkadashis();
-    assert.ok(all.length >= 48);
+    assert.ok(all.length >= 120);
     const ids = new Set(all.map((e) => e.id));
     assert.equal(ids.size, all.length);
     const range = getYearRange();
     assert.equal(range.min, 2026);
-    assert.equal(range.max, 2027);
+    assert.equal(range.max, 2030);
   });
 
   it("includes Adhika-masa fasts and the named observances", () => {
@@ -93,5 +94,37 @@ describe("ekadashi dataset", () => {
     const sept = getEkadashisInMonth(2026, 8);
     assert.equal(sept.length, 2);
     assert.ok(getEkadashiById("2026-09-07-aja"));
+  });
+
+  it("keeps published India dates for Delhi and recalculates Parana", () => {
+    const aja = getEkadashiByDate("2026-09-07", { cityId: "delhi" });
+    assert.equal(aja?.date, "2026-09-07");
+    assert.equal(aja?.source, "published");
+    assert.equal(aja?.localAdjusted, false);
+    assert.equal(aja?.parana.date, "2026-09-08");
+    assert.match(aja?.parana.start ?? "", /^\d{2}:\d{2}$/);
+  });
+
+  it("embeds published 2028–2030 dates including Adhika and Devutthana", () => {
+    const padmini = getAllEkadashis().find((e) => e.name === "Padmini" && e.date.startsWith("2028"));
+    const devutthana = getEkadashiByDate("2030-11-05");
+    const kamada = getAllEkadashis({ tradition: "vaishnava" }).find(
+      (e) => e.name === "Kamada" && e.date.startsWith("2028")
+    );
+    assert.equal(padmini?.date, "2028-10-28");
+    assert.equal(padmini?.adhika, true);
+    assert.equal(devutthana?.name, "Devutthana");
+    assert.equal(kamada?.date, "2028-04-06");
+  });
+
+  it("keeps Delhi on the published date and can calculate a local fallback", () => {
+    const delhi = getEkadashiById("2026-07-10-yogini", { tradition: "smarta", cityId: "delhi" });
+    const ny = getEkadashiById("2026-07-10-yogini", { tradition: "smarta", cityId: "new-york" });
+    assert.equal(delhi?.date, "2026-07-10");
+    assert.equal(delhi?.source, "published");
+    assert.ok(ny?.date);
+    const calculated = calculateRecordsInRange("2026-09-01", "2026-09-15", "delhi");
+    assert.ok(calculated.length >= 1);
+    assert.equal(calculated[0]?.origin, "calculated");
   });
 });

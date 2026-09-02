@@ -1,5 +1,14 @@
-import rawData from "@/data/ekadashi-2026-2027.json";
+import rawData from "@/data/ekadashi-2026-2030.json";
 import { formatLunarMonth, getCalendar } from "@/constants/calendars";
+import { DEFAULT_CITY_ID, getCity } from "@/constants/cities";
+import { buildRecord, inferLunarContext, nameFromContext } from "@/lib/ekadashiCatalog";
+import {
+  calculateParana,
+  computeFastsInRange,
+  findLocalFastDate,
+  type ComputedFast,
+} from "@/lib/ekadashiCompute";
+import { addDaysIso } from "@/lib/astronomy";
 import { compareISO, isoDayDelta, todayISO } from "@/lib/timezone";
 import type {
   CalendarId,
@@ -16,15 +25,21 @@ const RECORDS: EkadashiRecord[] = [...DATASET.ekadashis];
 export interface EkadashiQuery {
   tradition?: TraditionId;
   calendarId?: CalendarId;
+  cityId?: string;
 }
 
-export function queryFromSettings(settings: { tradition: TraditionId; calendarId: CalendarId }): EkadashiQuery {
-  return { tradition: settings.tradition, calendarId: settings.calendarId };
+export function queryFromSettings(settings: {
+  tradition: TraditionId;
+  calendarId: CalendarId;
+  cityId?: string;
+}): EkadashiQuery {
+  return { tradition: settings.tradition, calendarId: settings.calendarId, cityId: settings.cityId };
 }
 
 const DEFAULT_QUERY: Required<EkadashiQuery> = {
   tradition: "smarta",
   calendarId: "north-indian",
+  cityId: DEFAULT_CITY_ID,
 };
 
 export function getDatasetMeta(): EkadashiDataset["meta"] {
@@ -39,40 +54,119 @@ function traditionDates(record: EkadashiRecord, tradition: TraditionId) {
   return record[tradition];
 }
 
+function localizeDate(
+  publishedIso: string,
+  cityId: string,
+  tradition: TraditionId
+): { date: string; source: "published" | "calculated"; localAdjusted: boolean } {
+  const city = getCity(cityId);
+  if (city.usePublishedDates) {
+    return { date: publishedIso, source: "published", localAdjusted: false };
+  }
+  const found = findLocalFastDate(publishedIso, city, tradition);
+  if (found && found !== publishedIso) {
+    return { date: found, source: "calculated", localAdjusted: true };
+  }
+  return { date: publishedIso, source: found ? "published" : "calculated", localAdjusted: false };
+}
+
 export function resolveEkadashi(
   record: EkadashiRecord,
   tradition: TraditionId = DEFAULT_QUERY.tradition,
-  calendarId: CalendarId = DEFAULT_QUERY.calendarId
+  calendarId: CalendarId = DEFAULT_QUERY.calendarId,
+  cityId: string = DEFAULT_QUERY.cityId
 ): Ekadashi {
   const dates = traditionDates(record, tradition);
+  const city = getCity(cityId);
+  const localized = localizeDate(dates.date, cityId, tradition);
   const calendar = getCalendar(calendarId);
   const monthKey = calendar.monthSystem === "amanta" ? record.monthAmanta : record.monthPurnimanta;
   const other = tradition === "smarta" ? record.vaishnava : record.smarta;
+  const otherLocalized = localizeDate(
+    other.date,
+    cityId,
+    tradition === "smarta" ? "vaishnava" : "smarta"
+  );
   const displayName = record.names?.[calendarId] ?? record.name;
+  const parana = calculateParana(localized.date, city, tradition);
+  const recordSource = record.origin === "calculated" ? "calculated" : localized.source;
 
   return {
     id: record.id,
-    date: dates.date,
+    date: localized.date,
     name: displayName,
     paksha: record.paksha,
     month: formatLunarMonth(monthKey, Boolean(record.adhika), calendarId),
-    parana: dates.parana,
+    parana,
     significance: record.significance,
     tradition,
     calendarId,
     adhika: Boolean(record.adhika),
     monthKey,
     otherTraditionDate:
-      other.date !== dates.date ? { tradition: tradition === "smarta" ? "vaishnava" : "smarta", date: other.date } : undefined,
+      otherLocalized.date !== localized.date
+        ? { tradition: tradition === "smarta" ? "vaishnava" : "smarta", date: otherLocalized.date }
+        : undefined,
+    source: recordSource,
+    localAdjusted: localized.localAdjusted,
   };
 }
+
+function pairComputedFasts(smarta: ComputedFast[], vaishnava: ComputedFast[]): EkadashiRecord[] {
+  const used = new Set<string>();
+  const records: EkadashiRecord[] = [];
+  for (const s of smarta) {
+    const match =
+      vaishnava.find(
+        (v) =>
+          !used.has(v.date) &&
+          v.date >= s.date &&
+          v.date <= addDaysIso(s.date, 2) &&
+          v.paksha === s.paksha
+      ) ?? s;
+    used.add(match.date);
+    const ctx = inferLunarContext(s.date);
+    const name = nameFromContext(ctx.paksha, ctx.monthPurnimanta, false);
+    records.push(
+      buildRecord({
+        name,
+        smartaDate: s.date,
+        vaishnavaDate: match.date,
+        smartaParana: s.parana,
+        vaishnavaParana: match.parana,
+        origin: "calculated",
+        paksha: ctx.paksha,
+        monthPurnimanta: ctx.monthPurnimanta,
+      })
+    );
+  }
+  return records;
+}
+
+/** Astronomy fallback when a civil year is missing from the bundled file. */
+export function calculateRecordsInRange(startIso: string, endIso: string, cityId = DEFAULT_CITY_ID): EkadashiRecord[] {
+  const city = getCity(cityId);
+  return pairComputedFasts(
+    computeFastsInRange(startIso, endIso, city, "smarta"),
+    computeFastsInRange(startIso, endIso, city, "vaishnava")
+  );
+}
+
+const resolveCache = new Map<string, Ekadashi[]>();
 
 function resolveAll(query: EkadashiQuery = {}): Ekadashi[] {
   const tradition = query.tradition ?? DEFAULT_QUERY.tradition;
   const calendarId = query.calendarId ?? DEFAULT_QUERY.calendarId;
-  return RECORDS.map((record) => resolveEkadashi(record, tradition, calendarId)).sort((a, b) =>
+  const cityId = query.cityId ?? DEFAULT_QUERY.cityId;
+  const key = `${cityId}|${tradition}|${calendarId}`;
+  const cached = resolveCache.get(key);
+  if (cached) return cached;
+
+  const list = RECORDS.map((record) => resolveEkadashi(record, tradition, calendarId, cityId)).sort((a, b) =>
     compareISO(a.date, b.date)
   );
+  resolveCache.set(key, list);
+  return list;
 }
 
 export function getAllEkadashis(query: EkadashiQuery = {}): Ekadashi[] {
@@ -112,10 +206,7 @@ export function getEkadashisInMonth(
   return resolveAll(query).filter((e) => e.date.startsWith(prefix));
 }
 
-export function getEkadashiByDate(
-  iso: string,
-  query: EkadashiQuery = {}
-): Ekadashi | undefined {
+export function getEkadashiByDate(iso: string, query: EkadashiQuery = {}): Ekadashi | undefined {
   return resolveAll(query).find((e) => e.date === iso);
 }
 
@@ -125,7 +216,8 @@ export function getEkadashiById(id: string, query: EkadashiQuery = {}): Ekadashi
   return resolveEkadashi(
     record,
     query.tradition ?? DEFAULT_QUERY.tradition,
-    query.calendarId ?? DEFAULT_QUERY.calendarId
+    query.calendarId ?? DEFAULT_QUERY.calendarId,
+    query.cityId ?? DEFAULT_QUERY.cityId
   );
 }
 

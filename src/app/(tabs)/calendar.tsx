@@ -6,6 +6,7 @@ import { Card } from "@/components/Card";
 import { EkadashiDetail } from "@/components/EkadashiDetail";
 import { Screen } from "@/components/Screen";
 import { getCalendar, traditionLabel } from "@/constants/calendars";
+import { getCity } from "@/constants/cities";
 import { palette } from "@/constants/theme";
 import { getEkadashisInMonth, getYearRange, queryFromSettings } from "@/lib/ekadashi";
 import { formatShortDate, formatTime12h } from "@/lib/format";
@@ -38,6 +39,7 @@ export default function CalendarScreen() {
   const { settings } = useSettings();
   const query = useMemo(() => queryFromSettings(settings), [settings]);
   const calendar = getCalendar(settings.calendarId);
+  const city = getCity(settings.cityId);
   const today = todayISO(new Date(), settings.timezone);
   const [ty, tm] = today.split("-").map(Number);
   const range = getYearRange();
@@ -94,7 +96,9 @@ export default function CalendarScreen() {
             {MONTH_NAMES[cursor.month]} {cursor.year}
           </Text>
           <Text className="mt-0.5 text-sm text-saffron-200">{monthPanchang.civilLabel}</Text>
-          <Text className="text-xs text-violet-400">{traditionLabel(settings.tradition)} fasting days</Text>
+          <Text className="text-xs text-violet-400">
+            {traditionLabel(settings.tradition)} · {city.name}
+          </Text>
         </View>
         <Pressable
           onPress={jumpToday}

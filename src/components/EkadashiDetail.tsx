@@ -25,6 +25,7 @@ export function EkadashiDetail({ item }: { item: Ekadashi }) {
       </View>
       <Text className="mt-1 text-[11px] uppercase tracking-wide text-violet-500">
         {calendar.name} · {traditionLabel(item.tradition)}
+        {item.localAdjusted ? " · local sunrise date" : item.source === "calculated" ? " · calculated" : ""}
       </Text>
       <Text className="mt-3 text-sm leading-5 text-violet-100">{item.significance}</Text>
       {item.otherTraditionDate ? (
@@ -44,6 +45,7 @@ export function EkadashiDetail({ item }: { item: Ekadashi }) {
           <Text className="text-[11px] text-violet-400">
             {formatPanchangLong(item.parana.date, item.calendarId)}
           </Text>
+          <Text className="text-[11px] text-violet-500">Parana from city sunrise</Text>
         </View>
       </View>
     </View>

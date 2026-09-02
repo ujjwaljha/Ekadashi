@@ -1,4 +1,5 @@
 import { DEFAULT_CALENDAR_ID, isCalendarId } from "@/constants/calendars";
+import { DEFAULT_CITY_ID, isCityId } from "@/constants/cities";
 import type { LeadDay, Settings, TraditionId } from "@/types";
 
 export const STORAGE_KEY = "ekadashi.settings.v2";
@@ -15,6 +16,7 @@ export const DEFAULT_SETTINGS: Settings = {
   timezone: "device",
   calendarId: DEFAULT_CALENDAR_ID,
   tradition: "smarta",
+  cityId: DEFAULT_CITY_ID,
   onboardingCompleted: false,
 };
 
@@ -45,6 +47,7 @@ export function normalizeSettings(raw: unknown): Settings {
     alarmRepeatMinutes,
     calendarId: isCalendarId(parsed.calendarId) ? parsed.calendarId : DEFAULT_SETTINGS.calendarId,
     tradition: isTradition(parsed.tradition) ? parsed.tradition : DEFAULT_SETTINGS.tradition,
+    cityId: isCityId(parsed.cityId) ? parsed.cityId : DEFAULT_SETTINGS.cityId,
     onboardingCompleted: parsed.onboardingCompleted === true,
   };
 }

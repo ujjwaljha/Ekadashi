@@ -21,6 +21,7 @@ describe("normalizeSettings", () => {
     assert.equal(next.alarmTime, DEFAULT_SETTINGS.alarmTime);
     assert.equal(next.calendarId, DEFAULT_SETTINGS.calendarId);
     assert.equal(next.tradition, "smarta");
+    assert.equal(next.cityId, DEFAULT_SETTINGS.cityId);
     assert.equal(next.onboardingCompleted, false);
   });
 
@@ -33,6 +34,13 @@ describe("normalizeSettings", () => {
     assert.equal(next.calendarId, "mithila");
     assert.equal(next.tradition, "vaishnava");
     assert.equal(next.onboardingCompleted, true);
+  });
+
+  it("accepts a known city and rejects an unknown one", () => {
+    const ok = normalizeSettings({ cityId: "darbhanga" });
+    assert.equal(ok.cityId, "darbhanga");
+    const bad = normalizeSettings({ cityId: "not-a-city" });
+    assert.equal(bad.cityId, DEFAULT_SETTINGS.cityId);
   });
 
   it("rejects unknown calendar ids", () => {

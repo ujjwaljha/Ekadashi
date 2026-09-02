@@ -1,5 +1,6 @@
-import rawData from "@/data/ekadashi-2026-2027.json";
+import rawData from "@/data/ekadashi-2026-2030.json";
 import { formatLunarMonth, getCalendar } from "@/constants/calendars";
+import { addDaysIso, julianDay, rashiIndex } from "@/lib/astronomy";
 import { isoDayDelta } from "@/lib/timezone";
 import type {
   CalendarId,
@@ -32,43 +33,32 @@ const TITHI_NAMES = [
   "Purnima",
 ];
 
-/** Mesha-first solar month starts (Lahiri / India, mid-month sankranti). */
-const SOLAR_STARTS: { iso: string; monthIndex: number }[] = [
-  { iso: "2025-12-16", monthIndex: 8 },
-  { iso: "2026-01-14", monthIndex: 9 },
-  { iso: "2026-02-13", monthIndex: 10 },
-  { iso: "2026-03-15", monthIndex: 11 },
-  { iso: "2026-04-14", monthIndex: 0 },
-  { iso: "2026-05-15", monthIndex: 1 },
-  { iso: "2026-06-15", monthIndex: 2 },
-  { iso: "2026-07-16", monthIndex: 3 },
-  { iso: "2026-08-17", monthIndex: 4 },
-  { iso: "2026-09-17", monthIndex: 5 },
-  { iso: "2026-10-17", monthIndex: 6 },
-  { iso: "2026-11-16", monthIndex: 7 },
-  { iso: "2026-12-16", monthIndex: 8 },
-  { iso: "2027-01-14", monthIndex: 9 },
-  { iso: "2027-02-13", monthIndex: 10 },
-  { iso: "2027-03-15", monthIndex: 11 },
-  { iso: "2027-04-14", monthIndex: 0 },
-  { iso: "2027-05-15", monthIndex: 1 },
-  { iso: "2027-06-15", monthIndex: 2 },
-  { iso: "2027-07-16", monthIndex: 3 },
-  { iso: "2027-08-17", monthIndex: 4 },
-  { iso: "2027-09-17", monthIndex: 5 },
-  { iso: "2027-10-18", monthIndex: 6 },
-  { iso: "2027-11-17", monthIndex: 7 },
-  { iso: "2027-12-16", monthIndex: 8 },
-  { iso: "2028-01-15", monthIndex: 9 },
+const CHAITRA_SHUKLA_1 = [
+  "2026-03-19",
+  "2027-04-06",
+  "2028-03-26",
+  "2029-03-15",
+  "2030-04-03",
+  "2031-03-23",
 ];
-
-const CHAITRA_SHUKLA_1 = ["2026-03-19", "2027-04-06", "2028-03-26"];
-const KARTIK_SHUKLA_1 = ["2025-11-21", "2026-11-10", "2027-10-31"];
-const GAURA_PURNIMA = ["2026-03-03", "2027-03-22"];
+const KARTIK_SHUKLA_1 = [
+  "2025-11-21",
+  "2026-11-10",
+  "2027-10-31",
+  "2028-10-19",
+  "2029-11-07",
+  "2030-10-28",
+  "2031-11-16",
+];
+const GAURA_PURNIMA = ["2026-03-03", "2027-03-22", "2028-03-11", "2029-03-01", "2030-03-19", "2031-03-08"];
 const TAMIL_YEARS: { start: string; name: string; kali: number }[] = [
   { start: "2025-04-14", name: "Visvavasu", kali: 5126 },
   { start: "2026-04-14", name: "Parabhava", kali: 5127 },
   { start: "2027-04-14", name: "Plavanga", kali: 5128 },
+  { start: "2028-04-14", name: "Kilaka", kali: 5129 },
+  { start: "2029-04-14", name: "Saumya", kali: 5130 },
+  { start: "2030-04-14", name: "Sadharana", kali: 5131 },
+  { start: "2031-04-14", name: "Virodhikrit", kali: 5132 },
 ];
 
 export interface SolarDate {
@@ -99,15 +89,23 @@ function gregorianYear(iso: string): number {
 }
 
 export function getSolarDate(iso: string): SolarDate {
-  let start = SOLAR_STARTS[0];
-  for (const row of SOLAR_STARTS) {
-    if (row.iso <= iso) start = row;
-    else break;
+  const [y, m, d] = iso.split("-").map(Number);
+  const monthIndex = rashiIndex(julianDay(y, m, d, 6.5));
+  let startIso = iso;
+  let cursor = iso;
+  for (let i = 0; i < 32; i += 1) {
+    const prev = addDaysIso(cursor, -1);
+    const [py, pm, pd] = prev.split("-").map(Number);
+    if (rashiIndex(julianDay(py, pm, pd, 6.5)) !== monthIndex) {
+      startIso = cursor;
+      break;
+    }
+    cursor = prev;
   }
   return {
-    monthIndex: start.monthIndex,
-    day: isoDayDelta(start.iso, iso) + 1,
-    startIso: start.iso,
+    monthIndex,
+    day: isoDayDelta(startIso, iso) + 1,
+    startIso,
   };
 }
 

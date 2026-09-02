@@ -6,6 +6,7 @@ import { Text, View } from "react-native";
 import { Card } from "@/components/Card";
 import { Screen } from "@/components/Screen";
 import { getCalendar, traditionLabel } from "@/constants/calendars";
+import { getCity } from "@/constants/cities";
 import { accentGradient, palette, paranaGradient } from "@/constants/theme";
 import { getTimezoneLabel } from "@/constants/timezones";
 import {
@@ -25,6 +26,7 @@ export default function Dashboard() {
   const [now, setNow] = useState(() => new Date());
   const query = useMemo(() => queryFromSettings(settings), [settings]);
   const calendar = getCalendar(settings.calendarId);
+  const city = getCity(settings.cityId);
 
   useEffect(() => {
     const id = setInterval(() => setNow(new Date()), 15_000);
@@ -63,7 +65,8 @@ export default function Dashboard() {
         </Text>
         <Text className="mt-1 text-sm text-saffron-200">{formatPanchangLong(today, settings.calendarId)}</Text>
         <Text className="mt-0.5 text-xs text-violet-400">
-          {calendar.name} · {traditionLabel(settings.tradition)} · {getTimezoneLabel(settings.timezone)}
+          {calendar.name} · {traditionLabel(settings.tradition)} · {city.name} ·{" "}
+          {getTimezoneLabel(settings.timezone)}
         </Text>
       </View>
 
@@ -130,7 +133,7 @@ export default function Dashboard() {
 
       {!next && observance.kind === "none" ? (
         <Card className="mb-5">
-          <Text className="text-white">No upcoming Ekadashi remains in the 2026–2027 dataset.</Text>
+          <Text className="text-white">No upcoming Ekadashi remains in the 2026–2030 dataset.</Text>
         </Card>
       ) : null}
 
@@ -242,6 +245,7 @@ function HeroCard({
           </Text>
           <Text className="text-xs text-white/80">on {formatLongDate(paranaDate)}</Text>
           <Text className="text-[11px] text-white/70">{formatPanchangLong(paranaDate, calendarId)}</Text>
+          <Text className="text-[11px] text-white/70">Window follows local sunrise</Text>
         </View>
       </View>
     </LinearGradient>
