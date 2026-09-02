@@ -1,3 +1,4 @@
+import { useRouter } from "expo-router";
 import {
   AlarmClock,
   Bell,
@@ -5,15 +6,18 @@ import {
   Check,
   Clock,
   Globe,
+  Info,
   MapPin,
   Play,
   RotateCcw,
   Send,
+  Settings2,
+  Shield,
   Square,
   Volume2,
 } from "lucide-react-native";
-import { useState } from "react";
-import { Platform, Pressable, Switch, Text, View } from "react-native";
+import { useCallback, useEffect, useState } from "react";
+import { AppState, Linking, Platform, Pressable, Switch, Text, View } from "react-native";
 
 import { CalendarPicker } from "@/components/CalendarPicker";
 import { CityPicker } from "@/components/CityPicker";
@@ -28,9 +32,16 @@ import { getCity } from "@/constants/cities";
 import { palette } from "@/constants/theme";
 import { TIMEZONES } from "@/constants/timezones";
 import { startAlarm, stopAlarm } from "@/lib/alarm";
+import { getAppVersion, getBuildLabel } from "@/lib/appInfo";
 import { getDatasetMeta } from "@/lib/ekadashi";
 import { formatTime12h } from "@/lib/format";
-import { scheduleReminders, sendTestNotification } from "@/lib/notifications";
+import { describeNotificationStatus } from "@/lib/notificationPayload";
+import {
+  getNotificationPermission,
+  getScheduledCount,
+  scheduleReminders,
+  sendTestNotification,
+} from "@/lib/notifications";
 import { useSettings } from "@/store/settings";
 import type { CalendarId, LeadDay, TraditionId } from "@/types";
 
@@ -46,15 +57,41 @@ const REPEAT_OPTIONS = [0, 1, 2, 3, 4] as const;
 const REPEAT_EVERY = [2, 5, 10] as const;
 
 export default function SettingsScreen() {
+  const router = useRouter();
   const { settings, update, toggleLeadDay, reset } = useSettings();
   const [status, setStatus] = useState<string | null>(null);
   const [previewing, setPreviewing] = useState(false);
   const [showCalendars, setShowCalendars] = useState(false);
   const [showCities, setShowCities] = useState(false);
+  const [permGranted, setPermGranted] = useState(false);
+  const [permCanAsk, setPermCanAsk] = useState(true);
+  const [scheduled, setScheduled] = useState(0);
   const isWeb = Platform.OS === "web";
   const meta = getDatasetMeta();
   const calendar = getCalendar(settings.calendarId);
   const city = getCity(settings.cityId);
+  const notice = describeNotificationStatus({
+    isWeb,
+    granted: permGranted,
+    canAskAgain: permCanAsk,
+    notificationsEnabled: settings.notificationsEnabled,
+    scheduled,
+  });
+
+  const refreshDeviceStatus = useCallback(async () => {
+    const permission = await getNotificationPermission();
+    setPermGranted(permission.granted);
+    setPermCanAsk(permission.canAskAgain);
+    setScheduled(await getScheduledCount());
+  }, []);
+
+  useEffect(() => {
+    void refreshDeviceStatus();
+    const sub = AppState.addEventListener("change", (state) => {
+      if (state === "active") void refreshDeviceStatus();
+    });
+    return () => sub.remove();
+  }, [refreshDeviceStatus, settings.notificationsEnabled]);
 
   const flashStatus = (msg: string) => {
     setStatus(msg);
@@ -66,10 +103,11 @@ export default function SettingsScreen() {
       flashStatus("Scheduling runs on a real iOS/Android device. Settings are saved.");
       return;
     }
-    const { granted, scheduled } = await scheduleReminders(settings);
+    const { granted, scheduled: count } = await scheduleReminders(settings);
+    await refreshDeviceStatus();
     flashStatus(
       granted
-        ? `Scheduled ${scheduled} reminder${scheduled === 1 ? "" : "s"}.`
+        ? `Scheduled ${count} reminder${count === 1 ? "" : "s"}.`
         : "Notification permission was denied."
     );
   };
@@ -199,6 +237,25 @@ export default function SettingsScreen() {
             trackColor={{ true: palette.saffron, false: "#3f3a5a" }}
             thumbColor="#fff"
           />
+        </View>
+        <View className="mt-3 rounded-2xl bg-white/5 px-3 py-3">
+          <Text className="text-sm font-semibold text-white">{notice.title}</Text>
+          <Text className="mt-1 text-xs leading-4 text-violet-300">{notice.detail}</Text>
+          {notice.showOpenSettings ? (
+            <Pressable
+              onPress={() => void Linking.openSettings()}
+              className="mt-3 flex-row items-center justify-center gap-2 rounded-2xl bg-white/10 py-2.5"
+            >
+              <Settings2 color={palette.saffronLight} size={14} />
+              <Text className="text-sm font-semibold text-saffron-200">Open system settings</Text>
+            </Pressable>
+          ) : null}
+          {!isWeb ? (
+            <Text className="mt-2 text-[11px] leading-4 text-violet-500">
+              Android 12+ may also need exact alarms allowed in system settings so morning alerts
+              stay on time.
+            </Text>
+          ) : null}
         </View>
       </Card>
 
@@ -365,7 +422,27 @@ export default function SettingsScreen() {
         </Text>
       ) : null}
 
-      <Text className="mt-6 text-center text-[11px] leading-4 text-violet-500">{meta.note}</Text>
+      <View className="mt-6 flex-row gap-2.5">
+        <Pressable
+          onPress={() => router.push("/about")}
+          className="flex-1 flex-row items-center justify-center gap-2 rounded-2xl border border-white/15 bg-white/5 py-3"
+        >
+          <Info color={palette.saffronLight} size={16} />
+          <Text className="text-sm font-semibold text-saffron-200">About</Text>
+        </Pressable>
+        <Pressable
+          onPress={() => router.push("/privacy")}
+          className="flex-1 flex-row items-center justify-center gap-2 rounded-2xl border border-white/15 bg-white/5 py-3"
+        >
+          <Shield color={palette.saffronLight} size={16} />
+          <Text className="text-sm font-semibold text-saffron-200">Privacy</Text>
+        </Pressable>
+      </View>
+
+      <Text className="mt-4 text-center text-[11px] leading-4 text-violet-500">
+        Version {getAppVersion()} · {getBuildLabel()}
+      </Text>
+      <Text className="mt-2 text-center text-[11px] leading-4 text-violet-500">{meta.note}</Text>
     </Screen>
   );
 }

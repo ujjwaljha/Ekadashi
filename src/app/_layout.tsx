@@ -3,31 +3,63 @@ import "@/global.css";
 import * as Notifications from "expo-notifications";
 import { Stack, useRouter } from "expo-router";
 import { StatusBar } from "expo-status-bar";
-import { useEffect } from "react";
-import { Platform, Text, View } from "react-native";
+import { useCallback, useEffect, useRef } from "react";
+import { AppState, Platform, Text, View } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 
 import { Onboarding } from "@/components/Onboarding";
 import { getAlarmSound } from "@/constants/alarms";
 import { palette } from "@/constants/theme";
-import { startAlarm } from "@/lib/alarm";
-import { registerForNotifications, scheduleReminders } from "@/lib/notifications";
+import { startAlarm, stopAlarm } from "@/lib/alarm";
+import { getEkadashiById, queryFromSettings } from "@/lib/ekadashi";
+import {
+  consumeLastNotificationResponse,
+  getScheduledCount,
+  peekLastNotificationResponse,
+  registerForNotifications,
+  scheduleReminders,
+  scheduleSnooze,
+} from "@/lib/notifications";
+import {
+  DISMISS_ACTION,
+  parseNotificationData,
+  shouldOpenAlarm,
+  SNOOZE_ACTION,
+  type NotificationPayload,
+} from "@/lib/notificationPayload";
 import { SettingsProvider, useSettings } from "@/store/settings";
-import type { NotificationKind } from "@/types";
+import type { Settings } from "@/types";
 
-function isAlarmKind(kind: unknown): kind is "alarm-fasting" | "alarm-parana" {
-  return kind === "alarm-fasting" || kind === "alarm-parana";
+function alarmKind(payload: NotificationPayload): "alarm-fasting" | "alarm-parana" {
+  return payload.kind === "alarm-parana" ? "alarm-parana" : "alarm-fasting";
+}
+
+async function snoozeFromPayload(settings: Settings, payload: NotificationPayload): Promise<void> {
+  const ekadashi = getEkadashiById(payload.ekadashiId, queryFromSettings(settings));
+  const kind = alarmKind(payload);
+  await scheduleSnooze(
+    settings,
+    5,
+    kind === "alarm-parana" ? "Parana reminder" : `${ekadashi?.name ?? "Ekadashi"} Ekadashi`,
+    kind === "alarm-parana"
+      ? `Snoozed — Parana window ${ekadashi?.parana.start ?? ""}–${ekadashi?.parana.end ?? ""}.`
+      : `Snoozed — today is ${ekadashi?.name ?? "Ekadashi"} Ekadashi.`,
+    kind,
+    payload.ekadashiId
+  );
 }
 
 /**
  * On first launch (once settings are hydrated) request notification permission
  * and lay down the full reminder schedule. Re-runs whenever settings change.
- * Also routes incoming alarm notifications to the persistent alarm screen.
+ * Also routes incoming alarm notifications to the persistent alarm screen,
+ * including the tap that launched a cold start.
  */
 function NotificationBootstrap() {
   const { settings, hydrated } = useSettings();
   const router = useRouter();
+  const handledRef = useRef<string | null>(null);
 
   useEffect(() => {
     if (!hydrated) return;
@@ -42,33 +74,81 @@ function NotificationBootstrap() {
     })();
   }, [hydrated, settings]);
 
-  useEffect(() => {
-    if (Platform.OS === "web") return;
-
-    const openAlarm = (kind: NotificationKind, ekadashiId: string) => {
-      if (!isAlarmKind(kind)) return;
+  const openAlarm = useCallback(
+    (payload: NotificationPayload) => {
+      if (!shouldOpenAlarm(payload)) return;
       void startAlarm(settings.alarmSound);
       router.push({
         pathname: "/alarm",
-        params: { kind, id: ekadashiId },
+        params: { kind: payload.kind, id: payload.ekadashiId },
       });
-    };
+    },
+    [router, settings.alarmSound]
+  );
+
+  const handleResponse = useCallback(
+    async (response: Notifications.NotificationResponse | null) => {
+      if (!response) return;
+      const requestId = response.notification.request.identifier;
+      if (handledRef.current === requestId) return;
+      handledRef.current = requestId;
+
+      const payload = parseNotificationData(response.notification.request.content.data);
+      const action = response.actionIdentifier;
+
+      if (action === SNOOZE_ACTION && payload && shouldOpenAlarm(payload)) {
+        await stopAlarm();
+        await snoozeFromPayload(settings, payload);
+        consumeLastNotificationResponse();
+        return;
+      }
+      if (action === DISMISS_ACTION) {
+        await stopAlarm();
+        consumeLastNotificationResponse();
+        return;
+      }
+
+      if (payload) openAlarm(payload);
+      consumeLastNotificationResponse();
+    },
+    [openAlarm, settings]
+  );
+
+  useEffect(() => {
+    if (Platform.OS === "web") return;
+
+    void handleResponse(peekLastNotificationResponse());
 
     const received = Notifications.addNotificationReceivedListener((notification) => {
-      const data = notification.request.content.data ?? {};
-      openAlarm(data.kind as NotificationKind, String(data.ekadashiId ?? ""));
+      const requestId = notification.request.identifier;
+      if (handledRef.current === requestId) return;
+      const payload = parseNotificationData(notification.request.content.data);
+      if (!shouldOpenAlarm(payload)) return;
+      handledRef.current = requestId;
+      openAlarm(payload);
     });
 
     const response = Notifications.addNotificationResponseReceivedListener((event) => {
-      const data = event.notification.request.content.data ?? {};
-      openAlarm(data.kind as NotificationKind, String(data.ekadashiId ?? ""));
+      void handleResponse(event);
     });
 
     return () => {
       received.remove();
       response.remove();
     };
-  }, [router, settings.alarmSound]);
+  }, [handleResponse, openAlarm]);
+
+  useEffect(() => {
+    if (!hydrated || Platform.OS === "web") return;
+    const sub = AppState.addEventListener("change", (state) => {
+      if (state !== "active" || !settings.notificationsEnabled) return;
+      void (async () => {
+        const count = await getScheduledCount();
+        if (count === 0) await scheduleReminders(settings);
+      })();
+    });
+    return () => sub.remove();
+  }, [hydrated, settings]);
 
   return null;
 }
@@ -94,6 +174,8 @@ function AppGate() {
             gestureEnabled: false,
           }}
         />
+        <Stack.Screen name="about" />
+        <Stack.Screen name="privacy" />
       </Stack>
       {!hydrated ? (
         <View

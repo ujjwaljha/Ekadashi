@@ -4,11 +4,18 @@ import { Platform } from "react-native";
 
 import { getAlarmSound } from "@/constants/alarms";
 import { getUpcomingEkadashis } from "@/lib/ekadashi";
+import {
+  ALARM_CATEGORY,
+  DISMISS_ACTION,
+  parseNotificationData,
+  SNOOZE_ACTION,
+} from "@/lib/notificationPayload";
 import { buildNotificationPlan } from "@/lib/schedule";
 import type { NotificationKind, Settings } from "@/types";
 
 export const REMINDER_CHANNEL = "reminders";
 export const ALARM_CHANNEL = "alarm";
+export { ALARM_CATEGORY, DISMISS_ACTION, SNOOZE_ACTION };
 
 const isWeb = Platform.OS === "web";
 
@@ -30,6 +37,52 @@ Notifications.setNotificationHandler({
     };
   },
 });
+
+/** iOS lock-screen actions for the persistent alarm. No-ops on Android/web. */
+export async function ensureAlarmCategory(): Promise<void> {
+  if (Platform.OS !== "ios") return;
+  try {
+    await Notifications.setNotificationCategoryAsync(ALARM_CATEGORY, [
+      {
+        identifier: SNOOZE_ACTION,
+        buttonTitle: "Snooze 5 min",
+        options: { opensAppToForeground: true },
+      },
+      {
+        identifier: DISMISS_ACTION,
+        buttonTitle: "Dismiss",
+        options: { isDestructive: true, opensAppToForeground: true },
+      },
+    ]);
+  } catch (err) {
+    console.warn("[notifications] alarm category unavailable", err);
+  }
+}
+
+/** Cold-start tap. Returns null on web or when the native module is missing. */
+export function peekLastNotificationResponse(): Notifications.NotificationResponse | null {
+  if (isWeb) return null;
+  try {
+    return Notifications.getLastNotificationResponse();
+  } catch {
+    return null;
+  }
+}
+
+export function consumeLastNotificationResponse(): void {
+  if (isWeb) return;
+  try {
+    Notifications.clearLastNotificationResponse();
+  } catch {
+    // Unsupported on some runtimes (web / Expo Go older builds).
+  }
+}
+
+export function payloadFromNotification(
+  notification: Notifications.Notification
+): ReturnType<typeof parseNotificationData> {
+  return parseNotificationData(notification.request.content.data);
+}
 
 /**
  * Create the Android notification channels. `reminders` is a normal
@@ -98,6 +151,7 @@ export async function registerForNotifications(alarmSoundFile: string | null): P
   }
 
   await ensureAndroidChannels(alarmSoundFile);
+  await ensureAlarmCategory();
 
   const current = await Notifications.getPermissionsAsync();
   let status = current.status;
@@ -168,6 +222,7 @@ export async function scheduleReminders(settings: Settings): Promise<ScheduleRes
         },
         ...(isAlarm
           ? {
+              categoryIdentifier: ALARM_CATEGORY,
               priority: Notifications.AndroidNotificationPriority.MAX,
               interruptionLevel: "timeSensitive" as const,
               sticky: true,
@@ -232,6 +287,7 @@ export async function scheduleSnooze(
       body,
       sound: alarm.notificationSound ?? true,
       data: { kind, ekadashiId, key: `snooze:${ekadashiId}` },
+      categoryIdentifier: ALARM_CATEGORY,
       priority: Notifications.AndroidNotificationPriority.MAX,
       interruptionLevel: "timeSensitive" as const,
       sticky: true,
