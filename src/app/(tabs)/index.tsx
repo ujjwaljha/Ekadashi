@@ -5,16 +5,28 @@ import { Text, View } from "react-native";
 
 import { Card } from "@/components/Card";
 import { Screen } from "@/components/Screen";
+import { getCalendar, traditionLabel } from "@/constants/calendars";
+import { getCity } from "@/constants/cities";
 import { accentGradient, palette, paranaGradient } from "@/constants/theme";
 import { getTimezoneLabel } from "@/constants/timezones";
-import { daysUntil, getNextEkadashi, getObservance, getUpcomingEkadashis } from "@/lib/ekadashi";
+import {
+  daysUntil,
+  getNextEkadashi,
+  getObservance,
+  getUpcomingEkadashis,
+  queryFromSettings,
+} from "@/lib/ekadashi";
 import { countdownLabel, formatLongDate, formatShortDate, formatTime12h, greetingForHour } from "@/lib/format";
-import { getZonedParts } from "@/lib/timezone";
+import { formatPanchangLong } from "@/lib/panchang";
+import { getZonedParts, todayISO } from "@/lib/timezone";
 import { useSettings } from "@/store/settings";
 
 export default function Dashboard() {
   const { settings } = useSettings();
   const [now, setNow] = useState(() => new Date());
+  const query = useMemo(() => queryFromSettings(settings), [settings]);
+  const calendar = getCalendar(settings.calendarId);
+  const city = getCity(settings.cityId);
 
   useEffect(() => {
     const id = setInterval(() => setNow(new Date()), 15_000);
@@ -23,13 +35,14 @@ export default function Dashboard() {
 
   const tz = settings.timezone;
   const parts = useMemo(() => getZonedParts(now, tz), [now, tz]);
-  const next = useMemo(() => getNextEkadashi(now, tz), [now, tz]);
-  const observance = useMemo(() => getObservance(now, tz), [now, tz]);
+  const next = useMemo(() => getNextEkadashi(now, tz, query), [now, tz, query]);
+  const observance = useMemo(() => getObservance(now, tz, query), [now, tz, query]);
   const upcoming = useMemo(() => {
-    const list = getUpcomingEkadashis(6, now, tz);
+    const list = getUpcomingEkadashis(6, now, tz, query);
     return observance.kind === "fasting" ? list.slice(1) : list.slice(next ? 1 : 0);
-  }, [now, tz, next, observance.kind]);
+  }, [now, tz, query, next, observance.kind]);
 
+  const today = todayISO(now, tz);
   const todayLabel = new Date(parts.year, parts.month - 1, parts.day).toLocaleDateString("en-US", {
     weekday: "long",
     month: "long",
@@ -50,8 +63,10 @@ export default function Dashboard() {
         <Text className="mt-1 text-sm text-violet-300">
           {todayLabel} · {clock}
         </Text>
+        <Text className="mt-1 text-sm text-saffron-200">{formatPanchangLong(today, settings.calendarId)}</Text>
         <Text className="mt-0.5 text-xs text-violet-400">
-          Aligned to {getTimezoneLabel(settings.timezone)}
+          {calendar.name} · {traditionLabel(settings.tradition)} · {city.name} ·{" "}
+          {getTimezoneLabel(settings.timezone)}
         </Text>
       </View>
 
@@ -60,11 +75,18 @@ export default function Dashboard() {
           eyebrow="Fasting today"
           name={observance.ekadashi.name}
           dateLabel={formatLongDate(observance.ekadashi.date)}
-          paksha={`${observance.ekadashi.paksha} Paksha · ${observance.ekadashi.month} maas`}
+          hinduLabel={formatPanchangLong(observance.ekadashi.date, settings.calendarId)}
+          paksha={`${observance.ekadashi.paksha} Paksha · ${observance.ekadashi.month}`}
           significance={observance.ekadashi.significance}
           paranaStart={observance.ekadashi.parana.start}
           paranaEnd={observance.ekadashi.parana.end}
           paranaDate={observance.ekadashi.parana.date}
+          calendarId={settings.calendarId}
+          otherNote={
+            observance.ekadashi.otherTraditionDate
+              ? `${traditionLabel(observance.ekadashi.otherTraditionDate.tradition)} observes ${formatLongDate(observance.ekadashi.otherTraditionDate.date)}`
+              : undefined
+          }
           badge="Observe"
           colors={[...accentGradient]}
         />
@@ -75,11 +97,13 @@ export default function Dashboard() {
           eyebrow="Parana today"
           name={observance.ekadashi.name}
           dateLabel={`Break fast for ${observance.ekadashi.name}`}
-          paksha={`${observance.ekadashi.paksha} Paksha · ${observance.ekadashi.month} maas`}
+          hinduLabel={formatPanchangLong(observance.ekadashi.parana.date, settings.calendarId)}
+          paksha={`${observance.ekadashi.paksha} Paksha · ${observance.ekadashi.month}`}
           significance={observance.ekadashi.significance}
           paranaStart={observance.ekadashi.parana.start}
           paranaEnd={observance.ekadashi.parana.end}
           paranaDate={observance.ekadashi.parana.date}
+          calendarId={settings.calendarId}
           badge="Break fast"
           colors={[...paranaGradient]}
         />
@@ -90,11 +114,18 @@ export default function Dashboard() {
           eyebrow="Next Ekadashi"
           name={next.name}
           dateLabel={formatLongDate(next.date)}
-          paksha={`${next.paksha} Paksha · ${next.month} maas`}
+          hinduLabel={formatPanchangLong(next.date, settings.calendarId)}
+          paksha={`${next.paksha} Paksha · ${next.month}`}
           significance={next.significance}
           paranaStart={next.parana.start}
           paranaEnd={next.parana.end}
           paranaDate={next.parana.date}
+          calendarId={settings.calendarId}
+          otherNote={
+            next.otherTraditionDate
+              ? `${traditionLabel(next.otherTraditionDate.tradition)} observes ${formatLongDate(next.otherTraditionDate.date)}`
+              : undefined
+          }
           badge={countdownLabel(daysUntil(next.date, now, tz))}
           colors={[...accentGradient]}
         />
@@ -102,7 +133,7 @@ export default function Dashboard() {
 
       {!next && observance.kind === "none" ? (
         <Card className="mb-5">
-          <Text className="text-white">No upcoming Ekadashi remains in the 2026–2027 dataset.</Text>
+          <Text className="text-white">No upcoming Ekadashi remains in the 2026–2030 dataset.</Text>
         </Card>
       ) : null}
 
@@ -128,6 +159,9 @@ export default function Dashboard() {
             </View>
             <View className="flex-1 pl-1">
               <Text className="text-base font-semibold text-white">{e.name} Ekadashi</Text>
+              <Text className="text-xs text-saffron-200/90" numberOfLines={1}>
+                {formatPanchangLong(e.date, settings.calendarId)}
+              </Text>
               <Text className="text-xs text-violet-300" numberOfLines={1}>
                 Parana {formatTime12h(e.parana.start)}–{formatTime12h(e.parana.end)}
               </Text>
@@ -146,22 +180,28 @@ function HeroCard({
   eyebrow,
   name,
   dateLabel,
+  hinduLabel,
   paksha,
   significance,
   paranaStart,
   paranaEnd,
   paranaDate,
+  calendarId,
+  otherNote,
   badge,
   colors,
 }: {
   eyebrow: string;
   name: string;
   dateLabel: string;
+  hinduLabel: string;
   paksha: string;
   significance: string;
   paranaStart: string;
   paranaEnd: string;
   paranaDate: string;
+  calendarId: import("@/types").CalendarId;
+  otherNote?: string;
   badge: string;
   colors: readonly [string, string, ...string[]];
 }) {
@@ -186,6 +226,7 @@ function HeroCard({
 
       <Text className="mt-2 text-3xl font-extrabold text-white">{name}</Text>
       <Text className="text-base text-white/90">{dateLabel}</Text>
+      <Text className="text-sm text-white/80">{hinduLabel}</Text>
 
       <View className="mt-2 flex-row items-center gap-2">
         <MoonStar color="#fff" size={16} />
@@ -193,6 +234,7 @@ function HeroCard({
       </View>
 
       <Text className="mt-3 text-sm leading-5 text-white/90">{significance}</Text>
+      {otherNote ? <Text className="mt-2 text-xs text-white/80">{otherNote}</Text> : null}
 
       <View className="mt-4 flex-row items-center gap-2 rounded-2xl bg-black/20 px-4 py-3">
         <Sunrise color="#fff" size={20} />
@@ -202,6 +244,8 @@ function HeroCard({
             {formatTime12h(paranaStart)} – {formatTime12h(paranaEnd)}
           </Text>
           <Text className="text-xs text-white/80">on {formatLongDate(paranaDate)}</Text>
+          <Text className="text-[11px] text-white/70">{formatPanchangLong(paranaDate, calendarId)}</Text>
+          <Text className="text-[11px] text-white/70">Window follows local sunrise</Text>
         </View>
       </View>
     </LinearGradient>

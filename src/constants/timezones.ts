@@ -15,6 +15,8 @@ export const TIMEZONES: TimezoneOption[] = [
   { id: "Europe/Berlin", label: "Berlin", hint: "Central Europe" },
   { id: "Australia/Sydney", label: "Sydney", hint: "Australia Eastern" },
   { id: "Asia/Singapore", label: "Singapore", hint: "SGT" },
+  { id: "America/Toronto", label: "Toronto", hint: "Canada Eastern" },
+  { id: "Asia/Dubai", label: "Dubai", hint: "Gulf" },
 ];
 
 export function getTimezoneLabel(id: string): string {

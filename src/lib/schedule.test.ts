@@ -34,10 +34,10 @@ describe("buildNotificationPlan", () => {
     assert.equal(plan.length, 2);
     assert.deepEqual(
       plan.map((p) => p.key),
-      ["reminder:2026-09-12:1", "reminder:2026-09-12:0"]
+      ["reminder:2026-09-07-aja:1", "reminder:2026-09-07-aja:0"]
     );
-    assert.equal(plan[0].fireAt.toISOString(), wallTimeInZone("2026-09-11", "08:00", "Asia/Kolkata").toISOString());
-    assert.equal(plan[1].fireAt.toISOString(), wallTimeInZone("2026-09-12", "08:00", "Asia/Kolkata").toISOString());
+    assert.equal(plan[0].fireAt.toISOString(), wallTimeInZone("2026-09-06", "08:00", "Asia/Kolkata").toISOString());
+    assert.equal(plan[1].fireAt.toISOString(), wallTimeInZone("2026-09-07", "08:00", "Asia/Kolkata").toISOString());
   });
 
   it("adds repeating fasting and Parana alarms and stays inside the iOS budget", () => {
@@ -57,16 +57,18 @@ describe("buildNotificationPlan", () => {
     });
     assert.ok(plan.length > 0);
     assert.ok(plan.length <= MAX_SCHEDULED_NOTIFICATIONS);
-    const fasting = plan.filter((p) => p.kind === "alarm-fasting" && p.ekadashiId === "2026-09-12");
+    const fasting = plan.filter((p) => p.kind === "alarm-fasting" && p.ekadashiId === "2026-09-07-aja");
     assert.equal(fasting.length, 3);
-    const parana = plan.filter((p) => p.kind === "alarm-parana" && p.ekadashiId === "2026-09-12");
+    const parana = plan.filter((p) => p.kind === "alarm-parana" && p.ekadashiId === "2026-09-07-aja");
+    const aja = upcoming.find((e) => e.id === "2026-09-07-aja");
     assert.ok(parana.length >= 1);
-    assert.ok(parana.every((p) => p.fireAt <= wallTimeInZone("2026-09-13", "08:23", "Asia/Kolkata")));
+    assert.ok(aja);
+    assert.ok(parana.every((p) => p.fireAt <= wallTimeInZone(aja!.parana.date, aja!.parana.end, "Asia/Kolkata")));
   });
 
   it("skips fire times that have already passed", () => {
-    const after = new Date("2026-09-12T10:00:00.000Z");
-    const upcoming = getUpcomingEkadashis(1, new Date(2026, 8, 12), "device");
+    const after = new Date("2026-09-07T10:00:00.000Z");
+    const upcoming = getUpcomingEkadashis(1, new Date(2026, 8, 7), "device");
     const plan = buildNotificationPlan({
       now: after,
       settings: {

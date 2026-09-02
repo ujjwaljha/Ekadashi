@@ -6,8 +6,9 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { palette } from "@/constants/theme";
 import { startAlarm, stopAlarm } from "@/lib/alarm";
-import { getEkadashiById } from "@/lib/ekadashi";
+import { getEkadashiById, queryFromSettings } from "@/lib/ekadashi";
 import { formatLongDate, formatTime12h } from "@/lib/format";
+import { formatPanchangLong } from "@/lib/panchang";
 import { scheduleSnooze } from "@/lib/notifications";
 import { useSettings } from "@/store/settings";
 
@@ -21,7 +22,10 @@ export default function AlarmScreen() {
   const { settings } = useSettings();
   const params = useLocalSearchParams<{ kind?: string; id?: string }>();
   const kind = params.kind === "alarm-parana" ? "alarm-parana" : "alarm-fasting";
-  const ekadashi = useMemo(() => (params.id ? getEkadashiById(params.id) : undefined), [params.id]);
+  const ekadashi = useMemo(
+    () => (params.id ? getEkadashiById(params.id, queryFromSettings(settings)) : undefined),
+    [params.id, settings]
+  );
 
   useEffect(() => {
     void startAlarm(settings.alarmSound);
@@ -75,6 +79,14 @@ export default function AlarmScreen() {
         {ekadashi ? (
           <Text className="mt-2 text-center text-base text-violet-200">
             {formatLongDate(kind === "alarm-parana" ? ekadashi.parana.date : ekadashi.date)}
+          </Text>
+        ) : null}
+        {ekadashi ? (
+          <Text className="mt-1 text-center text-sm text-saffron-200">
+            {formatPanchangLong(
+              kind === "alarm-parana" ? ekadashi.parana.date : ekadashi.date,
+              settings.calendarId
+            )}
           </Text>
         ) : null}
         {ekadashi ? (
