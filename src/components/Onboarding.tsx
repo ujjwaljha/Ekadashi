@@ -1,14 +1,16 @@
 import * as Localization from "expo-localization";
 import { useMemo, useState } from "react";
-import { Pressable, Text, View } from "react-native";
+import { Text, View } from "react-native";
 
 import { CalendarPicker } from "@/components/CalendarPicker";
 import { CityPicker } from "@/components/CityPicker";
 import { Chip } from "@/components/Chip";
+import { FadeInView, PressableScale } from "@/components/motion";
+import { PrimaryButton } from "@/components/PrimaryButton";
 import { Screen } from "@/components/Screen";
 import { getCalendar, suggestCalendarFromLocale, TRADITIONS } from "@/constants/calendars";
 import { getCity, suggestCityFromCalendar, suggestCityFromTimezone } from "@/constants/cities";
-import { palette } from "@/constants/theme";
+import { fonts, palette, type } from "@/constants/theme";
 import { useSettings } from "@/store/settings";
 import type { CalendarId, TraditionId } from "@/types";
 
@@ -67,103 +69,103 @@ export function Onboarding() {
 
   return (
     <Screen>
-      <Text className="mb-1 mt-1 text-xs uppercase tracking-[3px] text-saffron-300">
+      <Text style={type.eyebrow} className="mb-1 mt-1 text-[11px] text-saffron-300">
         Welcome
       </Text>
-      <Text className="text-3xl font-bold text-white">Observe Ekadashi in your calendar</Text>
+      <Text style={type.display} className="text-[34px] text-white">
+        Observe Ekadashi in your calendar
+      </Text>
       <Text className="mt-2 text-sm leading-5 text-violet-200">
         Pick your panchang, city, and fasting tradition. Published India dates stay in the app
         for five years; Parana follows your city sunrise.
       </Text>
 
       <View className="my-4 flex-row gap-2">
-        <View className={`h-1.5 flex-1 rounded-full ${step === 1 ? "bg-saffron-500" : "bg-white/15"}`} />
-        <View className={`h-1.5 flex-1 rounded-full ${step === 2 ? "bg-saffron-500" : "bg-white/15"}`} />
-        <View className={`h-1.5 flex-1 rounded-full ${step === 3 ? "bg-saffron-500" : "bg-white/15"}`} />
+        {[1, 2, 3].map((n) => (
+          <View
+            key={n}
+            className={`h-1.5 flex-1 rounded-full ${step >= n ? "bg-saffron-500" : "bg-white/15"}`}
+          />
+        ))}
       </View>
 
-      {step === 1 ? (
-        <>
-          <Text className="mb-3 text-lg font-bold text-white">1. Choose your calendar</Text>
-          <CalendarPicker value={calendarId} onChange={selectCalendar} suggestedId={suggestedCalendar} />
-          <Pressable
-            onPress={() => setStep(2)}
-            className="mt-4 rounded-2xl bg-saffron-500 py-3.5"
-            accessibilityRole="button"
-            accessibilityLabel="Continue to city"
-          >
-            <Text className="text-center text-base font-bold text-indigoink-900">
-              Continue with {calendar.name}
+      <FadeInView key={step}>
+        {step === 1 ? (
+          <>
+            <Text style={type.title} className="mb-3 text-lg text-white">
+              1. Choose your calendar
             </Text>
-          </Pressable>
-        </>
-      ) : null}
+            <CalendarPicker value={calendarId} onChange={selectCalendar} suggestedId={suggestedCalendar} />
+            <View className="mt-4">
+              <PrimaryButton
+                label={`Continue with ${calendar.name}`}
+                onPress={() => setStep(2)}
+                accessibilityLabel="Continue to city"
+              />
+            </View>
+          </>
+        ) : null}
 
-      {step === 2 ? (
-        <>
-          <Text className="mb-1 text-lg font-bold text-white">2. Your city</Text>
-          <Text className="mb-4 text-sm text-violet-300">
-            Sunrise here sets the Parana window. Cities in India and Nepal keep published fasting
-            dates; other cities calculate the local day when it shifts.
-          </Text>
-          <CityPicker value={cityId} onChange={setCityId} suggestedId={suggestedCity} />
-          <Pressable
-            onPress={() => setStep(3)}
-            className="mt-4 rounded-2xl bg-saffron-500 py-3.5"
-            accessibilityRole="button"
-          >
-            <Text className="text-center text-base font-bold text-indigoink-900">
-              Continue with {city.name}
+        {step === 2 ? (
+          <>
+            <Text style={type.title} className="mb-1 text-lg text-white">
+              2. Your city
             </Text>
-          </Pressable>
-          <Pressable onPress={() => setStep(1)} className="mt-3 py-2">
-            <Text className="text-center text-sm text-violet-300">Back to calendars</Text>
-          </Pressable>
-        </>
-      ) : null}
+            <Text className="mb-4 text-sm text-violet-300">
+              Sunrise here sets the Parana window. Cities in India and Nepal keep published fasting
+              dates; other cities calculate the local day when it shifts.
+            </Text>
+            <CityPicker value={cityId} onChange={setCityId} suggestedId={suggestedCity} />
+            <View className="mt-4">
+              <PrimaryButton label={`Continue with ${city.name}`} onPress={() => setStep(3)} />
+            </View>
+            <PressableScale onPress={() => setStep(1)} className="mt-3 py-2">
+              <Text className="text-center text-sm text-violet-300">Back to calendars</Text>
+            </PressableScale>
+          </>
+        ) : null}
 
-      {step === 3 ? (
-        <>
-          <Text className="mb-1 text-lg font-bold text-white">3. Fasting tradition</Text>
-          <Text className="mb-4 text-sm text-violet-300">
-            {calendar.name} defaults to {calendar.defaultTradition === "vaishnava" ? "Vaishnava" : "Smarta"}.
-            You can change this anytime in Settings.
-          </Text>
-          <View className="gap-2">
-            {TRADITIONS.map((item) => (
-              <Pressable key={item.id} onPress={() => setTradition(item.id)}>
-                <View
-                  className={`rounded-3xl border p-5 ${
-                    tradition === item.id
-                      ? "border-saffron-400/60 bg-saffron-500/10"
-                      : "border-white/10 bg-white/5"
-                  }`}
-                >
-                  <Text className="text-base font-bold text-white">{item.name}</Text>
-                  <Text className="mt-1 text-sm leading-5 text-violet-200">{item.summary}</Text>
-                </View>
-              </Pressable>
-            ))}
-          </View>
-          <View className="mt-4 flex-row flex-wrap gap-2">
-            <Chip label={calendar.name} active />
-            <Chip label={city.name} active />
-            <Chip label={tradition === "vaishnava" ? "Vaishnava dates" : "Smarta dates"} active />
-          </View>
-          <Pressable
-            onPress={finish}
-            className="mt-4 rounded-2xl bg-saffron-500 py-3.5"
-            accessibilityRole="button"
-          >
-            <Text className="text-center text-base font-bold text-indigoink-900">
-              Start using the app
+        {step === 3 ? (
+          <>
+            <Text style={type.title} className="mb-1 text-lg text-white">
+              3. Fasting tradition
             </Text>
-          </Pressable>
-          <Pressable onPress={() => setStep(2)} className="mt-3 py-2">
-            <Text className="text-center text-sm text-violet-300">Back to city</Text>
-          </Pressable>
-        </>
-      ) : null}
+            <Text className="mb-4 text-sm text-violet-300">
+              {calendar.name} defaults to {calendar.defaultTradition === "vaishnava" ? "Vaishnava" : "Smarta"}.
+              You can change this anytime in Settings.
+            </Text>
+            <View className="gap-2">
+              {TRADITIONS.map((item) => (
+                <PressableScale key={item.id} onPress={() => setTradition(item.id)} haptic="selection">
+                  <View
+                    className={`rounded-3xl border p-5 ${
+                      tradition === item.id
+                        ? "border-saffron-400/60 bg-saffron-500/10"
+                        : "border-white/10 bg-white/5"
+                    }`}
+                  >
+                    <Text style={{ fontFamily: fonts.sansBold }} className="text-base text-white">
+                      {item.name}
+                    </Text>
+                    <Text className="mt-1 text-sm leading-5 text-violet-200">{item.summary}</Text>
+                  </View>
+                </PressableScale>
+              ))}
+            </View>
+            <View className="mt-4 flex-row flex-wrap gap-2">
+              <Chip label={calendar.name} active />
+              <Chip label={city.name} active />
+              <Chip label={tradition === "vaishnava" ? "Vaishnava dates" : "Smarta dates"} active />
+            </View>
+            <View className="mt-4">
+              <PrimaryButton label="Start using the app" onPress={finish} />
+            </View>
+            <PressableScale onPress={() => setStep(2)} className="mt-3 py-2">
+              <Text className="text-center text-sm text-violet-300">Back to city</Text>
+            </PressableScale>
+          </>
+        ) : null}
+      </FadeInView>
 
       <Text className="mt-6 text-center text-[11px] leading-4 text-violet-500">
         Five years of dates stay in the app. Confirm Parana with a local panchang.

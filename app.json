@@ -16,7 +16,9 @@
       "bundleIdentifier": "com.ekadashi.reminder",
       "buildNumber": "2",
       "infoPlist": {
-        "UIBackgroundModes": ["audio"],
+        "UIBackgroundModes": [
+          "audio"
+        ],
         "NSUserNotificationsUsageDescription": "Ekadashi Reminder alerts you before fasting days and during the Parana window.",
         "ITSAppUsesNonExemptEncryption": false
       },
@@ -43,7 +45,10 @@
         "RECEIVE_BOOT_COMPLETED",
         "WAKE_LOCK"
       ],
-      "blockedPermissions": ["android.permission.READ_EXTERNAL_STORAGE", "android.permission.WRITE_EXTERNAL_STORAGE"]
+      "blockedPermissions": [
+        "android.permission.READ_EXTERNAL_STORAGE",
+        "android.permission.WRITE_EXTERNAL_STORAGE"
+      ]
     },
     "web": {
       "bundler": "metro",
@@ -68,11 +73,15 @@
         {
           "icon": "./assets/images/android-icon-monochrome.png",
           "color": "#f97316",
-          "sounds": ["./assets/sounds/temple-bell.wav", "./assets/sounds/conch.wav"],
+          "sounds": [
+            "./assets/sounds/temple-bell.wav",
+            "./assets/sounds/conch.wav"
+          ],
           "defaultChannel": "reminders",
           "enableBackgroundRemoteNotifications": false
         }
-      ]
+      ],
+      "expo-font"
     ],
     "extra": {
       "router": {

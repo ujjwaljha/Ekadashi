@@ -1,14 +1,15 @@
 import { useRouter } from "expo-router";
 import { ChevronLeft } from "lucide-react-native";
-import { Pressable, Text } from "react-native";
+import { Text } from "react-native";
 
-import { palette } from "@/constants/theme";
+import { PressableScale } from "@/components/motion";
+import { fonts, palette } from "@/constants/theme";
 
 /** Back control for stack screens that hide the native header. */
 export function StackBack({ fallback = "/(tabs)/settings" }: { fallback?: string }) {
   const router = useRouter();
   return (
-    <Pressable
+    <PressableScale
       onPress={() => {
         if (router.canGoBack()) router.back();
         else router.replace(fallback as never);
@@ -18,7 +19,9 @@ export function StackBack({ fallback = "/(tabs)/settings" }: { fallback?: string
       accessibilityLabel="Go back"
     >
       <ChevronLeft color={palette.saffronLight} size={16} />
-      <Text className="text-sm font-semibold text-saffron-200">Back</Text>
-    </Pressable>
+      <Text style={{ fontFamily: fonts.sansSemi }} className="text-sm text-saffron-200">
+        Back
+      </Text>
+    </PressableScale>
   );
 }

@@ -2,7 +2,7 @@ import { MoonStar, Sunrise } from "lucide-react-native";
 import { Text, View } from "react-native";
 
 import { getCalendar, traditionLabel } from "@/constants/calendars";
-import { palette } from "@/constants/theme";
+import { fonts, palette } from "@/constants/theme";
 import { formatLongDate, formatTime12h } from "@/lib/format";
 import { formatPanchangLong } from "@/lib/panchang";
 import type { Ekadashi } from "@/types";
@@ -11,7 +11,9 @@ export function EkadashiDetail({ item }: { item: Ekadashi }) {
   const calendar = getCalendar(item.calendarId);
   return (
     <View>
-      <Text className="text-xl font-bold text-white">{item.name} Ekadashi</Text>
+      <Text style={{ fontFamily: fonts.display }} className="text-2xl text-white">
+        {item.name} Ekadashi
+      </Text>
       <Text className="mt-0.5 text-sm text-violet-200">{formatLongDate(item.date)}</Text>
       <Text className="mt-1 text-sm text-saffron-200">
         {formatPanchangLong(item.date, item.calendarId)}

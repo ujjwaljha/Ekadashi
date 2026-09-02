@@ -1,13 +1,15 @@
 import { ChevronLeft, ChevronRight, LocateFixed } from "lucide-react-native";
 import { useMemo, useState } from "react";
-import { Pressable, Text, View } from "react-native";
+import { Text, View } from "react-native";
+import Animated, { FadeIn, FadeOut } from "react-native-reanimated";
 
 import { Card } from "@/components/Card";
 import { EkadashiDetail } from "@/components/EkadashiDetail";
+import { FadeInView, PressableScale } from "@/components/motion";
 import { Screen } from "@/components/Screen";
 import { getCalendar, traditionLabel } from "@/constants/calendars";
 import { getCity } from "@/constants/cities";
-import { palette } from "@/constants/theme";
+import { fonts, palette, type } from "@/constants/theme";
 import { getEkadashisInMonth, getYearRange, queryFromSettings } from "@/lib/ekadashi";
 import { formatShortDate, formatTime12h } from "@/lib/format";
 import { formatPanchangLong, getPanchangDay } from "@/lib/panchang";
@@ -97,88 +99,105 @@ export default function CalendarScreen() {
 
   return (
     <Screen>
-      <Text className="mb-1 mt-1 text-xs uppercase tracking-[3px] text-saffron-300">
-        {calendar.name}
-      </Text>
-      <View className="mb-4 flex-row items-end justify-between">
-        <View className="flex-1 pr-3">
-          <Text className="text-3xl font-bold text-white">
-            {MONTH_NAMES[cursor.month]} {cursor.year}
-          </Text>
-          <Text className="mt-0.5 text-sm text-saffron-200">{monthPanchang.civilLabel}</Text>
-          <Text className="text-xs text-violet-400">
-            {traditionLabel(settings.tradition)} · {city.name}
-          </Text>
+      <FadeInView>
+        <Text style={type.eyebrow} className="mb-1 mt-1 text-[11px] text-saffron-300">
+          {calendar.name}
+        </Text>
+        <View className="mb-4 flex-row items-end justify-between">
+          <View className="flex-1 pr-3">
+            <Text style={type.display} className="text-[34px] text-white">
+              {MONTH_NAMES[cursor.month]} {cursor.year}
+            </Text>
+            <Text style={{ fontFamily: fonts.sansMedium }} className="mt-0.5 text-sm text-saffron-200">
+              {monthPanchang.civilLabel}
+            </Text>
+            <Text className="text-xs text-violet-400">
+              {traditionLabel(settings.tradition)} · {city.name}
+            </Text>
+          </View>
+          <PressableScale
+            onPress={jumpToday}
+            className="flex-row items-center gap-1 rounded-full bg-white/10 px-3 py-1.5"
+          >
+            <LocateFixed color={palette.saffronLight} size={14} />
+            <Text style={{ fontFamily: fonts.sansSemi }} className="text-xs text-saffron-200">
+              Today
+            </Text>
+          </PressableScale>
         </View>
-        <Pressable
-          onPress={jumpToday}
-          className="flex-row items-center gap-1 rounded-full bg-white/10 px-3 py-1.5"
-        >
-          <LocateFixed color={palette.saffronLight} size={14} />
-          <Text className="text-xs font-semibold text-saffron-200">Today</Text>
-        </Pressable>
-      </View>
+      </FadeInView>
 
       <Card className="mb-4">
         <View className="mb-3 flex-row items-center justify-between">
           <View className="flex-row items-center gap-1">
-            <Pressable
+            <PressableScale
               onPress={() => canPrevYear && shiftYear(-1)}
               disabled={!canPrevYear}
+              haptic="selection"
               className="rounded-full bg-white/10 px-2 py-2"
               style={{ opacity: canPrevYear ? 1 : 0.3 }}
               accessibilityRole="button"
               accessibilityLabel="Previous year"
             >
               <Text className="text-xs font-bold text-white">«</Text>
-            </Pressable>
-            <Pressable
+            </PressableScale>
+            <PressableScale
               onPress={() => canPrev && shift(-1)}
               disabled={!canPrev}
+              haptic="selection"
               className="rounded-full bg-white/10 p-2"
               style={{ opacity: canPrev ? 1 : 0.3 }}
               accessibilityRole="button"
               accessibilityLabel="Previous month"
             >
               <ChevronLeft color={palette.textPrimary} size={20} />
-            </Pressable>
+            </PressableScale>
           </View>
-          <Text className="text-base font-semibold text-white">
+          <Text style={{ fontFamily: fonts.sansSemi }} className="text-base text-white">
             {MONTH_NAMES[cursor.month]} {cursor.year}
           </Text>
           <View className="flex-row items-center gap-1">
-            <Pressable
+            <PressableScale
               onPress={() => canNext && shift(1)}
               disabled={!canNext}
+              haptic="selection"
               className="rounded-full bg-white/10 p-2"
               style={{ opacity: canNext ? 1 : 0.3 }}
               accessibilityRole="button"
               accessibilityLabel="Next month"
             >
               <ChevronRight color={palette.textPrimary} size={20} />
-            </Pressable>
-            <Pressable
+            </PressableScale>
+            <PressableScale
               onPress={() => canNextYear && shiftYear(1)}
               disabled={!canNextYear}
+              haptic="selection"
               className="rounded-full bg-white/10 px-2 py-2"
               style={{ opacity: canNextYear ? 1 : 0.3 }}
               accessibilityRole="button"
               accessibilityLabel="Next year"
             >
               <Text className="text-xs font-bold text-white">»</Text>
-            </Pressable>
+            </PressableScale>
           </View>
         </View>
 
         <View className="flex-row">
           {WEEK.map((d, i) => (
             <View key={`${d}-${i}`} className="flex-1 items-center py-1">
-              <Text className="text-xs font-semibold text-violet-300">{d}</Text>
+              <Text style={{ fontFamily: fonts.sansSemi }} className="text-xs text-violet-300">
+                {d}
+              </Text>
             </View>
           ))}
         </View>
 
-        <View className="flex-row flex-wrap">
+        <Animated.View
+          key={`${cursor.year}-${cursor.month}`}
+          entering={FadeIn.duration(280)}
+          exiting={FadeOut.duration(140)}
+          className="flex-row flex-wrap"
+        >
           {cells.map((day, idx) => {
             if (day === null) return <View key={`e${idx}`} style={{ width: `${100 / 7}%` }} />;
             const ekadashi = ekadashiByDay.get(day);
@@ -187,8 +206,9 @@ export default function CalendarScreen() {
             const isSelected = selected?.date === iso;
             const panchang = getPanchangDay(iso, settings.calendarId);
             return (
-              <Pressable
+              <PressableScale
                 key={day}
+                haptic="selection"
                 style={{ width: `${100 / 7}%` }}
                 className="items-center py-1"
                 onPress={() => ekadashi && setSelected(ekadashi)}
@@ -208,9 +228,8 @@ export default function CalendarScreen() {
                   } ${isToday && ekadashi ? "border-2 border-white" : ""}`}
                 >
                   <Text
-                    className={`text-sm ${
-                      ekadashi ? "font-bold text-indigoink-900" : "text-violet-100"
-                    }`}
+                    style={{ fontFamily: ekadashi ? fonts.sansBold : fonts.sansMedium }}
+                    className={`text-sm ${ekadashi ? "text-indigoink-900" : "text-violet-100"}`}
                   >
                     {day}
                   </Text>
@@ -222,10 +241,10 @@ export default function CalendarScreen() {
                     {panchang.civilShort}
                   </Text>
                 </View>
-              </Pressable>
+              </PressableScale>
             );
           })}
-        </View>
+        </Animated.View>
 
         <View className="mt-3 flex-row items-center gap-2">
           <View className="h-4 w-4 rounded-full bg-saffron-500" />
@@ -237,17 +256,21 @@ export default function CalendarScreen() {
 
       {monthEkadashis.length > 0 ? (
         <View className="mb-4 gap-2">
-          <Text className="text-lg font-bold text-white">This month</Text>
+          <Text style={type.title} className="text-lg text-white">
+            This month
+          </Text>
           {monthEkadashis.map((e) => (
-            <Pressable key={e.id} onPress={() => setSelected(e)}>
+            <PressableScale key={e.id} onPress={() => setSelected(e)} haptic="selection">
               <Card className={`flex-row items-center ${selected?.id === e.id ? "border-saffron-400/50" : ""}`}>
                 <View className="w-14">
-                  <Text className="text-base font-bold text-saffron-300">
+                  <Text style={{ fontFamily: fonts.display }} className="text-base text-saffron-300">
                     {formatShortDate(e.date)}
                   </Text>
                 </View>
                 <View className="flex-1">
-                  <Text className="text-base font-semibold text-white">{e.name}</Text>
+                  <Text style={{ fontFamily: fonts.sansSemi }} className="text-base text-white">
+                    {e.name}
+                  </Text>
                   <Text className="text-xs text-saffron-200/90" numberOfLines={1}>
                     {formatPanchangLong(e.date, settings.calendarId)}
                   </Text>
@@ -256,7 +279,7 @@ export default function CalendarScreen() {
                   </Text>
                 </View>
               </Card>
-            </Pressable>
+            </PressableScale>
           ))}
         </View>
       ) : (
@@ -266,9 +289,11 @@ export default function CalendarScreen() {
       )}
 
       {selected ? (
-        <Card>
-          <EkadashiDetail item={selected} />
-        </Card>
+        <Animated.View entering={FadeIn.duration(280)}>
+          <Card>
+            <EkadashiDetail item={selected} />
+          </Card>
+        </Animated.View>
       ) : (
         <Text className="px-1 text-center text-sm text-violet-300">
           Tap a highlighted date to see its Parana timing and {calendar.name} label.

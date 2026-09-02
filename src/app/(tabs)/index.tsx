@@ -4,10 +4,11 @@ import { useEffect, useMemo, useState } from "react";
 import { Text, View } from "react-native";
 
 import { Card } from "@/components/Card";
+import { FadeInView } from "@/components/motion";
 import { Screen } from "@/components/Screen";
 import { getCalendar, traditionLabel } from "@/constants/calendars";
 import { getCity } from "@/constants/cities";
-import { accentGradient, palette, paranaGradient } from "@/constants/theme";
+import { accentGradient, fonts, motion, palette, paranaGradient, shadows, type } from "@/constants/theme";
 import { getTimezoneLabel } from "@/constants/timezones";
 import {
   daysUntil,
@@ -55,80 +56,92 @@ export default function Dashboard() {
 
   return (
     <Screen>
-      <View className="mb-5 mt-1">
-        <Text className="text-xs uppercase tracking-[3px] text-saffron-300">Ekadashi Reminder</Text>
-        <Text className="mt-1 text-3xl font-bold text-white">
-          {greetingForHour(parts.hour)} 🙏
-        </Text>
-        <Text className="mt-1 text-sm text-violet-300">
-          {todayLabel} · {clock}
-        </Text>
-        <Text className="mt-1 text-sm text-saffron-200">{formatPanchangLong(today, settings.calendarId)}</Text>
-        <Text className="mt-0.5 text-xs text-violet-400">
-          {calendar.name} · {traditionLabel(settings.tradition)} · {city.name} ·{" "}
-          {getTimezoneLabel(settings.timezone)}
-        </Text>
-      </View>
+      <FadeInView>
+        <View className="mb-5 mt-1">
+          <Text style={type.eyebrow} className="text-[11px] text-saffron-300">
+            Ekadashi Reminder
+          </Text>
+          <Text style={type.display} className="mt-1 text-[34px] text-white">
+            {greetingForHour(parts.hour)}
+          </Text>
+          <Text style={{ fontFamily: fonts.sans }} className="mt-1 text-sm text-violet-300">
+            {todayLabel} · {clock}
+          </Text>
+          <Text style={{ fontFamily: fonts.sansMedium }} className="mt-1 text-sm text-saffron-200">
+            {formatPanchangLong(today, settings.calendarId)}
+          </Text>
+          <Text className="mt-0.5 text-xs text-violet-400">
+            {calendar.name} · {traditionLabel(settings.tradition)} · {city.name} ·{" "}
+            {getTimezoneLabel(settings.timezone)}
+          </Text>
+        </View>
+      </FadeInView>
 
       {observance.kind === "fasting" && observance.ekadashi ? (
-        <HeroCard
-          eyebrow="Fasting today"
-          name={observance.ekadashi.name}
-          dateLabel={formatLongDate(observance.ekadashi.date)}
-          hinduLabel={formatPanchangLong(observance.ekadashi.date, settings.calendarId)}
-          paksha={`${observance.ekadashi.paksha} Paksha · ${observance.ekadashi.month}`}
-          significance={observance.ekadashi.significance}
-          paranaStart={observance.ekadashi.parana.start}
-          paranaEnd={observance.ekadashi.parana.end}
-          paranaDate={observance.ekadashi.parana.date}
-          calendarId={settings.calendarId}
-          otherNote={
-            observance.ekadashi.otherTraditionDate
-              ? `${traditionLabel(observance.ekadashi.otherTraditionDate.tradition)} observes ${formatLongDate(observance.ekadashi.otherTraditionDate.date)}`
-              : undefined
-          }
-          badge="Observe"
-          colors={[...accentGradient]}
-        />
+        <FadeInView delay={motion.staggerMs} zoom>
+          <HeroCard
+            eyebrow="Fasting today"
+            name={observance.ekadashi.name}
+            dateLabel={formatLongDate(observance.ekadashi.date)}
+            hinduLabel={formatPanchangLong(observance.ekadashi.date, settings.calendarId)}
+            paksha={`${observance.ekadashi.paksha} Paksha · ${observance.ekadashi.month}`}
+            significance={observance.ekadashi.significance}
+            paranaStart={observance.ekadashi.parana.start}
+            paranaEnd={observance.ekadashi.parana.end}
+            paranaDate={observance.ekadashi.parana.date}
+            calendarId={settings.calendarId}
+            otherNote={
+              observance.ekadashi.otherTraditionDate
+                ? `${traditionLabel(observance.ekadashi.otherTraditionDate.tradition)} observes ${formatLongDate(observance.ekadashi.otherTraditionDate.date)}`
+                : undefined
+            }
+            badge="Observe"
+            colors={[...accentGradient]}
+          />
+        </FadeInView>
       ) : null}
 
       {observance.kind === "parana" && observance.ekadashi ? (
-        <HeroCard
-          eyebrow="Parana today"
-          name={observance.ekadashi.name}
-          dateLabel={`Break fast for ${observance.ekadashi.name}`}
-          hinduLabel={formatPanchangLong(observance.ekadashi.parana.date, settings.calendarId)}
-          paksha={`${observance.ekadashi.paksha} Paksha · ${observance.ekadashi.month}`}
-          significance={observance.ekadashi.significance}
-          paranaStart={observance.ekadashi.parana.start}
-          paranaEnd={observance.ekadashi.parana.end}
-          paranaDate={observance.ekadashi.parana.date}
-          calendarId={settings.calendarId}
-          badge="Break fast"
-          colors={[...paranaGradient]}
-        />
+        <FadeInView delay={motion.staggerMs} zoom>
+          <HeroCard
+            eyebrow="Parana today"
+            name={observance.ekadashi.name}
+            dateLabel={`Break fast for ${observance.ekadashi.name}`}
+            hinduLabel={formatPanchangLong(observance.ekadashi.parana.date, settings.calendarId)}
+            paksha={`${observance.ekadashi.paksha} Paksha · ${observance.ekadashi.month}`}
+            significance={observance.ekadashi.significance}
+            paranaStart={observance.ekadashi.parana.start}
+            paranaEnd={observance.ekadashi.parana.end}
+            paranaDate={observance.ekadashi.parana.date}
+            calendarId={settings.calendarId}
+            badge="Break fast"
+            colors={[...paranaGradient]}
+          />
+        </FadeInView>
       ) : null}
 
       {observance.kind === "none" && next ? (
-        <HeroCard
-          eyebrow="Next Ekadashi"
-          name={next.name}
-          dateLabel={formatLongDate(next.date)}
-          hinduLabel={formatPanchangLong(next.date, settings.calendarId)}
-          paksha={`${next.paksha} Paksha · ${next.month}`}
-          significance={next.significance}
-          paranaStart={next.parana.start}
-          paranaEnd={next.parana.end}
-          paranaDate={next.parana.date}
-          calendarId={settings.calendarId}
-          otherNote={
-            next.otherTraditionDate
-              ? `${traditionLabel(next.otherTraditionDate.tradition)} observes ${formatLongDate(next.otherTraditionDate.date)}`
-              : undefined
-          }
-          badge={countdownLabel(daysUntil(next.date, now, tz))}
-          colors={[...accentGradient]}
-        />
+        <FadeInView delay={motion.staggerMs} zoom>
+          <HeroCard
+            eyebrow="Next Ekadashi"
+            name={next.name}
+            dateLabel={formatLongDate(next.date)}
+            hinduLabel={formatPanchangLong(next.date, settings.calendarId)}
+            paksha={`${next.paksha} Paksha · ${next.month}`}
+            significance={next.significance}
+            paranaStart={next.parana.start}
+            paranaEnd={next.parana.end}
+            paranaDate={next.parana.date}
+            calendarId={settings.calendarId}
+            otherNote={
+              next.otherTraditionDate
+                ? `${traditionLabel(next.otherTraditionDate.tradition)} observes ${formatLongDate(next.otherTraditionDate.date)}`
+                : undefined
+            }
+            badge={countdownLabel(daysUntil(next.date, now, tz))}
+            colors={[...accentGradient]}
+          />
+        </FadeInView>
       ) : null}
 
       {!next && observance.kind === "none" ? (
@@ -137,39 +150,51 @@ export default function Dashboard() {
         </Card>
       ) : null}
 
-      <View className="mb-3 flex-row items-center gap-2">
-        <BellRing color={palette.saffronLight} size={18} />
-        <Text className="flex-1 text-sm text-violet-200">
-          {settings.notificationsEnabled
-            ? `Reminders on · ${settings.leadDays.length} lead-time${
-                settings.leadDays.length === 1 ? "" : "s"
-              } · ${formatTime12h(settings.reminderTime)}`
-            : "Reminders are turned off"}
-          {settings.alarmEnabled ? " · Alarm mode" : ""}
-        </Text>
-      </View>
+      <FadeInView delay={motion.staggerMs * 2}>
+        <View className="mb-3 flex-row items-center gap-2 rounded-2xl border border-white/10 bg-white/[0.04] px-3 py-2.5">
+          <BellRing color={palette.saffronLight} size={16} />
+          <Text className="flex-1 text-sm text-violet-200">
+            {settings.notificationsEnabled
+              ? `Reminders on · ${settings.leadDays.length} lead-time${
+                  settings.leadDays.length === 1 ? "" : "s"
+                } · ${formatTime12h(settings.reminderTime)}`
+              : "Reminders are turned off"}
+            {settings.alarmEnabled ? " · Alarm mode" : ""}
+          </Text>
+        </View>
+      </FadeInView>
 
-      <Text className="mb-2 mt-3 text-lg font-bold text-white">Upcoming</Text>
+      <Text style={type.title} className="mb-2 mt-4 text-lg text-white">
+        Upcoming
+      </Text>
       <View className="gap-2.5">
-        {upcoming.map((e) => (
-          <Card key={e.id} className="flex-row items-center">
-            <View className="w-14">
-              <Text className="text-lg font-bold text-saffron-300">{formatShortDate(e.date)}</Text>
-              <Text className="text-[11px] text-violet-300">{e.paksha}</Text>
-            </View>
-            <View className="flex-1 pl-1">
-              <Text className="text-base font-semibold text-white">{e.name} Ekadashi</Text>
-              <Text className="text-xs text-saffron-200/90" numberOfLines={1}>
-                {formatPanchangLong(e.date, settings.calendarId)}
-              </Text>
-              <Text className="text-xs text-violet-300" numberOfLines={1}>
-                Parana {formatTime12h(e.parana.start)}–{formatTime12h(e.parana.end)}
-              </Text>
-            </View>
-            <Text className="text-xs font-medium text-violet-200">
-              {countdownLabel(daysUntil(e.date, now, tz))}
-            </Text>
-          </Card>
+        {upcoming.map((e, index) => (
+          <FadeInView key={e.id} delay={motion.staggerMs * (3 + index)}>
+            <Card className="flex-row items-center">
+              <View className="w-14">
+                <Text style={{ fontFamily: fonts.display }} className="text-lg text-saffron-300">
+                  {formatShortDate(e.date)}
+                </Text>
+                <Text className="text-[11px] text-violet-300">{e.paksha}</Text>
+              </View>
+              <View className="flex-1 pl-1">
+                <Text style={{ fontFamily: fonts.sansSemi }} className="text-base text-white">
+                  {e.name} Ekadashi
+                </Text>
+                <Text className="text-xs text-saffron-200/90" numberOfLines={1}>
+                  {formatPanchangLong(e.date, settings.calendarId)}
+                </Text>
+                <Text className="text-xs text-violet-300" numberOfLines={1}>
+                  Parana {formatTime12h(e.parana.start)}–{formatTime12h(e.parana.end)}
+                </Text>
+              </View>
+              <View className="rounded-full bg-white/10 px-2.5 py-1">
+                <Text className="text-[11px] font-semibold text-violet-100">
+                  {countdownLabel(daysUntil(e.date, now, tz))}
+                </Text>
+              </View>
+            </Card>
+          </FadeInView>
         ))}
       </View>
     </Screen>
@@ -210,22 +235,53 @@ function HeroCard({
       colors={colors}
       start={{ x: 0, y: 0 }}
       end={{ x: 1, y: 1 }}
-      style={{ borderRadius: 28, padding: 22, marginBottom: 20 }}
+      style={{ borderRadius: 30, padding: 22, marginBottom: 20, overflow: "hidden", ...shadows.hero }}
     >
+      <View
+        pointerEvents="none"
+        style={{
+          position: "absolute",
+          top: -40,
+          right: -30,
+          width: 140,
+          height: 140,
+          borderRadius: 70,
+          backgroundColor: "rgba(255,255,255,0.14)",
+        }}
+      />
+      <View
+        pointerEvents="none"
+        style={{
+          position: "absolute",
+          bottom: -50,
+          left: -20,
+          width: 120,
+          height: 120,
+          borderRadius: 60,
+          backgroundColor: "rgba(0,0,0,0.12)",
+        }}
+      />
+
       <View className="flex-row items-center justify-between">
         <View className="flex-row items-center gap-1.5">
           <Sparkles color="#fff" size={14} />
-          <Text className="text-xs font-semibold uppercase tracking-widest text-white/80">
+          <Text style={type.eyebrow} className="text-[11px] text-white/80">
             {eyebrow}
           </Text>
         </View>
         <View className="rounded-full bg-black/25 px-3 py-1">
-          <Text className="text-xs font-bold text-white">{badge}</Text>
+          <Text style={{ fontFamily: fonts.sansBold }} className="text-xs text-white">
+            {badge}
+          </Text>
         </View>
       </View>
 
-      <Text className="mt-2 text-3xl font-extrabold text-white">{name}</Text>
-      <Text className="text-base text-white/90">{dateLabel}</Text>
+      <Text style={type.display} className="mt-3 text-[36px] text-white">
+        {name}
+      </Text>
+      <Text style={{ fontFamily: fonts.sansMedium }} className="text-base text-white/90">
+        {dateLabel}
+      </Text>
       <Text className="text-sm text-white/80">{hinduLabel}</Text>
 
       <View className="mt-2 flex-row items-center gap-2">
@@ -240,7 +296,7 @@ function HeroCard({
         <Sunrise color="#fff" size={20} />
         <View>
           <Text className="text-xs uppercase tracking-wide text-white/70">Parana (break fast)</Text>
-          <Text className="text-sm font-semibold text-white">
+          <Text style={{ fontFamily: fonts.sansBold }} className="text-sm text-white">
             {formatTime12h(paranaStart)} – {formatTime12h(paranaEnd)}
           </Text>
           <Text className="text-xs text-white/80">on {formatLongDate(paranaDate)}</Text>

@@ -17,21 +17,25 @@ import {
   Volume2,
 } from "lucide-react-native";
 import { useCallback, useEffect, useState } from "react";
-import { AppState, Linking, Platform, Pressable, Switch, Text, View } from "react-native";
+import { AppState, Linking, Platform, Switch, Text, View } from "react-native";
+import Animated, { FadeIn, FadeOut } from "react-native-reanimated";
 
 import { CalendarPicker } from "@/components/CalendarPicker";
 import { CityPicker } from "@/components/CityPicker";
 import { Card } from "@/components/Card";
 import { Chip } from "@/components/Chip";
+import { FadeInView, PressableScale } from "@/components/motion";
+import { GhostButton, PrimaryButton } from "@/components/PrimaryButton";
 import { Screen } from "@/components/Screen";
 import { SectionTitle } from "@/components/SectionTitle";
 import { TimePicker } from "@/components/TimePicker";
 import { ALARM_SOUNDS } from "@/constants/alarms";
 import { getCalendar, TRADITIONS } from "@/constants/calendars";
 import { getCity } from "@/constants/cities";
-import { palette } from "@/constants/theme";
+import { fonts, palette, type } from "@/constants/theme";
 import { TIMEZONES } from "@/constants/timezones";
 import { startAlarm, stopAlarm } from "@/lib/alarm";
+import { tapSuccess } from "@/lib/haptics";
 import { getAppVersion, getBuildLabel } from "@/lib/appInfo";
 import { getDatasetMeta } from "@/lib/ekadashi";
 import { formatTime12h } from "@/lib/format";
@@ -150,10 +154,14 @@ export default function SettingsScreen() {
 
   return (
     <Screen>
-      <Text className="mb-1 mt-1 text-xs uppercase tracking-[3px] text-saffron-300">
+      <FadeInView>
+      <Text style={type.eyebrow} className="mb-1 mt-1 text-[11px] text-saffron-300">
         Preferences
       </Text>
-      <Text className="mb-4 text-3xl font-bold text-white">Settings</Text>
+      <Text style={type.display} className="mb-4 text-[34px] text-white">
+        Settings
+      </Text>
+      </FadeInView>
 
       <Card className="mb-4">
         <SectionTitle
@@ -163,14 +171,14 @@ export default function SettingsScreen() {
         <Text className="text-base font-semibold text-white">{calendar.name}</Text>
         <Text className="text-sm text-saffron-200">{calendar.nativeName}</Text>
         <Text className="mt-1 text-xs leading-4 text-violet-300">{calendar.description}</Text>
-        <Pressable
+        <PressableScale
           onPress={() => setShowCalendars((v) => !v)}
           className="mt-3 rounded-2xl bg-white/10 py-2.5"
         >
-          <Text className="text-center text-sm font-semibold text-saffron-200">
+          <Text style={{ fontFamily: fonts.sansSemi }} className="text-center text-sm text-saffron-200">
             {showCalendars ? "Hide calendars" : "Change calendar"}
           </Text>
-        </Pressable>
+        </PressableScale>
         {showCalendars ? (
           <View className="mt-3">
             <CalendarPicker value={settings.calendarId} onChange={setCalendar} />
@@ -187,17 +195,17 @@ export default function SettingsScreen() {
             ? "Published India/Nepal fasting dates, with Parana from this sunrise."
             : "Local fasting day is calculated when it differs from the India reference."}
         </Text>
-        <Pressable
+        <PressableScale
           onPress={() => setShowCities((v) => !v)}
           className="mt-3 rounded-2xl bg-white/10 py-2.5"
         >
           <View className="flex-row items-center justify-center gap-2">
             <MapPin color={palette.saffronLight} size={14} />
-            <Text className="text-center text-sm font-semibold text-saffron-200">
+            <Text style={{ fontFamily: fonts.sansSemi }} className="text-center text-sm text-saffron-200">
               {showCities ? "Hide cities" : "Change city"}
             </Text>
           </View>
-        </Pressable>
+        </PressableScale>
         {showCities ? (
           <View className="mt-3">
             <CityPicker value={settings.cityId} onChange={setCity} />
@@ -242,13 +250,15 @@ export default function SettingsScreen() {
           <Text className="text-sm font-semibold text-white">{notice.title}</Text>
           <Text className="mt-1 text-xs leading-4 text-violet-300">{notice.detail}</Text>
           {notice.showOpenSettings ? (
-            <Pressable
-              onPress={() => void Linking.openSettings()}
-              className="mt-3 flex-row items-center justify-center gap-2 rounded-2xl bg-white/10 py-2.5"
-            >
-              <Settings2 color={palette.saffronLight} size={14} />
-              <Text className="text-sm font-semibold text-saffron-200">Open system settings</Text>
-            </Pressable>
+        <PressableScale
+          onPress={() => void Linking.openSettings()}
+          className="mt-3 flex-row items-center justify-center gap-2 rounded-2xl bg-white/10 py-2.5"
+        >
+          <Settings2 color={palette.saffronLight} size={14} />
+          <Text style={{ fontFamily: fonts.sansSemi }} className="text-sm text-saffron-200">
+            Open system settings
+          </Text>
+        </PressableScale>
           ) : null}
           {!isWeb ? (
             <Text className="mt-2 text-[11px] leading-4 text-violet-500">
@@ -348,7 +358,7 @@ export default function SettingsScreen() {
           ))}
         </View>
 
-        <Pressable
+        <PressableScale
           onPress={togglePreview}
           className="mt-3 flex-row items-center justify-center gap-2 rounded-2xl bg-white/10 py-2.5"
         >
@@ -357,10 +367,10 @@ export default function SettingsScreen() {
           ) : (
             <Play color={palette.saffronLight} size={16} />
           )}
-          <Text className="text-sm font-semibold text-saffron-200">
+          <Text style={{ fontFamily: fonts.sansSemi }} className="text-sm text-saffron-200">
             {previewing ? "Stop preview" : "Preview sound"}
           </Text>
-        </Pressable>
+        </PressableScale>
       </Card>
 
       <Card className="mb-4">
@@ -382,23 +392,20 @@ export default function SettingsScreen() {
       </Card>
 
       <View className="gap-2.5">
-        <Pressable
-          onPress={applySchedule}
-          className="flex-row items-center justify-center gap-2 rounded-2xl bg-saffron-500 py-3.5"
-        >
-          <Check color={palette.inkDeep} size={18} />
-          <Text className="text-base font-bold text-indigoink-900">Apply & Reschedule</Text>
-        </Pressable>
-
-        <Pressable
-          onPress={test}
-          className="flex-row items-center justify-center gap-2 rounded-2xl border border-white/15 bg-white/5 py-3.5"
-        >
-          <Send color={palette.saffronLight} size={18} />
-          <Text className="text-base font-semibold text-saffron-200">Send Test Notification</Text>
-        </Pressable>
-
-        <Pressable
+        <PrimaryButton
+          label="Apply & Reschedule"
+          icon={<Check color={palette.inkDeep} size={18} />}
+          onPress={() => {
+            tapSuccess();
+            void applySchedule();
+          }}
+        />
+        <GhostButton
+          label="Send Test Notification"
+          icon={<Send color={palette.saffronLight} size={18} />}
+          onPress={() => void test()}
+        />
+        <PressableScale
           onPress={() => {
             reset();
             flashStatus("Settings reset to defaults.");
@@ -407,13 +414,17 @@ export default function SettingsScreen() {
         >
           <RotateCcw color={palette.textMuted} size={16} />
           <Text className="text-sm text-violet-300">Reset to defaults</Text>
-        </Pressable>
+        </PressableScale>
       </View>
 
       {status ? (
-        <View className="mt-4 rounded-2xl border border-saffron-400/40 bg-saffron-500/10 px-4 py-3">
+        <Animated.View
+          entering={FadeIn.duration(220)}
+          exiting={FadeOut.duration(180)}
+          className="mt-4 rounded-2xl border border-saffron-400/40 bg-saffron-500/10 px-4 py-3"
+        >
           <Text className="text-center text-sm text-saffron-200">{status}</Text>
-        </View>
+        </Animated.View>
       ) : null}
 
       {isWeb ? (
@@ -423,20 +434,20 @@ export default function SettingsScreen() {
       ) : null}
 
       <View className="mt-6 flex-row gap-2.5">
-        <Pressable
-          onPress={() => router.push("/about")}
-          className="flex-1 flex-row items-center justify-center gap-2 rounded-2xl border border-white/15 bg-white/5 py-3"
-        >
-          <Info color={palette.saffronLight} size={16} />
-          <Text className="text-sm font-semibold text-saffron-200">About</Text>
-        </Pressable>
-        <Pressable
-          onPress={() => router.push("/privacy")}
-          className="flex-1 flex-row items-center justify-center gap-2 rounded-2xl border border-white/15 bg-white/5 py-3"
-        >
-          <Shield color={palette.saffronLight} size={16} />
-          <Text className="text-sm font-semibold text-saffron-200">Privacy</Text>
-        </Pressable>
+        <View className="flex-1">
+          <GhostButton
+            label="About"
+            icon={<Info color={palette.saffronLight} size={16} />}
+            onPress={() => router.push("/about")}
+          />
+        </View>
+        <View className="flex-1">
+          <GhostButton
+            label="Privacy"
+            icon={<Shield color={palette.saffronLight} size={16} />}
+            onPress={() => router.push("/privacy")}
+          />
+        </View>
       </View>
 
       <Text className="mt-4 text-center text-[11px] leading-4 text-violet-500">
