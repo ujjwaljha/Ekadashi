@@ -1,6 +1,15 @@
 import rawData from "@/data/ekadashi-2026-2030.json";
 import { formatLunarMonth, getCalendar } from "@/constants/calendars";
 import { addDaysIso, julianDay, rashiIndex } from "@/lib/astronomy";
+import {
+  chaitraShukla1,
+  gauraPurnima,
+  kaliYear,
+  kartikShukla1,
+  lunarContextForIso,
+  meshaSankrantiIso,
+  samvatsaraName,
+} from "@/lib/lunarMonth";
 import { isoDayDelta } from "@/lib/timezone";
 import type {
   CalendarId,
@@ -33,34 +42,6 @@ const TITHI_NAMES = [
   "Purnima",
 ];
 
-const CHAITRA_SHUKLA_1 = [
-  "2026-03-19",
-  "2027-04-06",
-  "2028-03-26",
-  "2029-03-15",
-  "2030-04-03",
-  "2031-03-23",
-];
-const KARTIK_SHUKLA_1 = [
-  "2025-11-21",
-  "2026-11-10",
-  "2027-10-31",
-  "2028-10-19",
-  "2029-11-07",
-  "2030-10-28",
-  "2031-11-16",
-];
-const GAURA_PURNIMA = ["2026-03-03", "2027-03-22", "2028-03-11", "2029-03-01", "2030-03-19", "2031-03-08"];
-const TAMIL_YEARS: { start: string; name: string; kali: number }[] = [
-  { start: "2025-04-14", name: "Visvavasu", kali: 5126 },
-  { start: "2026-04-14", name: "Parabhava", kali: 5127 },
-  { start: "2027-04-14", name: "Plavanga", kali: 5128 },
-  { start: "2028-04-14", name: "Kilaka", kali: 5129 },
-  { start: "2029-04-14", name: "Saumya", kali: 5130 },
-  { start: "2030-04-14", name: "Sadharana", kali: 5131 },
-  { start: "2031-04-14", name: "Virodhikrit", kali: 5132 },
-];
-
 export interface SolarDate {
   monthIndex: number;
   day: number;
@@ -75,13 +56,13 @@ export interface LunarDate {
   adhika: boolean;
 }
 
-function lastOnOrBefore(iso: string, boundaries: string[]): string {
-  let chosen = boundaries[0];
-  for (const b of boundaries) {
-    if (b <= iso) chosen = b;
-    else break;
-  }
-  return chosen;
+/**
+ * Gregorian year whose lunar new-year day (per `boundaryFor`) is the latest
+ * one on or before `iso`.
+ */
+function lunarYearStartingBefore(iso: string, boundaryFor: (year: number) => string): number {
+  const y = gregorianYear(iso);
+  return iso >= boundaryFor(y) ? y : y - 1;
 }
 
 function gregorianYear(iso: string): number {
@@ -129,31 +110,26 @@ export function eraYear(iso: string, era: EraId): { year: number; name: string; 
       return { year, name: "Kollam Era", label: `K.E. ${year}` };
     }
     case "saka": {
-      const newYear = lastOnOrBefore(iso, CHAITRA_SHUKLA_1);
-      const year = gregorianYear(newYear) - 78;
+      const year = lunarYearStartingBefore(iso, chaitraShukla1) - 78;
       return { year, name: "Shaka Samvat", label: `Saka ${year}` };
     }
     case "vikram-chaitra": {
-      const newYear = lastOnOrBefore(iso, CHAITRA_SHUKLA_1);
-      const year = gregorianYear(newYear) + 57;
+      const year = lunarYearStartingBefore(iso, chaitraShukla1) + 57;
       return { year, name: "Vikram Samvat", label: `V.S. ${year}` };
     }
     case "vikram-kartik": {
-      const newYear = lastOnOrBefore(iso, KARTIK_SHUKLA_1);
-      const year = gregorianYear(newYear) + 57;
+      const year = lunarYearStartingBefore(iso, kartikShukla1) + 57;
       return { year, name: "Vikram Samvat", label: `V.S. ${year}` };
     }
     case "gaurabda": {
-      const purnima = lastOnOrBefore(iso, GAURA_PURNIMA);
-      const year = gregorianYear(purnima) - 1486;
+      const year = lunarYearStartingBefore(iso, gauraPurnima) - 1486;
       return { year, name: "Gaurabda", label: `Gaurabda ${year}` };
     }
     case "tamil": {
-      let row = TAMIL_YEARS[0];
-      for (const candidate of TAMIL_YEARS) {
-        if (candidate.start <= iso) row = candidate;
-      }
-      return { year: row.kali, name: row.name, label: `${row.name} ${row.kali}` };
+      const start = lunarYearStartingBefore(iso, meshaSankrantiIso);
+      const name = samvatsaraName(start);
+      const kali = kaliYear(start);
+      return { year: kali, name, label: `${name} ${kali}` };
     }
     default: {
       return { year: y, name: "Gregorian", label: String(y) };
@@ -166,17 +142,16 @@ function tithiName(tithi: number, paksha: Paksha): string {
   return TITHI_NAMES[tithi] ?? `Tithi ${tithi}`;
 }
 
-function smartaDate(record: EkadashiRecord): string {
-  return record.smarta.date;
-}
+const FAST_DAYS = new Map(RECORDS.map((record) => [record.smarta.date, record]));
+const lunarCache = new Map<string, LunarDate>();
 
 /**
- * Approximate sunrise tithi from the curated Ekadashi anchors.
- * Fasting days are forced to Ekadashi (11) so labels never drift from the dataset.
+ * Sunrise tithi, paksha and lunar month (New Delhi reference). Published
+ * fasting days are pinned to Ekadashi (11) so labels never contradict the
+ * bundled dates; every other day comes straight from the ephemeris.
  */
-export function getLunarDate(iso: string, records: EkadashiRecord[] = RECORDS): LunarDate {
-  const sorted = [...records].sort((a, b) => (smartaDate(a) < smartaDate(b) ? -1 : 1));
-  const exact = sorted.find((r) => smartaDate(r) === iso);
+export function getLunarDate(iso: string, records?: EkadashiRecord[]): LunarDate {
+  const exact = records ? records.find((r) => r.smarta.date === iso) : FAST_DAYS.get(iso);
   if (exact) {
     return {
       tithi: 11,
@@ -186,39 +161,19 @@ export function getLunarDate(iso: string, records: EkadashiRecord[] = RECORDS): 
       adhika: Boolean(exact.adhika),
     };
   }
-
-  let prev = sorted[0];
-  let next = sorted[sorted.length - 1];
-  for (let i = 0; i < sorted.length; i += 1) {
-    if (smartaDate(sorted[i]) <= iso) prev = sorted[i];
-    if (smartaDate(sorted[i]) >= iso) {
-      next = sorted[i];
-      break;
-    }
-  }
-
-  const delta = isoDayDelta(smartaDate(prev), iso);
-  let tithi = 11 + delta;
-  let paksha = prev.paksha;
-  let monthPurnimanta = prev.monthPurnimanta;
-  let monthAmanta = prev.monthAmanta;
-  let adhika = Boolean(prev.adhika);
-
-  if (tithi > 15) {
-    tithi -= 15;
-    paksha = paksha === "Shukla" ? "Krishna" : "Shukla";
-    monthPurnimanta = next.monthPurnimanta;
-    monthAmanta = next.monthAmanta;
-    adhika = Boolean(next.adhika);
-  } else if (tithi < 1) {
-    tithi += 15;
-    paksha = paksha === "Shukla" ? "Krishna" : "Shukla";
-  }
-
-  if (tithi < 1) tithi = 1;
-  if (tithi > 15) tithi = 15;
-
-  return { tithi, paksha, monthPurnimanta, monthAmanta, adhika };
+  const cached = lunarCache.get(iso);
+  if (cached) return cached;
+  const ctx = lunarContextForIso(iso);
+  const lunar: LunarDate = {
+    tithi: ctx.tithi,
+    paksha: ctx.paksha,
+    monthPurnimanta: ctx.monthPurnimanta,
+    monthAmanta: ctx.monthAmanta,
+    adhika: ctx.adhika,
+  };
+  if (lunarCache.size > 5000) lunarCache.clear();
+  lunarCache.set(iso, lunar);
+  return lunar;
 }
 
 export function getPanchangDay(iso: string, calendarId: CalendarId): PanchangDay {

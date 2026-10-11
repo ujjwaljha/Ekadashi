@@ -10,6 +10,7 @@
     "web": "expo start --web",
     "typecheck": "tsc --noEmit",
     "lint": "expo lint",
+    "generate:dataset": "tsx scripts/generate-ekadashi-dataset.ts",
     "test": "tsx --test src/lib/*.test.ts src/store/*.test.ts src/constants/*.test.ts"
   },
   "dependencies": {

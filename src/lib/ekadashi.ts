@@ -9,7 +9,8 @@ import {
   type ComputedFast,
 } from "@/lib/ekadashiCompute";
 import { addDaysIso } from "@/lib/astronomy";
-import { compareISO, isoDayDelta, todayISO } from "@/lib/timezone";
+import { getSolarDate } from "@/lib/panchang";
+import { compareISO, getZonedParts, isoDayDelta, todayISO } from "@/lib/timezone";
 import type {
   CalendarId,
   Ekadashi,
@@ -21,6 +22,17 @@ import type {
 
 const DATASET = rawData as EkadashiDataset;
 const RECORDS: EkadashiRecord[] = [...DATASET.ekadashis];
+
+const DATASET_YEARS = RECORDS.flatMap((e) => [
+  Number(e.smarta.date.slice(0, 4)),
+  Number(e.vaishnava.date.slice(0, 4)),
+]);
+/** First and last civil year with bundled (published) dates. */
+export const DATASET_MIN_YEAR = Math.min(...DATASET_YEARS);
+export const DATASET_MAX_YEAR = Math.max(...DATASET_YEARS);
+
+/** Furthest year ever calculated beyond the bundled file. */
+const MAX_CALCULATED_YEAR = DATASET_MAX_YEAR + 70;
 
 export interface EkadashiQuery {
   tradition?: TraditionId;
@@ -50,6 +62,48 @@ export function getEkadashiRecords(): EkadashiRecord[] {
   return RECORDS;
 }
 
+function zonedYear(now: Date, timezone: string): number {
+  return getZonedParts(now, timezone).year;
+}
+
+/**
+ * Last year the app should be able to show for `now`: the bundled range,
+ * extended by astronomy so the calendar always reaches next year.
+ */
+export function horizonYear(now: Date = new Date(), timezone = "device"): number {
+  return Math.min(MAX_CALCULATED_YEAR, Math.max(DATASET_MAX_YEAR, zonedYear(now, timezone) + 1));
+}
+
+const calculatedYearCache = new Map<string, EkadashiRecord[]>();
+
+/** Astronomy records for one civil year beyond the bundled file, per city. */
+function calculatedRecordsForYear(year: number, cityId: string): EkadashiRecord[] {
+  const key = `${cityId}|${year}`;
+  const cached = calculatedYearCache.get(key);
+  if (cached) return cached;
+  const records = calculateRecordsInRange(`${year}-01-01`, `${year}-12-31`, cityId).filter(
+    (record) => Number(record.smarta.date.slice(0, 4)) === year
+  );
+  calculatedYearCache.set(key, records);
+  return records;
+}
+
+/**
+ * Bundled records plus calculated years up to and including `throughYear`.
+ * India / Nepal cities share the New Delhi reference, like the published
+ * file; distant cities are calculated from their own sunrise.
+ */
+function recordsThrough(throughYear: number, cityId: string): EkadashiRecord[] {
+  const last = Math.min(MAX_CALCULATED_YEAR, throughYear);
+  if (last <= DATASET_MAX_YEAR) return RECORDS;
+  const referenceCityId = getCity(cityId).usePublishedDates ? DEFAULT_CITY_ID : cityId;
+  const extra: EkadashiRecord[] = [];
+  for (let year = DATASET_MAX_YEAR + 1; year <= last; year += 1) {
+    extra.push(...calculatedRecordsForYear(year, referenceCityId));
+  }
+  return [...RECORDS, ...extra];
+}
+
 function traditionDates(record: EkadashiRecord, tradition: TraditionId) {
   return record[tradition];
 }
@@ -70,6 +124,22 @@ function localizeDate(
   return { date: publishedIso, source: found ? "published" : "calculated", localAdjusted: false };
 }
 
+/** Solar-month names used in the South: 8 = Dhanu (Margazhi), 7 = Vrischika. */
+const DHANU = 8;
+const VRISCHIKA = 7;
+
+/**
+ * Vaikuntha and Guruvayur Ekadashi follow the solar month, so they attach
+ * to Mokshada in most years and to Pausha Putrada in others.
+ */
+function solarRegionalName(record: EkadashiRecord, calendarId: CalendarId, iso: string): string | undefined {
+  if (record.paksha !== "Shukla" || (calendarId !== "tamil" && calendarId !== "malayalam")) return undefined;
+  const solarMonth = getSolarDate(iso).monthIndex;
+  if (solarMonth === DHANU) return "Vaikuntha";
+  if (calendarId === "malayalam" && solarMonth === VRISCHIKA) return "Guruvayur";
+  return undefined;
+}
+
 export function resolveEkadashi(
   record: EkadashiRecord,
   tradition: TraditionId = DEFAULT_QUERY.tradition,
@@ -87,7 +157,8 @@ export function resolveEkadashi(
     cityId,
     tradition === "smarta" ? "vaishnava" : "smarta"
   );
-  const displayName = record.names?.[calendarId] ?? record.name;
+  const displayName =
+    solarRegionalName(record, calendarId, record.smarta.date) ?? record.names?.[calendarId] ?? record.name;
   const parana = calculateParana(localized.date, city, tradition);
   const recordSource = record.origin === "calculated" ? "calculated" : localized.source;
 
@@ -126,7 +197,7 @@ function pairComputedFasts(smarta: ComputedFast[], vaishnava: ComputedFast[]): E
       ) ?? s;
     used.add(match.date);
     const ctx = inferLunarContext(s.date);
-    const name = nameFromContext(ctx.paksha, ctx.monthPurnimanta, false);
+    const name = nameFromContext(ctx.paksha, ctx.monthPurnimanta, ctx.adhika);
     records.push(
       buildRecord({
         name,
@@ -137,6 +208,7 @@ function pairComputedFasts(smarta: ComputedFast[], vaishnava: ComputedFast[]): E
         origin: "calculated",
         paksha: ctx.paksha,
         monthPurnimanta: ctx.monthPurnimanta,
+        adhika: ctx.adhika,
       })
     );
   }
@@ -146,41 +218,49 @@ function pairComputedFasts(smarta: ComputedFast[], vaishnava: ComputedFast[]): E
 /** Astronomy fallback when a civil year is missing from the bundled file. */
 export function calculateRecordsInRange(startIso: string, endIso: string, cityId = DEFAULT_CITY_ID): EkadashiRecord[] {
   const city = getCity(cityId);
+  // Scan a margin so a Vaishnava fast shifted across the range edge still pairs.
   return pairComputedFasts(
     computeFastsInRange(startIso, endIso, city, "smarta"),
-    computeFastsInRange(startIso, endIso, city, "vaishnava")
+    computeFastsInRange(addDaysIso(startIso, -1), addDaysIso(endIso, 2), city, "vaishnava")
   );
 }
 
 const resolveCache = new Map<string, Ekadashi[]>();
 
-function resolveAll(query: EkadashiQuery = {}): Ekadashi[] {
+function resolveAll(query: EkadashiQuery = {}, throughYear = DATASET_MAX_YEAR): Ekadashi[] {
   const tradition = query.tradition ?? DEFAULT_QUERY.tradition;
   const calendarId = query.calendarId ?? DEFAULT_QUERY.calendarId;
   const cityId = query.cityId ?? DEFAULT_QUERY.cityId;
-  const key = `${cityId}|${tradition}|${calendarId}`;
+  const last = Math.max(DATASET_MAX_YEAR, Math.min(MAX_CALCULATED_YEAR, throughYear));
+  const key = `${cityId}|${tradition}|${calendarId}|${last}`;
   const cached = resolveCache.get(key);
   if (cached) return cached;
 
-  const list = RECORDS.map((record) => resolveEkadashi(record, tradition, calendarId, cityId)).sort((a, b) =>
-    compareISO(a.date, b.date)
-  );
+  const list = recordsThrough(last, cityId)
+    .map((record) => resolveEkadashi(record, tradition, calendarId, cityId))
+    .sort((a, b) => compareISO(a.date, b.date));
+  if (resolveCache.size > 64) resolveCache.clear();
   resolveCache.set(key, list);
   return list;
 }
 
-export function getAllEkadashis(query: EkadashiQuery = {}): Ekadashi[] {
-  return resolveAll(query);
+/** Every Ekadashi through the horizon for `now` (bundled years plus calculated ones). */
+export function getAllEkadashis(
+  query: EkadashiQuery = {},
+  now: Date = new Date(),
+  timezone = "device"
+): Ekadashi[] {
+  return resolveAll(query, horizonYear(now, timezone));
 }
 
-/** The next Ekadashi on or after the zoned "today", or null if none remain. */
+/** The next Ekadashi on or after the zoned "today", or null if none could be calculated. */
 export function getNextEkadashi(
   now: Date = new Date(),
   timezone = "device",
   query: EkadashiQuery = {}
 ): Ekadashi | null {
   const today = todayISO(now, timezone);
-  return resolveAll(query).find((e) => compareISO(e.date, today) >= 0) ?? null;
+  return resolveAll(query, horizonYear(now, timezone)).find((e) => compareISO(e.date, today) >= 0) ?? null;
 }
 
 /** The next `count` Ekadashis on or after the zoned "today". */
@@ -191,7 +271,7 @@ export function getUpcomingEkadashis(
   query: EkadashiQuery = {}
 ): Ekadashi[] {
   const today = todayISO(now, timezone);
-  return resolveAll(query)
+  return resolveAll(query, horizonYear(now, timezone))
     .filter((e) => compareISO(e.date, today) >= 0)
     .slice(0, count);
 }
@@ -203,27 +283,24 @@ export function getEkadashisInMonth(
   query: EkadashiQuery = {}
 ): Ekadashi[] {
   const prefix = `${year}-${String(monthIndex + 1).padStart(2, "0")}-`;
-  return resolveAll(query).filter((e) => e.date.startsWith(prefix));
+  return resolveAll(query, year).filter((e) => e.date.startsWith(prefix));
 }
 
 export function getEkadashiByDate(iso: string, query: EkadashiQuery = {}): Ekadashi | undefined {
-  return resolveAll(query).find((e) => e.date === iso);
+  return resolveAll(query, Number(iso.slice(0, 4))).find((e) => e.date === iso);
 }
 
 export function getEkadashiById(id: string, query: EkadashiQuery = {}): Ekadashi | undefined {
-  const record = RECORDS.find((e) => e.id === id);
+  const year = Number(id.slice(0, 4));
+  const cityId = query.cityId ?? DEFAULT_QUERY.cityId;
+  const record = recordsThrough(Number.isFinite(year) ? year : DATASET_MAX_YEAR, cityId).find((e) => e.id === id);
   if (!record) return undefined;
-  return resolveEkadashi(
-    record,
-    query.tradition ?? DEFAULT_QUERY.tradition,
-    query.calendarId ?? DEFAULT_QUERY.calendarId,
-    query.cityId ?? DEFAULT_QUERY.cityId
-  );
+  return resolveEkadashi(record, query.tradition ?? DEFAULT_QUERY.tradition, query.calendarId ?? DEFAULT_QUERY.calendarId, cityId);
 }
 
-export function getYearRange(): { min: number; max: number } {
-  const years = RECORDS.flatMap((e) => [Number(e.smarta.date.slice(0, 4)), Number(e.vaishnava.date.slice(0, 4))]);
-  return { min: Math.min(...years), max: Math.max(...years) };
+/** Years the calendar can show: bundled years, extended by astronomy as time passes. */
+export function getYearRange(now: Date = new Date(), timezone = "device"): { min: number; max: number } {
+  return { min: DATASET_MIN_YEAR, max: horizonYear(now, timezone) };
 }
 
 /** Whole days from zoned "today" until the fasting date. */
@@ -237,7 +314,7 @@ export function daysUntil(iso: string, now: Date = new Date(), timezone = "devic
  */
 export function getObservance(now: Date, timezone = "device", query: EkadashiQuery = {}): Observance {
   const today = todayISO(now, timezone);
-  const all = resolveAll(query);
+  const all = resolveAll(query, horizonYear(now, timezone));
   const parana = all.find((e) => e.parana.date === today);
   if (parana) return { kind: "parana", ekadashi: parana };
   const fasting = all.find((e) => e.date === today);

@@ -146,7 +146,7 @@ export default function Dashboard() {
 
       {!next && observance.kind === "none" ? (
         <Card className="mb-5">
-          <Text className="text-white">No upcoming Ekadashi remains in the 2026–2030 dataset.</Text>
+          <Text className="text-white">No upcoming Ekadashi could be calculated for this city.</Text>
         </Card>
       ) : null}
 

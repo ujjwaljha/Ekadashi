@@ -43,6 +43,27 @@ describe("panchang", () => {
     assert.equal(lunar.paksha, "Krishna");
   });
 
+  it("derives tithi and month from astronomy on ordinary days", () => {
+    const dashami = getLunarDate("2026-09-06");
+    assert.equal(dashami.tithi, 10);
+    assert.equal(dashami.paksha, "Krishna");
+    assert.equal(dashami.monthPurnimanta, "Bhadrapada");
+    const adhika = getLunarDate("2026-06-01");
+    assert.equal(adhika.adhika, true);
+    assert.equal(adhika.monthAmanta, "Jyeshtha");
+  });
+
+  it("keeps labels and eras working beyond the bundled years", () => {
+    assert.equal(eraYear("2032-06-01", "vikram-chaitra").year, 2089);
+    assert.equal(eraYear("2032-06-01", "saka").year, 1954);
+    assert.equal(eraYear("2033-01-01", "tamil").label, "Paridhavi 5133");
+    assert.equal(eraYear("2032-12-01", "gaurabda").year, 546);
+    const mithila = getPanchangDay("2031-09-05", "mithila");
+    assert.match(mithila.civilLabel, /Bhado 19, L\.S\. 913/);
+    assert.equal(mithila.adhika, true);
+    assert.match(getPanchangDay("2031-09-05", "north-indian").civilLabel, /Adhika Bhadrapada Krishna/);
+  });
+
   it("finds Mithila via search and locale suggestion", () => {
     const hits = searchCalendars("mithila");
     assert.equal(hits[0]?.id, "mithila");
