@@ -2,8 +2,31 @@ import assert from "node:assert/strict";
 import { describe, it } from "node:test";
 
 import { getCity } from "../constants/cities";
-import { sunLongitude, tithiAt } from "./astronomy";
+import { sunLongitude, sunTimesUTC, tithiAt } from "./astronomy";
 import { findLocalFastDate, localSunriseOn } from "./ekadashiCompute";
+
+describe("sunrise", () => {
+  it("keeps a January Delhi sunrise on the same civil day (no 24 h wrap)", () => {
+    const delhi = getCity("delhi");
+    const times = sunTimesUTC(2026, 1, 13, delhi.latitude, delhi.longitude);
+    assert.equal(times.rise?.toISOString().slice(0, 13), "2026-01-13T01");
+    assert.equal(times.set?.toISOString().slice(0, 13), "2026-01-13T12");
+  });
+
+  it("lets far-eastern sunrises fall on the previous UTC date", () => {
+    const auckland = sunTimesUTC(2026, 1, 13, -36.8485, 174.7633);
+    assert.equal(auckland.rise?.toISOString().slice(0, 10), "2026-01-12");
+    assert.ok(auckland.set!.getTime() > auckland.rise!.getTime());
+    const honolulu = sunTimesUTC(2026, 1, 13, 21.3069, -157.8583);
+    assert.equal(honolulu.rise?.toISOString().slice(0, 13), "2026-01-13T17");
+  });
+
+  it("finds the January Shattila fast on its published day", () => {
+    const delhi = getCity("delhi");
+    assert.equal(findLocalFastDate("2026-01-14", delhi, "smarta"), "2026-01-14");
+    assert.equal(localSunriseOn("2026-01-14", delhi)?.tithi, 11);
+  });
+});
 
 describe("astronomy tithi", () => {
   it("places Delhi sunrise on 7 Sep 2026 on or near Krishna Ekadashi", () => {

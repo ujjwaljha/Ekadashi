@@ -1,6 +1,6 @@
-import { addDaysIso, julianDay, nextElongation, rashiIndex, tithiAt } from "@/lib/astronomy";
+import { addDaysIso } from "@/lib/astronomy";
+import { lunarContextForIso } from "@/lib/lunarMonth";
 import type { CalendarId, EkadashiRecord, HinduMonth, Paksha, Parana } from "@/types";
-import { HINDU_MONTHS } from "@/types";
 
 export interface CatalogEntry {
   name: string;
@@ -26,8 +26,12 @@ const PREV: Record<HinduMonth, HinduMonth> = {
   Phalguna: "Magha",
 };
 
-export function amantaMonth(purnimanta: HinduMonth, paksha: Paksha): HinduMonth {
-  return paksha === "Shukla" ? purnimanta : PREV[purnimanta];
+/**
+ * Amanta month for a purnimanta month + paksha. Adhika months run new moon to
+ * new moon in both systems, so their Krishna paksha keeps the same name.
+ */
+export function amantaMonth(purnimanta: HinduMonth, paksha: Paksha, adhika = false): HinduMonth {
+  return paksha === "Shukla" || adhika ? purnimanta : PREV[purnimanta];
 }
 
 export const EKADASHI_CATALOG: Record<string, CatalogEntry> = {
@@ -181,8 +185,8 @@ export const EKADASHI_CATALOG: Record<string, CatalogEntry> = {
     name: "Mokshada",
     paksha: "Shukla",
     monthPurnimanta: "Margashirsha",
-    significance: "Bestows liberation (moksha); coincides with Gita Jayanti and South-Indian Vaikuntha Ekadashi.",
-    names: { tamil: "Vaikuntha", malayalam: "Vaikuntha", iskcon: "Moksada" },
+    significance: "Bestows liberation (moksha); coincides with Gita Jayanti and, in most years, South-Indian Vaikuntha Ekadashi.",
+    names: { iskcon: "Moksada" },
   },
   saphala: {
     name: "Saphala",
@@ -201,6 +205,7 @@ export const EKADASHI_CATALOG: Record<string, CatalogEntry> = {
 const ALIASES: Record<string, string> = {
   shattila: "shattila",
   "sat-tila": "shattila",
+  "shat-tila": "shattila",
   jaya: "jaya",
   bhaimi: "jaya",
   bhami: "jaya",
@@ -213,9 +218,11 @@ const ALIASES: Record<string, string> = {
   mohini: "mohini",
   apara: "apara",
   padmini: "padmini",
+  kamala: "padmini",
   parama: "parama",
   nirjala: "nirjala",
   "pandava-nirjala": "nirjala",
+  bhima: "nirjala",
   yogini: "yogini",
   devshayani: "devshayani",
   "deva-shayani": "devshayani",
@@ -223,22 +230,29 @@ const ALIASES: Record<string, string> = {
   shayani: "devshayani",
   kamika: "kamika",
   "shravana-putrada": "shravana-putrada",
+  pavitropana: "shravana-putrada",
+  pavitra: "shravana-putrada",
   putrada: "pausha-putrada",
   "pausha-putrada": "pausha-putrada",
   aja: "aja",
   annada: "aja",
   parsva: "parsva",
+  parshva: "parsva",
   parivartini: "parsva",
   indira: "indira",
   papankusha: "papankusha",
+  pashankusha: "papankusha",
   rama: "rama",
   devutthana: "devutthana",
   prabodhini: "devutthana",
   utthana: "devutthana",
+  "dev-uthani": "devutthana",
   utpanna: "utpanna",
   mokshada: "mokshada",
   moksada: "mokshada",
   vaikuntha: "mokshada",
+  mukkoti: "mokshada",
+  guruvayur: "mokshada",
   saphala: "saphala",
 };
 
@@ -290,7 +304,7 @@ export function buildRecord(input: {
     name: entry.name,
     paksha,
     monthPurnimanta,
-    monthAmanta: amantaMonth(monthPurnimanta, paksha),
+    monthAmanta: amantaMonth(monthPurnimanta, paksha, adhika),
     smarta: traditionDates(input.smartaDate, input.smartaParana),
     vaishnava: traditionDates(input.vaishnavaDate, input.vaishnavaParana),
     significance: entry.significance,
@@ -301,34 +315,24 @@ export function buildRecord(input: {
   return record;
 }
 
-/** Rashi of the nearby Purnima → purnimanta month of that full moon. */
-function monthFromPurnimaJd(jd: number): HinduMonth {
-  const rashi = rashiIndex(jd);
-  return HINDU_MONTHS[(rashi + 1) % 12];
-}
-
 /**
- * Approximate lunar month from astronomy (used when a calculated fast
- * has no published name). Purnima rashi names the Shukla fortnight.
+ * Lunar month, paksha and Adhika flag of a fasting day, from the sunrise
+ * tithi and the sankranti-based month rule (New Delhi reference).
+ * A Vaishnava fast kept on Dwadashi still belongs to the Ekadashi paksha.
  */
 export function inferLunarContext(iso: string): {
   paksha: Paksha;
   monthPurnimanta: HinduMonth;
   monthAmanta: HinduMonth;
+  adhika: boolean;
 } {
-  const [y, m, d] = iso.split("-").map(Number);
-  const jd = julianDay(y, m, d, 6.5);
-  const info = tithiAt(jd);
-  if (info.paksha === "Shukla") {
-    const purnimaJd = nextElongation(jd, 180);
-    const month = monthFromPurnimaJd(purnimaJd);
-    return { paksha: "Shukla", monthPurnimanta: month, monthAmanta: month };
-  }
-  const prevPurnima = nextElongation(jd - 16, 180);
-  const nextPurnima = nextElongation(jd, 180);
-  const monthAmanta = monthFromPurnimaJd(prevPurnima);
-  const monthPurnimanta = monthFromPurnimaJd(nextPurnima);
-  return { paksha: "Krishna", monthPurnimanta, monthAmanta };
+  const ctx = lunarContextForIso(iso);
+  return {
+    paksha: ctx.paksha,
+    monthPurnimanta: ctx.monthPurnimanta,
+    monthAmanta: ctx.monthAmanta,
+    adhika: ctx.adhika,
+  };
 }
 
 export function nameFromContext(paksha: Paksha, month: HinduMonth, adhika: boolean): string {

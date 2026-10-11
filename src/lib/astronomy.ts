@@ -1,6 +1,10 @@
 /**
  * Compact Meeus / NOAA astronomy used for tithi and sunrise.
  * Elongation (moon − sun) is tropical; ayanamsa cancels for tithi.
+ *
+ * Public `jd` arguments are Universal Time (what `Date` gives). The
+ * ephemeris polynomials expect Terrestrial Time, so ΔT is applied inside
+ * the longitude helpers; a 70 s offset moves a tithi boundary by ~1 min.
  */
 
 export function julianDay(year: number, month: number, day: number, hourUTC = 0): number {
@@ -34,6 +38,22 @@ function rad(deg: number): number {
 
 function deg(radian: number): number {
   return (radian * 180) / Math.PI;
+}
+
+/**
+ * ΔT = TT − UT in seconds. Observed ~69 s through the 2020s with a slow
+ * upward drift; Espenak–Meeus polynomials are used outside that window.
+ */
+export function deltaTSeconds(jdUT: number): number {
+  const year = 2000 + (jdUT - 2451545.0) / 365.25;
+  if (year >= 2015 && year <= 2050) return 69.2 + 0.3 * Math.max(0, year - 2025);
+  const t = year - 2000;
+  if (year > 2050) return 62.92 + 0.32217 * t + 0.005589 * t * t;
+  return 62.92 + 0.32217 * t + 0.005589 * t * t;
+}
+
+function toTT(jdUT: number): number {
+  return jdUT + deltaTSeconds(jdUT) / 86_400;
 }
 
 /** Tropical geometric sun longitude (degrees), Meeus ch. 25 simplified. */
@@ -127,7 +147,8 @@ export function moonLongitude(jd: number): number {
   return norm360(Lp + sigmaL / 1_000_000);
 }
 
-export function moonSunElongation(jd: number): number {
+export function moonSunElongation(jdUT: number): number {
+  const jd = toTT(jdUT);
   return norm360(moonLongitude(jd) - sunLongitude(jd));
 }
 
@@ -171,6 +192,27 @@ export function tithiBoundaryAfter(jd: number, tithiIndex1to30: number): number 
   return nextElongation(jd, (tithiIndex1to30 % 30) * 12);
 }
 
+/** First new moon (elongation 0°) strictly after `jd`. */
+export function newMoonAfter(jd: number): number {
+  return nextElongation(jd, 0);
+}
+
+/** Last new moon at or before `jd`. */
+export function newMoonBefore(jd: number): number {
+  let nm = nextElongation(jd - 31, 0);
+  for (let i = 0; i < 3; i += 1) {
+    const next = nextElongation(nm + 1, 0);
+    if (next > jd) break;
+    nm = next;
+  }
+  return nm;
+}
+
+/** Full moon (elongation 180°) strictly after `jd`. */
+export function fullMoonAfter(jd: number): number {
+  return nextElongation(jd, 180);
+}
+
 export interface SunTimes {
   rise: Date | null;
   set: Date | null;
@@ -191,13 +233,30 @@ export function lahiriAyanamsa(jd: number): number {
   return 23.8544 + 0.013972 * years;
 }
 
-export function siderealSunLongitude(jd: number): number {
+export function siderealSunLongitude(jdUT: number): number {
+  const jd = toTT(jdUT);
   return norm360(sunLongitude(jd) - lahiriAyanamsa(jd));
 }
 
 /** 0 = Mesha … 11 = Mina. */
 export function rashiIndex(jd: number): number {
   return Math.floor(siderealSunLongitude(jd) / 30);
+}
+
+/**
+ * JD (UT) when the sidereal sun enters `rashi` (0 = Mesha) in the solar
+ * year that begins with Mesha Sankranti of `year` (so rashi 9, Makara,
+ * lands in January of the following Gregorian year).
+ */
+export function sankrantiJd(year: number, rashi: number): number {
+  let jd = julianDay(year, 4, 14, 0) + rashi * 30.44;
+  for (let i = 0; i < 10; i += 1) {
+    const lon = siderealSunLongitude(jd);
+    const delta = ((rashi * 30 - lon + 540) % 360) - 180;
+    jd += delta / 0.9856;
+    if (Math.abs(delta) < 0.0002) break;
+  }
+  return jd;
 }
 
 /**
@@ -229,7 +288,10 @@ function solarEventUTCHours(
     (Math.cos(rad(90.833)) - sinDec * Math.sin(rad(latitude))) / (cosDec * Math.cos(rad(latitude)));
   if (cosH > 1 || cosH < -1) return null;
   const H = (rising ? 360 - deg(Math.acos(cosH)) : deg(Math.acos(cosH))) / 15;
-  const T = H + RA - 0.06571 * t - 6.622;
+  // Local mean time of the event. The Williams formula drifts by whole
+  // days as RA and the day-of-year term wrap, so fold it into [0, 24) before
+  // converting to UTC — otherwise Jan–Mar sunrises land a full day late.
+  const T = (((H + RA - 0.06571 * t - 6.622) % 24) + 24) % 24;
   return T - lngHour;
 }
 

@@ -1,0 +1,1845 @@
+{
+  "source": "Drik Panchang, New Delhi (geoname-id 1261481). Smarta list: /vrats/ekadashidates.html?year=YYYY; ISKCON list: /iskcon/iskcon-ekadashi-list.html?year=YYYY",
+  "fetched": "2026-10-11",
+  "notes": "Fasting days and tithi timings (IST) used to seed and verify src/data/ekadashi-2026-2030.json. Alternates are Drik's Gauna / Vaishnava days for the Smarta list; iskcon holds the Vaishnava fasting days with ISKCON Parana windows.",
+  "smarta": [
+    {
+      "date": "2026-01-14",
+      "name": "Shattila",
+      "tithiBegins": "2026-01-13 15:17",
+      "tithiEnds": "2026-01-14 17:52"
+    },
+    {
+      "date": "2026-01-29",
+      "name": "Jaya",
+      "tithiBegins": "2026-01-28 16:35",
+      "tithiEnds": "2026-01-29 13:55"
+    },
+    {
+      "date": "2026-02-13",
+      "name": "Vijaya",
+      "tithiBegins": "2026-02-12 12:22",
+      "tithiEnds": "2026-02-13 14:25"
+    },
+    {
+      "date": "2026-02-27",
+      "name": "Amalaki",
+      "tithiBegins": "2026-02-27 00:33",
+      "tithiEnds": "2026-02-27 22:32"
+    },
+    {
+      "date": "2026-03-15",
+      "name": "Papamochani",
+      "tithiBegins": "2026-03-14 08:10",
+      "tithiEnds": "2026-03-15 09:16"
+    },
+    {
+      "date": "2026-03-29",
+      "name": "Kamada",
+      "tithiBegins": "2026-03-28 08:45",
+      "tithiEnds": "2026-03-29 07:46"
+    },
+    {
+      "date": "2026-04-13",
+      "name": "Varuthini",
+      "tithiBegins": "2026-04-13 01:16",
+      "tithiEnds": "2026-04-14 01:08"
+    },
+    {
+      "date": "2026-04-27",
+      "name": "Mohini",
+      "tithiBegins": "2026-04-26 18:06",
+      "tithiEnds": "2026-04-27 18:15"
+    },
+    {
+      "date": "2026-05-13",
+      "name": "Apara",
+      "tithiBegins": "2026-05-12 14:52",
+      "tithiEnds": "2026-05-13 13:29"
+    },
+    {
+      "date": "2026-05-27",
+      "name": "Padmini",
+      "tithiBegins": "2026-05-26 05:10",
+      "tithiEnds": "2026-05-27 06:21"
+    },
+    {
+      "date": "2026-06-11",
+      "name": "Parama",
+      "tithiBegins": "2026-06-11 00:57",
+      "tithiEnds": "2026-06-11 22:36"
+    },
+    {
+      "date": "2026-06-25",
+      "name": "Nirjala",
+      "tithiBegins": "2026-06-24 18:12",
+      "tithiEnds": "2026-06-25 20:09"
+    },
+    {
+      "date": "2026-07-10",
+      "name": "Yogini",
+      "tithiBegins": "2026-07-10 08:16",
+      "tithiEnds": "2026-07-11 05:22"
+    },
+    {
+      "date": "2026-07-25",
+      "name": "Devshayani",
+      "tithiBegins": "2026-07-24 09:12",
+      "tithiEnds": "2026-07-25 11:34"
+    },
+    {
+      "date": "2026-08-09",
+      "name": "Kamika",
+      "tithiBegins": "2026-08-08 13:59",
+      "tithiEnds": "2026-08-09 11:04"
+    },
+    {
+      "date": "2026-08-23",
+      "name": "Shravana Putrada",
+      "tithiBegins": "2026-08-23 02:00",
+      "tithiEnds": "2026-08-24 04:18"
+    },
+    {
+      "date": "2026-09-07",
+      "name": "Aja",
+      "tithiBegins": "2026-09-06 19:29",
+      "tithiEnds": "2026-09-07 17:03"
+    },
+    {
+      "date": "2026-09-22",
+      "name": "Parsva",
+      "tithiBegins": "2026-09-21 20:00",
+      "tithiEnds": "2026-09-22 21:43"
+    },
+    {
+      "date": "2026-10-06",
+      "name": "Indira",
+      "tithiBegins": "2026-10-06 02:07",
+      "tithiEnds": "2026-10-07 00:34"
+    },
+    {
+      "date": "2026-10-22",
+      "name": "Papankusha",
+      "tithiBegins": "2026-10-21 14:11",
+      "tithiEnds": "2026-10-22 14:47"
+    },
+    {
+      "date": "2026-11-05",
+      "name": "Rama",
+      "tithiBegins": "2026-11-04 11:03",
+      "tithiEnds": "2026-11-05 10:35"
+    },
+    {
+      "date": "2026-11-20",
+      "name": "Devutthana",
+      "tithiBegins": "2026-11-20 07:15",
+      "tithiEnds": "2026-11-21 06:31"
+    },
+    {
+      "date": "2026-12-04",
+      "name": "Utpanna",
+      "tithiBegins": "2026-12-03 23:03",
+      "tithiEnds": "2026-12-04 23:44"
+    },
+    {
+      "date": "2026-12-20",
+      "name": "Mokshada",
+      "tithiBegins": "2026-12-19 22:09",
+      "tithiEnds": "2026-12-20 20:14"
+    },
+    {
+      "date": "2027-01-03",
+      "name": "Saphala",
+      "tithiBegins": "2027-01-02 14:24",
+      "tithiEnds": "2027-01-03 16:08"
+    },
+    {
+      "date": "2027-01-18",
+      "name": "Pausha Putrada",
+      "tithiBegins": "2027-01-18 10:26",
+      "tithiEnds": "2027-01-19 07:49"
+    },
+    {
+      "date": "2027-02-02",
+      "name": "Shattila",
+      "tithiBegins": "2027-02-01 08:41",
+      "tithiEnds": "2027-02-02 11:10"
+    },
+    {
+      "date": "2027-02-17",
+      "name": "Jaya",
+      "tithiBegins": "2027-02-16 20:19",
+      "tithiEnds": "2027-02-17 17:31"
+    },
+    {
+      "date": "2027-03-04",
+      "name": "Vijaya",
+      "tithiBegins": "2027-03-03 04:44",
+      "tithiEnds": "2027-03-04 07:24"
+    },
+    {
+      "date": "2027-03-18",
+      "name": "Amalaki",
+      "tithiBegins": "2027-03-18 04:21",
+      "tithiEnds": "2027-03-19 01:51"
+    },
+    {
+      "date": "2027-04-02",
+      "name": "Papamochani",
+      "tithiBegins": "2027-04-02 00:45",
+      "tithiEnds": "2027-04-03 02:51"
+    },
+    {
+      "date": "2027-04-17",
+      "name": "Kamada",
+      "tithiBegins": "2027-04-16 11:21",
+      "tithiEnds": "2027-04-17 09:27"
+    },
+    {
+      "date": "2027-05-02",
+      "name": "Varuthini",
+      "tithiBegins": "2027-05-01 18:53",
+      "tithiEnds": "2027-05-02 19:51"
+    },
+    {
+      "date": "2027-05-16",
+      "name": "Mohini",
+      "tithiBegins": "2027-05-15 18:17",
+      "tithiEnds": "2027-05-16 17:13"
+    },
+    {
+      "date": "2027-06-01",
+      "name": "Apara",
+      "tithiBegins": "2027-05-31 10:02",
+      "tithiEnds": "2027-06-01 09:39"
+    },
+    {
+      "date": "2027-06-14",
+      "name": "Nirjala",
+      "tithiBegins": "2027-06-14 02:11",
+      "tithiEnds": "2027-06-15 02:07"
+    },
+    {
+      "date": "2027-06-30",
+      "name": "Yogini",
+      "tithiBegins": "2027-06-29 22:03",
+      "tithiEnds": "2027-06-30 20:30"
+    },
+    {
+      "date": "2027-07-14",
+      "name": "Devshayani",
+      "tithiBegins": "2027-07-13 12:08",
+      "tithiEnds": "2027-07-14 13:10"
+    },
+    {
+      "date": "2027-07-29",
+      "name": "Kamika",
+      "tithiBegins": "2027-07-29 07:33",
+      "tithiEnds": "2027-07-30 05:12"
+    },
+    {
+      "date": "2027-08-12",
+      "name": "Shravana Putrada",
+      "tithiBegins": "2027-08-12 00:58",
+      "tithiEnds": "2027-08-13 02:59"
+    },
+    {
+      "date": "2027-08-28",
+      "name": "Aja",
+      "tithiBegins": "2027-08-27 15:25",
+      "tithiEnds": "2027-08-28 12:42"
+    },
+    {
+      "date": "2027-09-11",
+      "name": "Parsva",
+      "tithiBegins": "2027-09-10 17:00",
+      "tithiEnds": "2027-09-11 19:35"
+    },
+    {
+      "date": "2027-09-26",
+      "name": "Indira",
+      "tithiBegins": "2027-09-25 22:30",
+      "tithiEnds": "2027-09-26 19:49"
+    },
+    {
+      "date": "2027-10-11",
+      "name": "Papankusha",
+      "tithiBegins": "2027-10-10 11:40",
+      "tithiEnds": "2027-10-11 14:08"
+    },
+    {
+      "date": "2027-10-25",
+      "name": "Rama",
+      "tithiBegins": "2027-10-25 05:40",
+      "tithiEnds": "2027-10-26 03:22"
+    },
+    {
+      "date": "2027-11-10",
+      "name": "Devutthana",
+      "tithiBegins": "2027-11-09 07:34",
+      "tithiEnds": "2027-11-10 09:11"
+    },
+    {
+      "date": "2027-11-24",
+      "name": "Utpanna",
+      "tithiBegins": "2027-11-23 13:44",
+      "tithiEnds": "2027-11-24 12:11"
+    },
+    {
+      "date": "2027-12-09",
+      "name": "Mokshada",
+      "tithiBegins": "2027-12-09 02:58",
+      "tithiEnds": "2027-12-10 03:19"
+    },
+    {
+      "date": "2027-12-23",
+      "name": "Saphala",
+      "tithiBegins": "2027-12-22 23:40",
+      "tithiEnds": "2027-12-23 23:11"
+    },
+    {
+      "date": "2028-01-08",
+      "name": "Pausha Putrada",
+      "tithiBegins": "2028-01-07 20:30",
+      "tithiEnds": "2028-01-08 19:35"
+    },
+    {
+      "date": "2028-01-22",
+      "name": "Shattila",
+      "tithiBegins": "2028-01-21 12:16",
+      "tithiEnds": "2028-01-22 13:04"
+    },
+    {
+      "date": "2028-02-06",
+      "name": "Jaya",
+      "tithiBegins": "2028-02-06 11:17",
+      "tithiEnds": "2028-02-07 09:24"
+    },
+    {
+      "date": "2028-02-20",
+      "name": "Vijaya",
+      "tithiBegins": "2028-02-20 03:48",
+      "tithiEnds": "2028-02-21 05:45"
+    },
+    {
+      "date": "2028-03-07",
+      "name": "Amalaki",
+      "tithiBegins": "2028-03-06 23:00",
+      "tithiEnds": "2028-03-07 20:29"
+    },
+    {
+      "date": "2028-03-21",
+      "name": "Papamochani",
+      "tithiBegins": "2028-03-20 21:36",
+      "tithiEnds": "2028-03-22 00:13"
+    },
+    {
+      "date": "2028-04-05",
+      "name": "Kamada",
+      "tithiBegins": "2028-04-05 07:45",
+      "tithiEnds": "2028-04-06 04:58"
+    },
+    {
+      "date": "2028-04-20",
+      "name": "Varuthini",
+      "tithiBegins": "2028-04-19 16:14",
+      "tithiEnds": "2028-04-20 18:46"
+    },
+    {
+      "date": "2028-05-05",
+      "name": "Mohini",
+      "tithiBegins": "2028-05-04 14:12",
+      "tithiEnds": "2028-05-05 11:32"
+    },
+    {
+      "date": "2028-05-20",
+      "name": "Apara",
+      "tithiBegins": "2028-05-19 10:10",
+      "tithiEnds": "2028-05-20 12:00"
+    },
+    {
+      "date": "2028-06-03",
+      "name": "Nirjala",
+      "tithiBegins": "2028-06-02 19:32",
+      "tithiEnds": "2028-06-03 17:25"
+    },
+    {
+      "date": "2028-06-18",
+      "name": "Yogini",
+      "tithiBegins": "2028-06-18 02:27",
+      "tithiEnds": "2028-06-19 03:14"
+    },
+    {
+      "date": "2028-07-02",
+      "name": "Devshayani",
+      "tithiBegins": "2028-07-02 01:14",
+      "tithiEnds": "2028-07-03 00:03"
+    },
+    {
+      "date": "2028-07-18",
+      "name": "Kamika",
+      "tithiBegins": "2028-07-17 16:45",
+      "tithiEnds": "2028-07-18 16:25"
+    },
+    {
+      "date": "2028-08-01",
+      "name": "Shravana Putrada",
+      "tithiBegins": "2028-07-31 08:49",
+      "tithiEnds": "2028-08-01 08:51"
+    },
+    {
+      "date": "2028-08-16",
+      "name": "Aja",
+      "tithiBegins": "2028-08-16 05:11",
+      "tithiEnds": "2028-08-17 03:48"
+    },
+    {
+      "date": "2028-08-30",
+      "name": "Parsva",
+      "tithiBegins": "2028-08-29 19:30",
+      "tithiEnds": "2028-08-30 20:46"
+    },
+    {
+      "date": "2028-09-15",
+      "name": "Indira",
+      "tithiBegins": "2028-09-14 15:55",
+      "tithiEnds": "2028-09-15 13:42"
+    },
+    {
+      "date": "2028-09-29",
+      "name": "Papankusha",
+      "tithiBegins": "2028-09-28 09:55",
+      "tithiEnds": "2028-09-29 12:07"
+    },
+    {
+      "date": "2028-10-14",
+      "name": "Rama",
+      "tithiBegins": "2028-10-14 01:12",
+      "tithiEnds": "2028-10-14 22:28"
+    },
+    {
+      "date": "2028-10-28",
+      "name": "Devutthana",
+      "tithiBegins": "2028-10-28 03:46",
+      "tithiEnds": "2028-10-29 06:20"
+    },
+    {
+      "date": "2028-11-12",
+      "name": "Utpanna",
+      "tithiBegins": "2028-11-12 09:30",
+      "tithiEnds": "2028-11-13 06:41"
+    },
+    {
+      "date": "2028-11-27",
+      "name": "Mokshada",
+      "tithiBegins": "2028-11-26 23:59",
+      "tithiEnds": "2028-11-28 02:17"
+    },
+    {
+      "date": "2028-12-12",
+      "name": "Saphala",
+      "tithiBegins": "2028-12-11 17:32",
+      "tithiEnds": "2028-12-12 15:12"
+    },
+    {
+      "date": "2028-12-27",
+      "name": "Pausha Putrada",
+      "tithiBegins": "2028-12-26 20:56",
+      "tithiEnds": "2028-12-27 22:27"
+    },
+    {
+      "date": "2029-01-10",
+      "name": "Shattila",
+      "tithiBegins": "2029-01-10 02:19",
+      "tithiEnds": "2029-01-11 00:55"
+    },
+    {
+      "date": "2029-01-26",
+      "name": "Jaya",
+      "tithiBegins": "2029-01-25 16:50",
+      "tithiEnds": "2029-01-26 17:12"
+    },
+    {
+      "date": "2029-02-09",
+      "name": "Vijaya",
+      "tithiBegins": "2029-02-08 12:44",
+      "tithiEnds": "2029-02-09 12:33"
+    },
+    {
+      "date": "2029-02-25",
+      "name": "Amalaki",
+      "tithiBegins": "2029-02-24 10:04",
+      "tithiEnds": "2029-02-25 09:11"
+    },
+    {
+      "date": "2029-03-10",
+      "name": "Papamochani",
+      "tithiBegins": "2029-03-10 01:16",
+      "tithiEnds": "2029-03-11 02:15"
+    },
+    {
+      "date": "2029-03-26",
+      "name": "Padmini",
+      "tithiBegins": "2029-03-25 23:36",
+      "tithiEnds": "2029-03-26 21:36"
+    },
+    {
+      "date": "2029-04-09",
+      "name": "Parama",
+      "tithiBegins": "2029-04-08 15:45",
+      "tithiEnds": "2029-04-09 17:39"
+    },
+    {
+      "date": "2029-04-24",
+      "name": "Kamada",
+      "tithiBegins": "2029-04-24 09:22",
+      "tithiEnds": "2029-04-25 06:37"
+    },
+    {
+      "date": "2029-05-09",
+      "name": "Varuthini",
+      "tithiBegins": "2029-05-08 07:39",
+      "tithiEnds": "2029-05-09 10:01"
+    },
+    {
+      "date": "2029-05-24",
+      "name": "Mohini",
+      "tithiBegins": "2029-05-23 16:09",
+      "tithiEnds": "2029-05-24 13:10"
+    },
+    {
+      "date": "2029-06-07",
+      "name": "Apara",
+      "tithiBegins": "2029-06-07 00:20",
+      "tithiEnds": "2029-06-08 02:42"
+    },
+    {
+      "date": "2029-06-22",
+      "name": "Nirjala",
+      "tithiBegins": "2029-06-21 21:15",
+      "tithiEnds": "2029-06-22 18:34"
+    },
+    {
+      "date": "2029-07-07",
+      "name": "Yogini",
+      "tithiBegins": "2029-07-06 17:11",
+      "tithiEnds": "2029-07-07 19:05"
+    },
+    {
+      "date": "2029-07-21",
+      "name": "Devshayani",
+      "tithiBegins": "2029-07-21 02:12",
+      "tithiEnds": "2029-07-22 00:14"
+    },
+    {
+      "date": "2029-08-06",
+      "name": "Kamika",
+      "tithiBegins": "2029-08-05 09:34",
+      "tithiEnds": "2029-08-06 10:32"
+    },
+    {
+      "date": "2029-08-20",
+      "name": "Shravana Putrada",
+      "tithiBegins": "2029-08-19 08:27",
+      "tithiEnds": "2029-08-20 07:29"
+    },
+    {
+      "date": "2029-09-04",
+      "name": "Aja",
+      "tithiBegins": "2029-09-04 00:50",
+      "tithiEnds": "2029-09-05 00:35"
+    },
+    {
+      "date": "2029-09-18",
+      "name": "Parsva",
+      "tithiBegins": "2029-09-17 17:13",
+      "tithiEnds": "2029-09-18 17:22"
+    },
+    {
+      "date": "2029-10-04",
+      "name": "Indira",
+      "tithiBegins": "2029-10-03 14:30",
+      "tithiEnds": "2029-10-04 13:01"
+    },
+    {
+      "date": "2029-10-18",
+      "name": "Papankusha",
+      "tithiBegins": "2029-10-17 05:23",
+      "tithiEnds": "2029-10-18 06:38"
+    },
+    {
+      "date": "2029-11-02",
+      "name": "Rama",
+      "tithiBegins": "2029-11-02 02:22",
+      "tithiEnds": "2029-11-02 23:58"
+    },
+    {
+      "date": "2029-11-16",
+      "name": "Devutthana",
+      "tithiBegins": "2029-11-15 21:19",
+      "tithiEnds": "2029-11-16 23:28"
+    },
+    {
+      "date": "2029-12-01",
+      "name": "Utpanna",
+      "tithiBegins": "2029-12-01 12:39",
+      "tithiEnds": "2029-12-02 09:51"
+    },
+    {
+      "date": "2029-12-16",
+      "name": "Mokshada",
+      "tithiBegins": "2029-12-15 16:39",
+      "tithiEnds": "2029-12-16 19:17"
+    },
+    {
+      "date": "2029-12-31",
+      "name": "Saphala",
+      "tithiBegins": "2029-12-30 21:50",
+      "tithiEnds": "2029-12-31 19:11"
+    },
+    {
+      "date": "2030-01-15",
+      "name": "Pausha Putrada",
+      "tithiBegins": "2030-01-14 14:03",
+      "tithiEnds": "2030-01-15 16:29"
+    },
+    {
+      "date": "2030-01-29",
+      "name": "Shattila",
+      "tithiBegins": "2030-01-29 06:32",
+      "tithiEnds": "2030-01-30 04:27"
+    },
+    {
+      "date": "2030-02-14",
+      "name": "Jaya",
+      "tithiBegins": "2030-02-13 11:17",
+      "tithiEnds": "2030-02-14 12:49"
+    },
+    {
+      "date": "2030-02-28",
+      "name": "Vijaya",
+      "tithiBegins": "2030-02-27 15:19",
+      "tithiEnds": "2030-02-28 14:04"
+    },
+    {
+      "date": "2030-03-15",
+      "name": "Amalaki",
+      "tithiBegins": "2030-03-15 06:06",
+      "tithiEnds": "2030-03-16 06:16"
+    },
+    {
+      "date": "2030-03-29",
+      "name": "Papamochani",
+      "tithiBegins": "2030-03-29 00:50",
+      "tithiEnds": "2030-03-30 00:34"
+    },
+    {
+      "date": "2030-04-14",
+      "name": "Kamada",
+      "tithiBegins": "2030-04-13 21:13",
+      "tithiEnds": "2030-04-14 20:02"
+    },
+    {
+      "date": "2030-04-28",
+      "name": "Varuthini",
+      "tithiBegins": "2030-04-27 11:40",
+      "tithiEnds": "2030-04-28 12:26"
+    },
+    {
+      "date": "2030-05-13",
+      "name": "Mohini",
+      "tithiBegins": "2030-05-13 08:32",
+      "tithiEnds": "2030-05-14 06:21"
+    },
+    {
+      "date": "2030-05-27",
+      "name": "Apara",
+      "tithiBegins": "2030-05-27 00:19",
+      "tithiEnds": "2030-05-28 02:05"
+    },
+    {
+      "date": "2030-06-12",
+      "name": "Nirjala",
+      "tithiBegins": "2030-06-11 16:49",
+      "tithiEnds": "2030-06-12 14:05"
+    },
+    {
+      "date": "2030-06-26",
+      "name": "Yogini",
+      "tithiBegins": "2030-06-25 15:00",
+      "tithiEnds": "2030-06-26 17:27"
+    },
+    {
+      "date": "2030-07-11",
+      "name": "Devshayani",
+      "tithiBegins": "2030-07-10 23:06",
+      "tithiEnds": "2030-07-11 20:17"
+    },
+    {
+      "date": "2030-07-26",
+      "name": "Kamika",
+      "tithiBegins": "2030-07-25 07:29",
+      "tithiEnds": "2030-07-26 10:01"
+    },
+    {
+      "date": "2030-08-09",
+      "name": "Shravana Putrada",
+      "tithiBegins": "2030-08-09 04:32",
+      "tithiEnds": "2030-08-10 01:59"
+    },
+    {
+      "date": "2030-08-24",
+      "name": "Aja",
+      "tithiBegins": "2030-08-24 00:56",
+      "tithiEnds": "2030-08-25 02:54"
+    },
+    {
+      "date": "2030-09-08",
+      "name": "Parsva",
+      "tithiBegins": "2030-09-07 10:16",
+      "tithiEnds": "2030-09-08 08:20"
+    },
+    {
+      "date": "2030-09-23",
+      "name": "Indira",
+      "tithiBegins": "2030-09-22 18:20",
+      "tithiEnds": "2030-09-23 19:10"
+    },
+    {
+      "date": "2030-10-07",
+      "name": "Papankusha",
+      "tithiBegins": "2030-10-06 17:32",
+      "tithiEnds": "2030-10-07 16:31"
+    },
+    {
+      "date": "2030-10-23",
+      "name": "Rama",
+      "tithiBegins": "2030-10-22 10:46",
+      "tithiEnds": "2030-10-23 10:19"
+    },
+    {
+      "date": "2030-11-05",
+      "name": "Devutthana",
+      "tithiBegins": "2030-11-05 03:33",
+      "tithiEnds": "2030-11-06 03:43"
+    },
+    {
+      "date": "2030-11-21",
+      "name": "Utpanna",
+      "tithiBegins": "2030-11-21 01:41",
+      "tithiEnds": "2030-11-22 00:09"
+    },
+    {
+      "date": "2030-12-05",
+      "name": "Mokshada",
+      "tithiBegins": "2030-12-04 17:17",
+      "tithiEnds": "2030-12-05 18:44"
+    },
+    {
+      "date": "2030-12-21",
+      "name": "Saphala",
+      "tithiBegins": "2030-12-20 14:49",
+      "tithiEnds": "2030-12-21 12:32"
+    }
+  ],
+  "alternates": [
+    {
+      "date": "2026-07-11",
+      "label": "Gauna Yogini Ekadashi"
+    },
+    {
+      "date": "2026-07-11",
+      "label": "Vaishnava Yogini Ekadashi"
+    },
+    {
+      "date": "2026-08-24",
+      "label": "Vaishnava Shravana Putrada Ekadashi"
+    },
+    {
+      "date": "2026-11-21",
+      "label": "Gauna Devutthana Ekadashi"
+    },
+    {
+      "date": "2026-11-21",
+      "label": "Vaishnava Devutthana Ekadashi"
+    },
+    {
+      "date": "2027-01-19",
+      "label": "Gauna Pausha Putrada Ekadashi"
+    },
+    {
+      "date": "2027-01-19",
+      "label": "Vaishnava Pausha Putrada Ekadashi"
+    },
+    {
+      "date": "2027-07-30",
+      "label": "Gauna Kamika Ekadashi"
+    },
+    {
+      "date": "2027-07-30",
+      "label": "Vaishnava Kamika Ekadashi"
+    },
+    {
+      "date": "2027-10-26",
+      "label": "Vaishnava Rama Ekadashi"
+    },
+    {
+      "date": "2028-02-07",
+      "label": "Gauna Jaya Ekadashi"
+    },
+    {
+      "date": "2028-02-07",
+      "label": "Vaishnava Jaya Ekadashi"
+    },
+    {
+      "date": "2028-02-21",
+      "label": "Vaishnava Vijaya Ekadashi"
+    },
+    {
+      "date": "2028-04-06",
+      "label": "Gauna Kamada Ekadashi"
+    },
+    {
+      "date": "2028-04-06",
+      "label": "Vaishnava Kamada Ekadashi"
+    },
+    {
+      "date": "2028-08-17",
+      "label": "Vaishnava Aja Ekadashi"
+    },
+    {
+      "date": "2028-10-29",
+      "label": "Vaishnava Devutthana Ekadashi"
+    },
+    {
+      "date": "2028-11-13",
+      "label": "Gauna Utpanna Ekadashi"
+    },
+    {
+      "date": "2028-11-13",
+      "label": "Vaishnava Utpanna Ekadashi"
+    },
+    {
+      "date": "2029-04-25",
+      "label": "Gauna Kamada Ekadashi"
+    },
+    {
+      "date": "2029-04-25",
+      "label": "Vaishnava Kamada Ekadashi"
+    },
+    {
+      "date": "2029-12-02",
+      "label": "Gauna Utpanna Ekadashi"
+    },
+    {
+      "date": "2029-12-02",
+      "label": "Vaishnava Utpanna Ekadashi"
+    },
+    {
+      "date": "2030-01-30",
+      "label": "Vaishnava Shattila Ekadashi"
+    },
+    {
+      "date": "2030-03-16",
+      "label": "Vaishnava Amalaki Ekadashi"
+    },
+    {
+      "date": "2030-05-14",
+      "label": "Gauna Mohini Ekadashi"
+    },
+    {
+      "date": "2030-05-14",
+      "label": "Vaishnava Mohini Ekadashi"
+    },
+    {
+      "date": "2030-08-10",
+      "label": "Vaishnava Shravana Putrada Ekadashi"
+    }
+  ],
+  "iskcon": [
+    {
+      "date": "2026-01-14",
+      "name": "Shat Tila",
+      "parana": [
+        "07:15",
+        "10:45"
+      ]
+    },
+    {
+      "date": "2026-01-29",
+      "name": "Bhaimi",
+      "parana": [
+        "07:10",
+        "10:47"
+      ]
+    },
+    {
+      "date": "2026-02-13",
+      "name": "Vijaya",
+      "parana": [
+        "07:00",
+        "10:44"
+      ]
+    },
+    {
+      "date": "2026-02-27",
+      "name": "Amalaki",
+      "parana": [
+        "06:47",
+        "10:38"
+      ]
+    },
+    {
+      "date": "2026-03-15",
+      "name": "Papamochani",
+      "parana": [
+        "06:30",
+        "09:40"
+      ]
+    },
+    {
+      "date": "2026-03-29",
+      "name": "Kamada",
+      "parana": [
+        "06:14",
+        "07:09"
+      ]
+    },
+    {
+      "date": "2026-04-13",
+      "name": "Varuthini",
+      "parana": [
+        "06:54",
+        "10:13"
+      ]
+    },
+    {
+      "date": "2026-04-27",
+      "name": "Mohini",
+      "parana": [
+        "05:43",
+        "10:07"
+      ]
+    },
+    {
+      "date": "2026-05-13",
+      "name": "Apara",
+      "parana": [
+        "05:31",
+        "10:02"
+      ]
+    },
+    {
+      "date": "2026-05-27",
+      "name": "Padmini",
+      "parana": [
+        "05:25",
+        "07:56"
+      ]
+    },
+    {
+      "date": "2026-06-11",
+      "name": "Parama",
+      "parana": [
+        "05:23",
+        "10:02"
+      ]
+    },
+    {
+      "date": "2026-06-25",
+      "name": "Pandava Nirjala",
+      "parana": [
+        "05:25",
+        "10:04"
+      ]
+    },
+    {
+      "date": "2026-07-11",
+      "name": "Yogini",
+      "parana": [
+        "05:32",
+        "10:08"
+      ]
+    },
+    {
+      "date": "2026-07-25",
+      "name": "Sayana",
+      "parana": [
+        "05:39",
+        "10:11"
+      ]
+    },
+    {
+      "date": "2026-08-09",
+      "name": "Kamika",
+      "parana": [
+        "05:47",
+        "08:00"
+      ]
+    },
+    {
+      "date": "2026-08-24",
+      "name": "Pavitropana",
+      "parana": [
+        "05:55",
+        "06:20"
+      ]
+    },
+    {
+      "date": "2026-09-07",
+      "name": "Annada",
+      "parana": [
+        "06:02",
+        "10:13"
+      ]
+    },
+    {
+      "date": "2026-09-22",
+      "name": "Parshva",
+      "parana": [
+        "06:10",
+        "10:12"
+      ]
+    },
+    {
+      "date": "2026-10-06",
+      "name": "Indira",
+      "parana": [
+        "06:17",
+        "10:12"
+      ]
+    },
+    {
+      "date": "2026-10-22",
+      "name": "Pashankusha",
+      "parana": [
+        "06:27",
+        "10:12"
+      ]
+    },
+    {
+      "date": "2026-11-05",
+      "name": "Rama",
+      "parana": [
+        "06:37",
+        "10:15"
+      ]
+    },
+    {
+      "date": "2026-11-21",
+      "name": "Utthana",
+      "parana": [
+        "06:49",
+        "10:21"
+      ]
+    },
+    {
+      "date": "2026-12-04",
+      "name": "Utpanna",
+      "parana": [
+        "06:59",
+        "10:28"
+      ]
+    },
+    {
+      "date": "2026-12-20",
+      "name": "Mokshada",
+      "parana": [
+        "07:10",
+        "10:36"
+      ]
+    },
+    {
+      "date": "2027-01-03",
+      "name": "Saphala",
+      "parana": [
+        "07:15",
+        "10:42"
+      ]
+    },
+    {
+      "date": "2027-01-19",
+      "name": "Putrada",
+      "parana": [
+        "07:14",
+        "10:46"
+      ]
+    },
+    {
+      "date": "2027-02-02",
+      "name": "Shat Tila",
+      "parana": [
+        "07:08",
+        "10:46"
+      ]
+    },
+    {
+      "date": "2027-02-17",
+      "name": "Bhaimi",
+      "parana": [
+        "06:57",
+        "10:43"
+      ]
+    },
+    {
+      "date": "2027-03-04",
+      "name": "Vijaya",
+      "parana": [
+        "06:42",
+        "09:53"
+      ]
+    },
+    {
+      "date": "2027-03-18",
+      "name": "Amalaki",
+      "parana": [
+        "07:12",
+        "10:28"
+      ]
+    },
+    {
+      "date": "2027-04-02",
+      "name": "Papamochani",
+      "parana": [
+        "09:15",
+        "10:20"
+      ]
+    },
+    {
+      "date": "2027-04-17",
+      "name": "Kamada",
+      "parana": [
+        "05:53",
+        "07:42"
+      ]
+    },
+    {
+      "date": "2027-05-02",
+      "name": "Varuthini",
+      "parana": [
+        "05:39",
+        "10:05"
+      ]
+    },
+    {
+      "date": "2027-05-16",
+      "name": "Mohini",
+      "parana": [
+        "05:29",
+        "10:02"
+      ]
+    },
+    {
+      "date": "2027-06-01",
+      "name": "Apara",
+      "parana": [
+        "05:24",
+        "08:28"
+      ]
+    },
+    {
+      "date": "2027-06-15",
+      "name": "Pandava Nirjala",
+      "parana": [
+        "05:23",
+        "10:02"
+      ]
+    },
+    {
+      "date": "2027-06-30",
+      "name": "Yogini",
+      "parana": [
+        "05:27",
+        "10:06"
+      ]
+    },
+    {
+      "date": "2027-07-14",
+      "name": "Sayana",
+      "parana": [
+        "05:33",
+        "10:09"
+      ]
+    },
+    {
+      "date": "2027-07-30",
+      "name": "Kamika",
+      "parana": [
+        "05:42",
+        "10:12"
+      ]
+    },
+    {
+      "date": "2027-08-12",
+      "name": "Pavitropana",
+      "parana": [
+        "09:34",
+        "10:14"
+      ]
+    },
+    {
+      "date": "2027-08-28",
+      "name": "Annada",
+      "parana": [
+        "05:57",
+        "09:35"
+      ]
+    },
+    {
+      "date": "2027-09-11",
+      "name": "Parshva",
+      "parana": [
+        "06:04",
+        "10:13"
+      ]
+    },
+    {
+      "date": "2027-09-26",
+      "name": "Indira",
+      "parana": [
+        "06:12",
+        "10:12"
+      ]
+    },
+    {
+      "date": "2027-10-11",
+      "name": "Pashankusha",
+      "parana": [
+        "06:20",
+        "10:12"
+      ]
+    },
+    {
+      "date": "2027-10-26",
+      "name": "Rama",
+      "parana": [
+        "06:29",
+        "10:13"
+      ]
+    },
+    {
+      "date": "2027-11-10",
+      "name": "Utthana",
+      "parana": [
+        "06:40",
+        "10:07"
+      ]
+    },
+    {
+      "date": "2027-11-24",
+      "name": "Utpanna",
+      "parana": [
+        "06:51",
+        "10:22"
+      ]
+    },
+    {
+      "date": "2027-12-09",
+      "name": "Mokshada",
+      "parana": [
+        "09:13",
+        "10:30"
+      ]
+    },
+    {
+      "date": "2027-12-23",
+      "name": "Saphala",
+      "parana": [
+        "07:11",
+        "10:37"
+      ]
+    },
+    {
+      "date": "2028-01-08",
+      "name": "Putrada",
+      "parana": [
+        "07:15",
+        "10:44"
+      ]
+    },
+    {
+      "date": "2028-01-22",
+      "name": "Shat Tila",
+      "parana": [
+        "07:13",
+        "10:46"
+      ]
+    },
+    {
+      "date": "2028-02-07",
+      "name": "Bhaimi",
+      "parana": [
+        "07:05",
+        "10:45"
+      ]
+    },
+    {
+      "date": "2028-02-21",
+      "name": "Vijaya",
+      "parana": [
+        "06:54",
+        "08:07"
+      ]
+    },
+    {
+      "date": "2028-03-07",
+      "name": "Amalaki",
+      "parana": [
+        "06:38",
+        "10:34"
+      ]
+    },
+    {
+      "date": "2028-03-21",
+      "name": "Papamochani",
+      "parana": [
+        "06:54",
+        "10:26"
+      ]
+    },
+    {
+      "date": "2028-04-06",
+      "name": "Kamada",
+      "parana": [
+        "06:04",
+        "10:17"
+      ]
+    },
+    {
+      "date": "2028-04-20",
+      "name": "Varuthini",
+      "parana": [
+        "05:49",
+        "10:10"
+      ]
+    },
+    {
+      "date": "2028-05-05",
+      "name": "Mohini",
+      "parana": [
+        "05:36",
+        "08:48"
+      ]
+    },
+    {
+      "date": "2028-05-20",
+      "name": "Apara",
+      "parana": [
+        "05:27",
+        "10:01"
+      ]
+    },
+    {
+      "date": "2028-06-03",
+      "name": "Pandava Nirjala",
+      "parana": [
+        "05:23",
+        "10:01"
+      ]
+    },
+    {
+      "date": "2028-06-18",
+      "name": "Yogini",
+      "parana": [
+        "09:16",
+        "10:03"
+      ]
+    },
+    {
+      "date": "2028-07-02",
+      "name": "Sayana",
+      "parana": [
+        "05:52",
+        "10:06"
+      ]
+    },
+    {
+      "date": "2028-07-18",
+      "name": "Kamika",
+      "parana": [
+        "05:35",
+        "10:10"
+      ]
+    },
+    {
+      "date": "2028-08-01",
+      "name": "Pavitropana",
+      "parana": [
+        "05:43",
+        "09:24"
+      ]
+    },
+    {
+      "date": "2028-08-17",
+      "name": "Annada",
+      "parana": [
+        "05:52",
+        "10:14"
+      ]
+    },
+    {
+      "date": "2028-08-30",
+      "name": "Parshva",
+      "parana": [
+        "05:59",
+        "10:14"
+      ]
+    },
+    {
+      "date": "2028-09-15",
+      "name": "Indira",
+      "parana": [
+        "06:07",
+        "10:13"
+      ]
+    },
+    {
+      "date": "2028-09-29",
+      "name": "Pashankusha",
+      "parana": [
+        "06:14",
+        "10:12"
+      ]
+    },
+    {
+      "date": "2028-10-14",
+      "name": "Rama",
+      "parana": [
+        "06:22",
+        "10:12"
+      ]
+    },
+    {
+      "date": "2028-10-29",
+      "name": "Utthana",
+      "parana": [
+        "06:32",
+        "08:50"
+      ]
+    },
+    {
+      "date": "2028-11-13",
+      "name": "Utpanna",
+      "parana": [
+        "06:43",
+        "10:18"
+      ]
+    },
+    {
+      "date": "2028-11-28",
+      "name": "Mokshada",
+      "parana": [
+        "06:55",
+        "10:25"
+      ]
+    },
+    {
+      "date": "2028-12-12",
+      "name": "Saphala",
+      "parana": [
+        "07:05",
+        "10:32"
+      ]
+    },
+    {
+      "date": "2028-12-27",
+      "name": "Putrada",
+      "parana": [
+        "07:13",
+        "10:40"
+      ]
+    },
+    {
+      "date": "2029-01-10",
+      "name": "Shat Tila",
+      "parana": [
+        "07:15",
+        "10:45"
+      ]
+    },
+    {
+      "date": "2029-01-26",
+      "name": "Bhaimi",
+      "parana": [
+        "07:12",
+        "10:47"
+      ]
+    },
+    {
+      "date": "2029-02-09",
+      "name": "Vijaya",
+      "parana": [
+        "07:03",
+        "10:45"
+      ]
+    },
+    {
+      "date": "2029-02-25",
+      "name": "Amalaki",
+      "parana": [
+        "06:49",
+        "07:29"
+      ]
+    },
+    {
+      "date": "2029-03-10",
+      "name": "Papamochani",
+      "parana": [
+        "08:37",
+        "10:33"
+      ]
+    },
+    {
+      "date": "2029-03-26",
+      "name": "Padmini",
+      "parana": [
+        "06:17",
+        "10:23"
+      ]
+    },
+    {
+      "date": "2029-04-09",
+      "name": "Parama",
+      "parana": [
+        "06:01",
+        "10:15"
+      ]
+    },
+    {
+      "date": "2029-04-25",
+      "name": "Kamada",
+      "parana": [
+        "05:45",
+        "10:08"
+      ]
+    },
+    {
+      "date": "2029-05-09",
+      "name": "Varuthini",
+      "parana": [
+        "05:33",
+        "10:03"
+      ]
+    },
+    {
+      "date": "2029-05-24",
+      "name": "Mohini",
+      "parana": [
+        "05:26",
+        "09:55"
+      ]
+    },
+    {
+      "date": "2029-06-07",
+      "name": "Apara",
+      "parana": [
+        "09:15",
+        "10:01"
+      ]
+    },
+    {
+      "date": "2029-06-22",
+      "name": "Pandava Nirjala",
+      "parana": [
+        "05:24",
+        "10:04"
+      ]
+    },
+    {
+      "date": "2029-07-07",
+      "name": "Yogini",
+      "parana": [
+        "05:30",
+        "10:07"
+      ]
+    },
+    {
+      "date": "2029-07-21",
+      "name": "Sayana",
+      "parana": [
+        "05:48",
+        "10:11"
+      ]
+    },
+    {
+      "date": "2029-08-06",
+      "name": "Kamika",
+      "parana": [
+        "05:46",
+        "10:13"
+      ]
+    },
+    {
+      "date": "2029-08-20",
+      "name": "Pavitropana",
+      "parana": [
+        "05:54",
+        "06:53"
+      ]
+    },
+    {
+      "date": "2029-09-04",
+      "name": "Annada",
+      "parana": [
+        "06:19",
+        "10:13"
+      ]
+    },
+    {
+      "date": "2029-09-18",
+      "name": "Parshva",
+      "parana": [
+        "06:08",
+        "10:12"
+      ]
+    },
+    {
+      "date": "2029-10-04",
+      "name": "Indira",
+      "parana": [
+        "06:16",
+        "10:12"
+      ]
+    },
+    {
+      "date": "2029-10-18",
+      "name": "Pashankusha",
+      "parana": [
+        "06:24",
+        "08:18"
+      ]
+    },
+    {
+      "date": "2029-11-02",
+      "name": "Rama",
+      "parana": [
+        "06:35",
+        "10:14"
+      ]
+    },
+    {
+      "date": "2029-11-16",
+      "name": "Utthana",
+      "parana": [
+        "06:45",
+        "10:19"
+      ]
+    },
+    {
+      "date": "2029-12-02",
+      "name": "Utpanna",
+      "parana": [
+        "06:58",
+        "10:27"
+      ]
+    },
+    {
+      "date": "2029-12-16",
+      "name": "Mokshada",
+      "parana": [
+        "07:08",
+        "10:34"
+      ]
+    },
+    {
+      "date": "2029-12-31",
+      "name": "Saphala",
+      "parana": [
+        "07:14",
+        "10:41"
+      ]
+    },
+    {
+      "date": "2030-01-15",
+      "name": "Putrada",
+      "parana": [
+        "07:15",
+        "10:46"
+      ]
+    },
+    {
+      "date": "2030-01-30",
+      "name": "Shat Tila",
+      "parana": [
+        "07:10",
+        "10:46"
+      ]
+    },
+    {
+      "date": "2030-02-14",
+      "name": "Bhaimi",
+      "parana": [
+        "07:00",
+        "10:43"
+      ]
+    },
+    {
+      "date": "2030-02-28",
+      "name": "Vijaya",
+      "parana": [
+        "06:46",
+        "10:38"
+      ]
+    },
+    {
+      "date": "2030-03-16",
+      "name": "Amalaki",
+      "parana": [
+        "06:29",
+        "10:29"
+      ]
+    },
+    {
+      "date": "2030-03-29",
+      "name": "Papamochani",
+      "parana": [
+        "06:36",
+        "10:22"
+      ]
+    },
+    {
+      "date": "2030-04-14",
+      "name": "Kamada",
+      "parana": [
+        "05:56",
+        "10:13"
+      ]
+    },
+    {
+      "date": "2030-04-28",
+      "name": "Varuthini",
+      "parana": [
+        "05:42",
+        "10:07"
+      ]
+    },
+    {
+      "date": "2030-05-14",
+      "name": "Mohini",
+      "parana": [
+        "05:30",
+        "10:02"
+      ]
+    },
+    {
+      "date": "2030-05-27",
+      "name": "Apara",
+      "parana": [
+        "08:37",
+        "10:01"
+      ]
+    },
+    {
+      "date": "2030-06-12",
+      "name": "Pandava Nirjala",
+      "parana": [
+        "05:23",
+        "10:02"
+      ]
+    },
+    {
+      "date": "2030-06-26",
+      "name": "Yogini",
+      "parana": [
+        "05:25",
+        "10:05"
+      ]
+    },
+    {
+      "date": "2030-07-11",
+      "name": "Sayana",
+      "parana": [
+        "05:32",
+        "10:08"
+      ]
+    },
+    {
+      "date": "2030-07-26",
+      "name": "Kamika",
+      "parana": [
+        "05:40",
+        "10:12"
+      ]
+    },
+    {
+      "date": "2030-08-10",
+      "name": "Pavitropana",
+      "parana": [
+        "05:48",
+        "10:13"
+      ]
+    },
+    {
+      "date": "2030-08-24",
+      "name": "Annada",
+      "parana": [
+        "09:14",
+        "10:14"
+      ]
+    },
+    {
+      "date": "2030-09-08",
+      "name": "Parshva",
+      "parana": [
+        "06:03",
+        "06:32"
+      ]
+    },
+    {
+      "date": "2030-09-23",
+      "name": "Indira",
+      "parana": [
+        "06:10",
+        "10:12"
+      ]
+    },
+    {
+      "date": "2030-10-07",
+      "name": "Pashankusha",
+      "parana": [
+        "06:18",
+        "10:12"
+      ]
+    },
+    {
+      "date": "2030-10-23",
+      "name": "Rama",
+      "parana": [
+        "06:27",
+        "09:05"
+      ]
+    },
+    {
+      "date": "2030-11-05",
+      "name": "Utthana",
+      "parana": [
+        "09:53",
+        "10:15"
+      ]
+    },
+    {
+      "date": "2030-11-21",
+      "name": "Utpanna",
+      "parana": [
+        "06:49",
+        "10:21"
+      ]
+    },
+    {
+      "date": "2030-12-05",
+      "name": "Mokshada",
+      "parana": [
+        "07:00",
+        "10:28"
+      ]
+    },
+    {
+      "date": "2030-12-21",
+      "name": "Saphala",
+      "parana": [
+        "07:10",
+        "09:41"
+      ]
+    }
+  ]
+}
