@@ -57,8 +57,9 @@ Play Console and App Store Connect need screenshots, a short description, and a 
 - No account, no analytics, no advertising, no location.
 - Preferences stay on device.
 - Notifications are local, not server push.
+- Calendar export writes an `.ics` file to the app cache and hands it to the system share sheet; nothing is uploaded.
 
-Confirm Parana with a local panchang before relying on the window for observance — say that in the listing.
+Confirm Parana with a local panchang before relying on the window for observance — say that in the listing. Dates follow Drik Panchang (Smarta) and the ISKCON calendar (Vaishnava) for New Delhi; see the README data note.
 
 ## Device QA checklist
 
@@ -71,6 +72,8 @@ Confirm Parana with a local panchang before relying on the window for observance
 7. Kill the app, tap an alarm notification: the full-screen alarm must open (cold start).
 8. iOS: lock-screen **Snooze 5 min** / **Dismiss** actions.
 9. Change city / tradition and confirm the dashboard and calendar update.
+10. Settings → **Share .ics file**: the share sheet opens and the file imports into the device calendar with fasting days and Parana windows.
+11. Open a fasting guide from the dashboard and from a calendar date; **Add to calendar** shares a single-event file.
 
 ## Web preview (not a substitute for a device)
 
