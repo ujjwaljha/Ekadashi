@@ -73,6 +73,7 @@ export default function SettingsScreen() {
   const [permCanAsk, setPermCanAsk] = useState(true);
   const [scheduled, setScheduled] = useState(0);
   const [exporting, setExporting] = useState(false);
+  const [exportStatus, setExportStatus] = useState<string | null>(null);
   const isWeb = Platform.OS === "web";
   const meta = getDatasetMeta();
   const calendar = getCalendar(settings.calendarId);
@@ -163,7 +164,8 @@ export default function SettingsScreen() {
     try {
       const result = await exportToCalendar(exportable, settings);
       if (result.ok) tapSuccess();
-      flashStatus(result.message);
+      setExportStatus(result.message);
+      setTimeout(() => setExportStatus(null), 6000);
     } finally {
       setExporting(false);
     }
@@ -409,6 +411,15 @@ export default function SettingsScreen() {
             onPress={() => void exportCalendar()}
           />
         </View>
+        {exportStatus ? (
+          <Animated.View
+            entering={FadeIn.duration(220)}
+            exiting={FadeOut.duration(180)}
+            className="mt-3 rounded-2xl border border-saffron-400/40 bg-saffron-500/10 px-4 py-3"
+          >
+            <Text className="text-center text-sm leading-5 text-saffron-200">{exportStatus}</Text>
+          </Animated.View>
+        ) : null}
       </Card>
 
       <Card className="mb-4">

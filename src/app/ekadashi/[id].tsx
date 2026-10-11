@@ -88,8 +88,12 @@ export default function EkadashiGuideScreen() {
             />
           </View>
           {status ? (
-            <Animated.View entering={FadeIn.duration(200)} exiting={FadeOut.duration(160)}>
-              <Text className="mt-3 text-center text-xs leading-4 text-saffron-200">{status}</Text>
+            <Animated.View
+              entering={FadeIn.duration(200)}
+              exiting={FadeOut.duration(160)}
+              className="mt-3 rounded-2xl border border-saffron-400/40 bg-saffron-500/10 px-4 py-3"
+            >
+              <Text className="text-center text-sm leading-5 text-saffron-200">{status}</Text>
             </Animated.View>
           ) : null}
         </Card>
