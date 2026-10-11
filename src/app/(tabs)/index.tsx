@@ -1,10 +1,11 @@
 import { LinearGradient } from "expo-linear-gradient";
-import { BellRing, MoonStar, Sparkles, Sunrise } from "lucide-react-native";
-import { useEffect, useMemo, useState } from "react";
+import { useRouter } from "expo-router";
+import { BellRing, BookOpen, ChevronRight, MoonStar, Sparkles, Sunrise } from "lucide-react-native";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { Text, View } from "react-native";
 
 import { Card } from "@/components/Card";
-import { FadeInView } from "@/components/motion";
+import { FadeInView, PressableScale } from "@/components/motion";
 import { Screen } from "@/components/Screen";
 import { getCalendar, traditionLabel } from "@/constants/calendars";
 import { getCity } from "@/constants/cities";
@@ -24,10 +25,15 @@ import { useSettings } from "@/store/settings";
 
 export default function Dashboard() {
   const { settings } = useSettings();
+  const router = useRouter();
   const [now, setNow] = useState(() => new Date());
   const query = useMemo(() => queryFromSettings(settings), [settings]);
   const calendar = getCalendar(settings.calendarId);
   const city = getCity(settings.cityId);
+  const openGuide = useCallback(
+    (id: string) => router.push({ pathname: "/ekadashi/[id]", params: { id } }),
+    [router]
+  );
 
   useEffect(() => {
     const id = setInterval(() => setNow(new Date()), 15_000);
@@ -97,6 +103,7 @@ export default function Dashboard() {
             }
             badge="Observe"
             colors={[...accentGradient]}
+            onOpenGuide={() => openGuide(observance.ekadashi!.id)}
           />
         </FadeInView>
       ) : null}
@@ -116,6 +123,7 @@ export default function Dashboard() {
             calendarId={settings.calendarId}
             badge="Break fast"
             colors={[...paranaGradient]}
+            onOpenGuide={() => openGuide(observance.ekadashi!.id)}
           />
         </FadeInView>
       ) : null}
@@ -140,6 +148,7 @@ export default function Dashboard() {
             }
             badge={countdownLabel(daysUntil(next.date, now, tz))}
             colors={[...accentGradient]}
+            onOpenGuide={() => openGuide(next.id)}
           />
         </FadeInView>
       ) : null}
@@ -170,30 +179,40 @@ export default function Dashboard() {
       <View className="gap-2.5">
         {upcoming.map((e, index) => (
           <FadeInView key={e.id} delay={motion.staggerMs * (3 + index)}>
-            <Card className="flex-row items-center">
-              <View className="w-14">
-                <Text style={{ fontFamily: fonts.display }} className="text-lg text-saffron-300">
-                  {formatShortDate(e.date)}
-                </Text>
-                <Text className="text-[11px] text-violet-300">{e.paksha}</Text>
-              </View>
-              <View className="flex-1 pl-1">
-                <Text style={{ fontFamily: fonts.sansSemi }} className="text-base text-white">
-                  {e.name} Ekadashi
-                </Text>
-                <Text className="text-xs text-saffron-200/90" numberOfLines={1}>
-                  {formatPanchangLong(e.date, settings.calendarId)}
-                </Text>
-                <Text className="text-xs text-violet-300" numberOfLines={1}>
-                  Parana {formatTime12h(e.parana.start)}–{formatTime12h(e.parana.end)}
-                </Text>
-              </View>
-              <View className="rounded-full bg-white/10 px-2.5 py-1">
-                <Text className="text-[11px] font-semibold text-violet-100">
-                  {countdownLabel(daysUntil(e.date, now, tz))}
-                </Text>
-              </View>
-            </Card>
+            <PressableScale
+              onPress={() => openGuide(e.id)}
+              haptic="selection"
+              accessibilityRole="button"
+              accessibilityLabel={`${e.name} Ekadashi, ${formatLongDate(e.date)}. Open fasting guide`}
+            >
+              <Card className="flex-row items-center">
+                <View className="w-14">
+                  <Text style={{ fontFamily: fonts.display }} className="text-lg text-saffron-300">
+                    {formatShortDate(e.date)}
+                  </Text>
+                  <Text className="text-[11px] text-violet-300">{e.paksha}</Text>
+                </View>
+                <View className="flex-1 pl-1">
+                  <Text style={{ fontFamily: fonts.sansSemi }} className="text-base text-white">
+                    {e.name} Ekadashi
+                  </Text>
+                  <Text className="text-xs text-saffron-200/90" numberOfLines={1}>
+                    {formatPanchangLong(e.date, settings.calendarId)}
+                  </Text>
+                  <Text className="text-xs text-violet-300" numberOfLines={1}>
+                    Parana {formatTime12h(e.parana.start)}–{formatTime12h(e.parana.end)}
+                  </Text>
+                </View>
+                <View className="items-end gap-1">
+                  <View className="rounded-full bg-white/10 px-2.5 py-1">
+                    <Text className="text-[11px] font-semibold text-violet-100">
+                      {countdownLabel(daysUntil(e.date, now, tz))}
+                    </Text>
+                  </View>
+                  <ChevronRight color={palette.textMuted} size={16} />
+                </View>
+              </Card>
+            </PressableScale>
           </FadeInView>
         ))}
       </View>
@@ -215,6 +234,7 @@ function HeroCard({
   otherNote,
   badge,
   colors,
+  onOpenGuide,
 }: {
   eyebrow: string;
   name: string;
@@ -229,6 +249,7 @@ function HeroCard({
   otherNote?: string;
   badge: string;
   colors: readonly [string, string, ...string[]];
+  onOpenGuide: () => void;
 }) {
   return (
     <LinearGradient
@@ -304,6 +325,20 @@ function HeroCard({
           <Text className="text-[11px] text-white/70">Window follows local sunrise</Text>
         </View>
       </View>
+
+      <PressableScale
+        onPress={onOpenGuide}
+        haptic="selection"
+        accessibilityRole="button"
+        accessibilityLabel={`Open the ${name} fasting guide`}
+        className="mt-3 flex-row items-center justify-center gap-2 rounded-2xl bg-white/20 py-2.5"
+      >
+        <BookOpen color="#fff" size={16} />
+        <Text style={{ fontFamily: fonts.sansSemi }} className="text-sm text-white">
+          Fasting guide: Dashami to Parana
+        </Text>
+        <ChevronRight color="#fff" size={16} />
+      </PressableScale>
     </LinearGradient>
   );
 }

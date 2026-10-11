@@ -210,6 +210,7 @@ function AppGate() {
         />
         <Stack.Screen name="about" />
         <Stack.Screen name="privacy" />
+        <Stack.Screen name="ekadashi/[id]" />
       </Stack>
       {!ready ? <Splash /> : null}
       {ready && !settings.onboardingCompleted ? (

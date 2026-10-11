@@ -1,4 +1,5 @@
-import { ChevronLeft, ChevronRight, LocateFixed } from "lucide-react-native";
+import { useRouter } from "expo-router";
+import { BookOpen, ChevronLeft, ChevronRight, LocateFixed } from "lucide-react-native";
 import { useMemo, useState } from "react";
 import { Pressable, Text, View } from "react-native";
 import Animated, { FadeIn, FadeOut } from "react-native-reanimated";
@@ -6,6 +7,7 @@ import Animated, { FadeIn, FadeOut } from "react-native-reanimated";
 import { Card } from "@/components/Card";
 import { EkadashiDetail } from "@/components/EkadashiDetail";
 import { FadeInView, PressableScale } from "@/components/motion";
+import { GhostButton } from "@/components/PrimaryButton";
 import { Screen } from "@/components/Screen";
 import { getCalendar, traditionLabel } from "@/constants/calendars";
 import { getCity } from "@/constants/cities";
@@ -40,6 +42,7 @@ function isoOf(year: number, month: number, day: number): string {
 
 export default function CalendarScreen() {
   const { settings } = useSettings();
+  const router = useRouter();
   const query = useMemo(() => queryFromSettings(settings), [settings]);
   const calendar = getCalendar(settings.calendarId);
   const city = getCity(settings.cityId);
@@ -296,6 +299,14 @@ export default function CalendarScreen() {
         <Animated.View entering={FadeIn.duration(280)}>
           <Card>
             <EkadashiDetail item={selected} />
+            <View className="mt-4">
+              <GhostButton
+                label="Fasting guide"
+                icon={<BookOpen color={palette.saffronLight} size={16} />}
+                accessibilityLabel={`Open the ${selected.name} fasting guide`}
+                onPress={() => router.push({ pathname: "/ekadashi/[id]", params: { id: selected.id } })}
+              />
+            </View>
           </Card>
         </Animated.View>
       ) : (
