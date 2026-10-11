@@ -2,6 +2,7 @@ import { useRouter } from "expo-router";
 import {
   AlarmClock,
   Bell,
+  CalendarPlus,
   CalendarRange,
   Check,
   Clock,
@@ -16,7 +17,7 @@ import {
   Square,
   Volume2,
 } from "lucide-react-native";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { AppState, Linking, Platform, Switch, Text, View } from "react-native";
 import Animated, { FadeIn, FadeOut } from "react-native-reanimated";
 
@@ -35,9 +36,10 @@ import { getCity } from "@/constants/cities";
 import { fonts, palette, type } from "@/constants/theme";
 import { TIMEZONES } from "@/constants/timezones";
 import { startAlarm, stopAlarm } from "@/lib/alarm";
+import { exportToCalendar } from "@/lib/calendarExport";
 import { tapSuccess } from "@/lib/haptics";
 import { getAppVersion, getBuildLabel } from "@/lib/appInfo";
-import { getDatasetMeta } from "@/lib/ekadashi";
+import { getAllEkadashis, getDatasetMeta, getYearRange, queryFromSettings } from "@/lib/ekadashi";
 import { formatTime12h } from "@/lib/format";
 import { describeNotificationStatus } from "@/lib/notificationPayload";
 import {
@@ -70,10 +72,13 @@ export default function SettingsScreen() {
   const [permGranted, setPermGranted] = useState(false);
   const [permCanAsk, setPermCanAsk] = useState(true);
   const [scheduled, setScheduled] = useState(0);
+  const [exporting, setExporting] = useState(false);
   const isWeb = Platform.OS === "web";
   const meta = getDatasetMeta();
   const calendar = getCalendar(settings.calendarId);
   const city = getCity(settings.cityId);
+  const exportable = useMemo(() => getAllEkadashis(queryFromSettings(settings)), [settings]);
+  const yearRange = getYearRange();
   const notice = describeNotificationStatus({
     isWeb,
     granted: permGranted,
@@ -150,6 +155,18 @@ export default function SettingsScreen() {
     const next = getCity(id);
     update({ cityId: id, timezone: next.timezone });
     flashStatus(`${next.name} sunrise will be used for Parana.`);
+  };
+
+  const exportCalendar = async () => {
+    if (exporting) return;
+    setExporting(true);
+    try {
+      const result = await exportToCalendar(exportable, settings);
+      if (result.ok) tapSuccess();
+      flashStatus(result.message);
+    } finally {
+      setExporting(false);
+    }
   };
 
   return (
@@ -371,6 +388,27 @@ export default function SettingsScreen() {
             {previewing ? "Stop preview" : "Preview sound"}
           </Text>
         </PressableScale>
+      </Card>
+
+      <Card className="mb-4">
+        <SectionTitle icon={<CalendarPlus color={palette.saffronLight} size={18} />} title="Add to Your Calendar" />
+        <Text className="text-sm leading-5 text-violet-200">
+          Export every fasting day and Parana window as an .ics file for Google Calendar, Apple Calendar or
+          Outlook.
+        </Text>
+        <Text className="mt-2 text-xs leading-4 text-violet-400">
+          {exportable.length} fasting days, {yearRange.min}–{yearRange.max} · {calendar.name} ·{" "}
+          {TRADITIONS.find((t) => t.id === settings.tradition)?.name} · Parana for {city.name}
+          {settings.notificationsEnabled ? ` · reminder at ${formatTime12h(settings.reminderTime)}` : ""}
+        </Text>
+        <View className="mt-3">
+          <GhostButton
+            label={exporting ? "Preparing…" : isWeb ? "Download .ics file" : "Share .ics file"}
+            icon={<CalendarPlus color={palette.saffronLight} size={16} />}
+            accessibilityLabel="Export all Ekadashi dates as a calendar file"
+            onPress={() => void exportCalendar()}
+          />
+        </View>
       </Card>
 
       <Card className="mb-4">

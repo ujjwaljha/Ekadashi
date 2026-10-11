@@ -1,18 +1,22 @@
 import { useLocalSearchParams } from "expo-router";
-import { BookOpen, Check, Flower2, Leaf, MoonStar, Sunrise, Utensils, X } from "lucide-react-native";
-import { useMemo } from "react";
-import { Text, View } from "react-native";
+import { BookOpen, CalendarPlus, Check, Flower2, Leaf, MoonStar, Sunrise, Utensils, X } from "lucide-react-native";
+import { useMemo, useState } from "react";
+import { Platform, Text, View } from "react-native";
+import Animated, { FadeIn, FadeOut } from "react-native-reanimated";
 
 import { Card } from "@/components/Card";
 import { EkadashiDetail } from "@/components/EkadashiDetail";
 import { FadeInView } from "@/components/motion";
+import { GhostButton } from "@/components/PrimaryButton";
 import { Screen } from "@/components/Screen";
 import { SectionTitle } from "@/components/SectionTitle";
 import { StackBack } from "@/components/StackBack";
 import { getCalendar, traditionLabel } from "@/constants/calendars";
 import { fonts, motion, palette, type } from "@/constants/theme";
+import { exportToCalendar } from "@/lib/calendarExport";
 import { getEkadashiById, queryFromSettings } from "@/lib/ekadashi";
 import { formatLongDate } from "@/lib/format";
+import { tapSuccess } from "@/lib/haptics";
 import { buildObservanceGuide, type GuideStep } from "@/lib/observance";
 import { useSettings } from "@/store/settings";
 
@@ -30,6 +34,21 @@ export default function EkadashiGuideScreen() {
   const item = useMemo(() => (id ? getEkadashiById(id, query) : undefined), [id, query]);
   const guide = useMemo(() => (item ? buildObservanceGuide(item, settings.tradition) : null), [item, settings.tradition]);
   const calendar = getCalendar(settings.calendarId);
+  const [status, setStatus] = useState<string | null>(null);
+  const [exporting, setExporting] = useState(false);
+
+  const addToCalendar = async () => {
+    if (!item || exporting) return;
+    setExporting(true);
+    try {
+      const result = await exportToCalendar([item], settings);
+      if (result.ok) tapSuccess();
+      setStatus(result.message);
+      setTimeout(() => setStatus(null), 5000);
+    } finally {
+      setExporting(false);
+    }
+  };
 
   if (!item || !guide) {
     return (
@@ -60,6 +79,19 @@ export default function EkadashiGuideScreen() {
       <FadeInView delay={motion.staggerMs}>
         <Card className="mb-4">
           <EkadashiDetail item={item} />
+          <View className="mt-4">
+            <GhostButton
+              label={exporting ? "Preparing…" : Platform.OS === "web" ? "Add to calendar (.ics)" : "Add to calendar"}
+              icon={<CalendarPlus color={palette.saffronLight} size={16} />}
+              accessibilityLabel={`Add ${item.name} Ekadashi and its Parana to your calendar`}
+              onPress={() => void addToCalendar()}
+            />
+          </View>
+          {status ? (
+            <Animated.View entering={FadeIn.duration(200)} exiting={FadeOut.duration(160)}>
+              <Text className="mt-3 text-center text-xs leading-4 text-saffron-200">{status}</Text>
+            </Animated.View>
+          ) : null}
         </Card>
       </FadeInView>
 
