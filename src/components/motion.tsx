@@ -35,9 +35,12 @@ export const enterZoom = (delay = 0) =>
 export const exitFade = FadeOut.duration(160).reduceMotion(ReduceMotion.System);
 
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
-// Custom animated components are invisible to NativeWind until mapped, so
-// without this every `className` on PressableScale (chips, ghost buttons,
-// pills) is silently dropped.
+// NativeWind only maps core React Native components, so `className` on
+// Reanimated's components (the calendar grid, status banners, chips, ghost
+// buttons, pills) is silently dropped unless they are registered here. This
+// module loads with the root layout, before any screen renders.
+cssInterop(Animated.View, { className: "style" });
+cssInterop(Animated.Text, { className: "style" });
 cssInterop(AnimatedPressable, { className: "style" });
 
 type ScaleProps = PressableProps & {
