@@ -1,3 +1,4 @@
+import { cssInterop } from "nativewind";
 import { type ReactNode, useEffect } from "react";
 import { Pressable, type PressableProps, type StyleProp, type ViewStyle } from "react-native";
 import Animated, {
@@ -34,6 +35,10 @@ export const enterZoom = (delay = 0) =>
 export const exitFade = FadeOut.duration(160).reduceMotion(ReduceMotion.System);
 
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
+// Custom animated components are invisible to NativeWind until mapped, so
+// without this every `className` on PressableScale (chips, ghost buttons,
+// pills) is silently dropped.
+cssInterop(AnimatedPressable, { className: "style" });
 
 type ScaleProps = PressableProps & {
   children: ReactNode;
